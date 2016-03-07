@@ -22,23 +22,33 @@ import java.util.List;
 @ConditionalOnClass(CacheContainer.class)
 @EnableConfigurationProperties(InfinispanProperties.class)
 public class InfinispanAutoConfiguration {
+
+    public static final String DEFAULT_JMX_DOMAIN = "spring.infinispan";
+
     @Autowired
     private InfinispanProperties infinispanProperties;
 
     @Autowired(required = false)
     private List<InfinispanCacheConfigurer> configurers = Collections.emptyList();
 
+    @Autowired(required = false)
+    private InfinispanGlobalConfigurer infinispanGlobalConfigurer;
+
     @ConditionalOnMissingBean(EmbeddedCacheManager.class)
     @Bean(destroyMethod = "stop")
     public DefaultCacheManager defaultCacheManager() throws IOException {
         final String configXml = infinispanProperties.getConfigXml();
+        final GlobalConfiguration defaultGlobalConfiguration =
+                new GlobalConfigurationBuilder()
+                    .clusteredDefault()
+                    .globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable()
+                    .transport().defaultTransport()
+                    .clusterName(infinispanProperties.getClusterName())
+                    .build();
 
-        final GlobalConfiguration globalConfiguration = new GlobalConfigurationBuilder()
-                .clusteredDefault()
-                .globalJmxStatistics().jmxDomain("com.marcoyuen").enable()
-                .transport().defaultTransport()
-                .clusterName(infinispanProperties.getClusterName())
-                .build();
+        final GlobalConfiguration globalConfiguration =
+            infinispanGlobalConfigurer == null? defaultGlobalConfiguration
+                                              : infinispanGlobalConfigurer.getGlobalConfiguration();
 
         final DefaultCacheManager manager =
                 configXml.isEmpty()? new DefaultCacheManager(globalConfiguration)
