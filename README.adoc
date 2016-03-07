@@ -1,0 +1,9 @@
+= Infinispan Spring Boot Starter
+
+== Getting Started
+Once you add `infinispan-spring-boot-starter` as a dependency to your project, a bean of type `EmbeddedCacheManager` can
+be `autowired` into your java configuration classes. You can further customizer the cache manager by creating beans of
+types `InfinispanCacheConfigurer`, and/or `InfinispanGlobalConfigurer`.
+
+=== Example Project
+Please take a look at the `infinispan-sample-app`.
