@@ -40,10 +40,8 @@ public class InfinispanAutoConfiguration {
         final String configXml = infinispanProperties.getConfigXml();
         final GlobalConfiguration defaultGlobalConfiguration =
                 new GlobalConfigurationBuilder()
-                    .clusteredDefault()
                     .globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable()
-                    .transport().defaultTransport()
-                    .clusterName(infinispanProperties.getClusterName())
+                    .transport().clusterName(infinispanProperties.getClusterName())
                     .build();
 
         final GlobalConfiguration globalConfiguration =

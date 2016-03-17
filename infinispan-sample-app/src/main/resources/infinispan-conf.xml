@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="urn:infinispan:config:8.1 http://infinispan.org/schemas/infinispan-config-8.1.xsd"
-            xmlns="urn:infinispan:config:8.1">
+            xsi:schemaLocation="urn:infinispan:config:8.2 http://infinispan.org/schemas/infinispan-config-8.2.xsd"
+            xmlns="urn:infinispan:config:8.2">
 
     <jgroups>
         <stack-file name="udp" path="jgroups-udp.xml" />

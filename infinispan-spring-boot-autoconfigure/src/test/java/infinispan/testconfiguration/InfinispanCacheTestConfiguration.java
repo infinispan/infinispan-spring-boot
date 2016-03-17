@@ -33,8 +33,7 @@ public class InfinispanCacheTestConfiguration {
     public InfinispanGlobalConfigurer globalConfigurer() {
         return () -> {
             final GlobalConfiguration globalConfiguration = new GlobalConfigurationBuilder()
-                    .transport().defaultTransport()
-                    .clusterName(TEST_CLUSTER)
+                    .transport().clusterName(TEST_CLUSTER)
                     .globalJmxStatistics().jmxDomain(TEST_GLOBAL_JMX_DOMAIN).enable()
                     .build();
 

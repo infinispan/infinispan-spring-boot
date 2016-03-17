@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <name>Infinispan Spring Boot AutoConfiguration</name>
-    <url>http://www.marcoyuen.com</url>
+    <url>https://github.com/marcoy/infinispan-spring-boot-auto-configuration</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,7 +16,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring-boot.version>1.3.3.RELEASE</spring-boot.version>
-        <infinispan.version>8.1.2.Final</infinispan.version>
+        <infinispan.version>8.2.0.Final</infinispan.version>
     </properties>
 
     <dependencyManagement>
