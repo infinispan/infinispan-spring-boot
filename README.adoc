@@ -5,5 +5,11 @@ Once you add `infinispan-spring-boot-starter` as a dependency to your project, a
 be `autowired` into your java configuration classes. You can further customizer the cache manager by creating beans of
 types `InfinispanCacheConfigurer`, and/or `InfinispanGlobalConfigurer`.
 
+You can have multiple beans of type `InfinispanCacheConfigurer`. But you can *only* have one bean of type
+`InfinispanGlobalConfigurer`. Moreover, you can specify the location of the infinispan XML configuration
+file by setting the property `spring.infinispan.config-xml` in `application.properties` or `application.yml`.
+Please note, if `spring.infinispan.config-xml` is used, the global configuration returned by the bean of type
+`InfinispanGlobalConfigurer` will *not* be used.
+
 === Example Project
 Please take a look at the `infinispan-sample-app`.
