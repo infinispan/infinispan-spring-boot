@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.marcoyuen</groupId>
-        <artifactId>infinispan-spring-boot-auto-configuration</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-spring-boot-starter</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>infinispan-spring-boot-starter</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <artifactId>spring-boot-starter</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -31,9 +31,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.marcoyuen</groupId>
-            <artifactId>infinispan-spring-boot-autoconfigure</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
+            <groupId>org.infinispan</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
