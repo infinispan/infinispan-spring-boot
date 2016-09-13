@@ -7,6 +7,15 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+        <comments>A business-friendly OSS license</comments>
+      </license>
+    </licenses>
+
     <name>Infinispan Spring Boot AutoConfiguration</name>
     <url>https://github.com/marcoy/infinispan-spring-boot-auto-configuration</url>
 

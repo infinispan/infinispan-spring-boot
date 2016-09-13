@@ -13,6 +13,15 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <licenses>
+      <license>
+        <name>Apache License, Version 2.0</name>
+        <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+        <comments>A business-friendly OSS license</comments>
+      </license>
+    </licenses>
+
     <name>infinispan-spring-boot-autoconfigure</name>
     <url>http://maven.apache.org</url>
 
