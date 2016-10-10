@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-spring-boot-starter</artifactId>
+    <artifactId>spring-boot-starter-infinispan-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -12,7 +12,6 @@
         <name>Apache License, Version 2.0</name>
         <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         <distribution>repo</distribution>
-        <comments>A business-friendly OSS license</comments>
       </license>
     </licenses>
 
@@ -50,7 +49,7 @@
     </build>
 
     <modules>
-        <module>infinispan-spring-boot-autoconfigure</module>
-        <module>infinispan-spring-boot-starter</module>
+        <module>spring-boot-starter-infinispan-autoconfigure</module>
+        <module>spring-boot-starter-infinispan</module>
     </modules>
 </project>

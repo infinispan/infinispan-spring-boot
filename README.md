@@ -5,7 +5,7 @@ Add our spring boot starter as dependency in your project's pom file:
 ```xml
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>spring-boot-starter</artifactId>
+    <artifactId>spring-boot-starter-infinispan</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```
@@ -59,3 +59,7 @@ Please note, if `spring.infinispan.config-xml` is used, the global configuration
 
 ### Example Project
 Please take a look at the [`infinispan-simple-tutorials`](https://github.com/blocha/infinispan-simple-tutorials) and look for `spring-boot` project.
+
+## Why Spring starter modules are optional?
+In order to support large variety of `Spring Starter` projects, we don't want to enforce any Spring versions on user side. 
+All you need to do is to add proper `org.springframework.boot:spring-boot-starter` artifact to your classpath.
