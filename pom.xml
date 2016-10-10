@@ -6,6 +6,7 @@
     <artifactId>spring-boot-starter-infinispan-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Infinispan Spring Boot AutoConfiguration</name>
 
     <licenses>
       <license>
@@ -15,7 +16,17 @@
       </license>
     </licenses>
 
-    <name>Infinispan Spring Boot AutoConfiguration</name>
+    <issueManagement>
+        <system>jira</system>
+        <url>https://issues.jboss.org/browse/ISPN</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:infinispan/infinispan-spring-boot.git</connection>
+        <developerConnection>scm:git:git@github.com:infinispan/infinispan-spring-boot.git</developerConnection>
+        <url>https://github.com/infinispan/infinispan-spring-boot</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
