@@ -3,20 +3,30 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-spring-boot-starter</artifactId>
+    <artifactId>spring-boot-starter-infinispan-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Infinispan Spring Boot AutoConfiguration</name>
 
     <licenses>
       <license>
         <name>Apache License, Version 2.0</name>
         <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         <distribution>repo</distribution>
-        <comments>A business-friendly OSS license</comments>
       </license>
     </licenses>
 
-    <name>Infinispan Spring Boot AutoConfiguration</name>
+    <issueManagement>
+        <system>jira</system>
+        <url>https://issues.jboss.org/browse/ISPN</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:infinispan/infinispan-spring-boot.git</connection>
+        <developerConnection>scm:git:git@github.com:infinispan/infinispan-spring-boot.git</developerConnection>
+        <url>https://github.com/infinispan/infinispan-spring-boot</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,7 +60,7 @@
     </build>
 
     <modules>
-        <module>infinispan-spring-boot-autoconfigure</module>
-        <module>infinispan-spring-boot-starter</module>
+        <module>spring-boot-starter-infinispan-autoconfigure</module>
+        <module>spring-boot-starter-infinispan</module>
     </modules>
 </project>
