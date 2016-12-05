@@ -5,7 +5,7 @@ Add our spring boot starter as dependency in your project's pom file:
 ```xml
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>spring-boot-starter-infinispan</artifactId>
+    <artifactId>inifinispan-spring-boot-starter</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```

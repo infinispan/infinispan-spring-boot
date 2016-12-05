@@ -9,10 +9,9 @@
     </parent>
 
     <groupId>org.infinispan</groupId>
-    <artifactId>spring-boot-starter-infinispan-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <artifactId>inifinispan-spring-boot-starter-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Infinispan Spring Boot AutoConfiguration</name>
 
     <licenses>
       <license>
@@ -67,7 +66,7 @@
     </build>
 
     <modules>
-        <module>spring-boot-starter-infinispan-autoconfigure</module>
-        <module>spring-boot-starter-infinispan</module>
+        <module>inifinispan-spring-boot-starter-autoconfigure</module>
+        <module>inifinispan-spring-boot-starter</module>
     </modules>
 </project>
