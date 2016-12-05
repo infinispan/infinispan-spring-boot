@@ -50,9 +50,9 @@ public InfinispanCacheConfigurer cacheConfigurer() {
 }
 ```
 
-Moreover, you can specify the location of the infinispan XML configuration file by setting the property `spring.infinispan.config-xml` in `application.properties` or `application.yml`. Example:
+Moreover, you can specify the location of the infinispan XML configuration file by setting the property `infinispan.config-xml` in `application.properties` or `application.yml`. Example:
 ```xml
-spring.infinispan.config-xml=infinispan-conf.xml
+infinispan.config-xml=infinispan-conf.xml
 ```
 
 Please note, if `spring.infinispan.config-xml` is used, the global configuration returned by the bean of type `InfinispanGlobalConfigurer` will *not* be used.

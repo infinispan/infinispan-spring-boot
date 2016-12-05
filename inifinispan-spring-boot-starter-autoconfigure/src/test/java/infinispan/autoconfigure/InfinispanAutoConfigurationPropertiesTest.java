@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(InfinispanAutoConfiguration.class)
-@TestPropertySource(properties = "spring.infinispan.config-xml=infinispan-test-conf.xml")
+@TestPropertySource(properties = "infinispan.config-xml=infinispan-test-conf.xml")
 public class InfinispanAutoConfigurationPropertiesTest {
 
     @Autowired
