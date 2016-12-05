@@ -1,5 +1,9 @@
 package infinispan.autoconfigure;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.CacheContainer;
@@ -13,17 +17,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
 @Configuration
 @ComponentScan
 @ConditionalOnClass(CacheContainer.class)
 @EnableConfigurationProperties(InfinispanProperties.class)
 public class InfinispanAutoConfiguration {
 
-    public static final String DEFAULT_JMX_DOMAIN = "spring.infinispan";
+    public static final String DEFAULT_JMX_DOMAIN = "infinispan";
 
     @Autowired
     private InfinispanProperties infinispanProperties;

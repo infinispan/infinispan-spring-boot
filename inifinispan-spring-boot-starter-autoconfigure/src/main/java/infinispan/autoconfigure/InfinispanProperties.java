@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("spring.infinispan")
+@ConfigurationProperties("infinispan")
 public class InfinispanProperties {
     private String configXml = "";
     private String machineId = "";

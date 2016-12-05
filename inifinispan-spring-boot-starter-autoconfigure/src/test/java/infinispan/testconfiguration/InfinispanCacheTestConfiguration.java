@@ -1,7 +1,5 @@
 package infinispan.testconfiguration;
 
-import infinispan.autoconfigure.InfinispanCacheConfigurer;
-import infinispan.autoconfigure.InfinispanGlobalConfigurer;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
@@ -9,12 +7,15 @@ import org.infinispan.eviction.EvictionStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import infinispan.autoconfigure.InfinispanCacheConfigurer;
+import infinispan.autoconfigure.InfinispanGlobalConfigurer;
+
 @Configuration
 public class InfinispanCacheTestConfiguration {
 
     public static final String TEST_CLUSTER = "TEST_CLUSTER";
     public static final String TEST_CACHE_NAME = "test-simple-cache";
-    public static final String TEST_GLOBAL_JMX_DOMAIN = "test.spring.infinispan";
+    public static final String TEST_GLOBAL_JMX_DOMAIN = "test.infinispan";
 
     @Bean
     public InfinispanCacheConfigurer cacheConfigurer() {
