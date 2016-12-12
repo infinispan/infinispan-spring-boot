@@ -1,4 +1,4 @@
-package infinispan.autoconfigure;
+package infinispan.autoconfigure.embedded;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -6,22 +6,25 @@ import java.util.List;
 
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
-import org.infinispan.manager.CacheContainer;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import infinispan.autoconfigure.common.InfinispanProperties;
+
 @Configuration
 @ComponentScan
-@ConditionalOnClass(CacheContainer.class)
+@ConditionalOnClass(EmbeddedCacheManager.class)
+@ConditionalOnProperty(value = "infinispan.embedded.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(InfinispanProperties.class)
-public class InfinispanAutoConfiguration {
+public class InfinispanEmbeddedAutoConfiguration {
 
     public static final String DEFAULT_JMX_DOMAIN = "infinispan";
 
@@ -34,14 +37,13 @@ public class InfinispanAutoConfiguration {
     @Autowired(required = false)
     private InfinispanGlobalConfigurer infinispanGlobalConfigurer;
 
-    @ConditionalOnMissingBean(EmbeddedCacheManager.class)
     @Bean(destroyMethod = "stop")
     public DefaultCacheManager defaultCacheManager() throws IOException {
-        final String configXml = infinispanProperties.getConfigXml();
+        final String configXml = infinispanProperties.getEmbedded().getConfigXml();
         final GlobalConfiguration defaultGlobalConfiguration =
                 new GlobalConfigurationBuilder()
                     .globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable()
-                    .transport().clusterName(infinispanProperties.getClusterName())
+                    .transport().clusterName(infinispanProperties.getEmbedded().getClusterName())
                     .build();
 
         final GlobalConfiguration globalConfiguration =

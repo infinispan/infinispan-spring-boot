@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-infinispan.autoconfigure.InfinispanAutoConfiguration
+infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration,\
+infinispan.autoconfigure.remote.InfinispanRemoteAutoConfiguration

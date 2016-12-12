@@ -52,6 +52,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-bom</artifactId>
+                <version>${infinispan.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -68,5 +80,7 @@
     <modules>
         <module>inifinispan-spring-boot-starter-autoconfigure</module>
         <module>inifinispan-spring-boot-starter</module>
+        <module>inifinispan-spring-boot-starter-test-remote</module>
+        <module>inifinispan-spring-boot-starter-test-embedded</module>
     </modules>
 </project>
