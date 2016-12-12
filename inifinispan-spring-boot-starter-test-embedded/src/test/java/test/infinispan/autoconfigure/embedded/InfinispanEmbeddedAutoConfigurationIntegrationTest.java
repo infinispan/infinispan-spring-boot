@@ -1,4 +1,7 @@
-package infinispan.autoconfigure;
+package test.infinispan.autoconfigure.embedded;
+
+import static infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration.DEFAULT_JMX_DOMAIN;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.global.GlobalConfiguration;
@@ -9,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static infinispan.autoconfigure.InfinispanAutoConfiguration.DEFAULT_JMX_DOMAIN;
-import static org.assertj.core.api.Assertions.assertThat;
+import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(InfinispanAutoConfiguration.class)
-public class InfinispanAutoConfigurationIntegrationTest {
+@SpringApplicationConfiguration(InfinispanEmbeddedAutoConfiguration.class)
+public class InfinispanEmbeddedAutoConfigurationIntegrationTest {
 
     @Autowired
     EmbeddedCacheManager defaultCacheManager;

@@ -1,4 +1,4 @@
-package infinispan.testconfiguration;
+package test.infinispan.autoconfigure.testconfiguration;
 
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfiguration;
@@ -7,8 +7,8 @@ import org.infinispan.eviction.EvictionStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import infinispan.autoconfigure.InfinispanCacheConfigurer;
-import infinispan.autoconfigure.InfinispanGlobalConfigurer;
+import infinispan.autoconfigure.embedded.InfinispanCacheConfigurer;
+import infinispan.autoconfigure.embedded.InfinispanGlobalConfigurer;
 
 @Configuration
 public class InfinispanCacheTestConfiguration {

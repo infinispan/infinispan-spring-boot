@@ -1,4 +1,4 @@
-package infinispan.autoconfigure;
+package infinispan.autoconfigure.embedded;
 
 import org.infinispan.configuration.global.GlobalConfiguration;
 

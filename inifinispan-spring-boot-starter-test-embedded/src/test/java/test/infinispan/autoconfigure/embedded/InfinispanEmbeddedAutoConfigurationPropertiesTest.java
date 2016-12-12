@@ -1,4 +1,8 @@
-package infinispan.autoconfigure;
+package test.infinispan.autoconfigure.embedded;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collections;
 
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.global.GlobalConfiguration;
@@ -12,14 +16,12 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Collections;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(InfinispanAutoConfiguration.class)
-@TestPropertySource(properties = "infinispan.config-xml=infinispan-test-conf.xml")
-public class InfinispanAutoConfigurationPropertiesTest {
+@SpringApplicationConfiguration(InfinispanEmbeddedAutoConfiguration.class)
+@TestPropertySource(properties = "infinispan.embedded.config-xml=infinispan-test-conf.xml")
+public class InfinispanEmbeddedAutoConfigurationPropertiesTest {
 
     @Autowired
     EmbeddedCacheManager defaultCacheManager;

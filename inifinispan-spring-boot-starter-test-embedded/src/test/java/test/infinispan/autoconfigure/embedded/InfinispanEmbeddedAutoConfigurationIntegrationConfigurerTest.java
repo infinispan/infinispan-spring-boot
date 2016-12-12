@@ -1,6 +1,9 @@
-package infinispan.autoconfigure;
+package test.infinispan.autoconfigure.embedded;
 
-import infinispan.testconfiguration.InfinispanCacheTestConfiguration;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collections;
+
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.eviction.EvictionStrategy;
@@ -11,17 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Collections;
-
-import static infinispan.testconfiguration.InfinispanCacheTestConfiguration.TEST_CACHE_NAME;
-import static infinispan.testconfiguration.InfinispanCacheTestConfiguration.TEST_CLUSTER;
-import static infinispan.testconfiguration.InfinispanCacheTestConfiguration.TEST_GLOBAL_JMX_DOMAIN;
-import static org.assertj.core.api.Assertions.assertThat;
+import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
+import test.infinispan.autoconfigure.testconfiguration.InfinispanCacheTestConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = { InfinispanAutoConfiguration.class
+@SpringApplicationConfiguration(classes = { InfinispanEmbeddedAutoConfiguration.class
                                           , InfinispanCacheTestConfiguration.class })
-public class InfinispanAutoConfigurationIntegrationConfigurerTest {
+public class InfinispanEmbeddedAutoConfigurationIntegrationConfigurerTest {
 
     @Autowired
     EmbeddedCacheManager defaultCacheManager;
@@ -34,9 +33,9 @@ public class InfinispanAutoConfigurationIntegrationConfigurerTest {
     @Test
     public void testWithCacheConfigurer() {
         assertThat(defaultCacheManager.getCacheNames()).isEqualTo(
-                Collections.singleton(TEST_CACHE_NAME));
+                Collections.singleton(InfinispanCacheTestConfiguration.TEST_CACHE_NAME));
 
-        final Configuration testCacheConfiguration = defaultCacheManager.getCacheConfiguration(TEST_CACHE_NAME);
+        final Configuration testCacheConfiguration = defaultCacheManager.getCacheConfiguration(InfinispanCacheTestConfiguration.TEST_CACHE_NAME);
         assertThat(testCacheConfiguration.jmxStatistics().enabled()).isTrue();
         assertThat(testCacheConfiguration.eviction().size()).isEqualTo(1000L);
         assertThat(testCacheConfiguration.eviction().strategy()).isEqualTo(EvictionStrategy.LRU);
@@ -47,7 +46,7 @@ public class InfinispanAutoConfigurationIntegrationConfigurerTest {
         final GlobalConfiguration globalConfiguration = defaultCacheManager.getCacheManagerConfiguration();
 
         assertThat(globalConfiguration.globalJmxStatistics().enabled()).isTrue();
-        assertThat(globalConfiguration.globalJmxStatistics().domain()).isEqualTo(TEST_GLOBAL_JMX_DOMAIN);
-        assertThat(globalConfiguration.transport().clusterName()).isEqualTo(TEST_CLUSTER);
+        assertThat(globalConfiguration.globalJmxStatistics().domain()).isEqualTo(InfinispanCacheTestConfiguration.TEST_GLOBAL_JMX_DOMAIN);
+        assertThat(globalConfiguration.transport().clusterName()).isEqualTo(InfinispanCacheTestConfiguration.TEST_CLUSTER);
     }
 }

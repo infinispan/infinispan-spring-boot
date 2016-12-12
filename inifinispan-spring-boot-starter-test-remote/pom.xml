@@ -8,18 +8,32 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>inifinispan-spring-boot-starter</artifactId>
+    <artifactId>inifinispan-spring-boot-starter-test-remote</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>inifinispan-spring-boot-starter-autoconfigure</artifactId>
+            <artifactId>inifinispan-spring-boot-starter</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-client-hotrod</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
