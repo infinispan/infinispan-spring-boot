@@ -24,16 +24,10 @@ And for the Embedded mode you will need add `infinispan-core`:
     <groupId>org.infinispan</groupId>
     <artifactId>inifinispan-spring-boot-starter</artifactId>
     <version>${version.infinispan.starter}</version>
-    <excludes>
-        <exclude>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-        </exclude>
-    </excludes>
 </dependency>
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-client-hotrod</artifactId>
+    <artifactId>infinispan-core</artifactId>
     <version>${version.infinispan}</version>
 </dependency>
 ```
