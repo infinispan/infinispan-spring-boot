@@ -28,7 +28,7 @@ public class InfinispanProperties {
 
    public static class Remote {
 
-      public static final String DEFAULT_CLIENT_PROPERTIES = "hotrod-client.properties";
+      public static final String DEFAULT_CLIENT_PROPERTIES = "classpath:hotrod-client.properties";
 
       private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
       private boolean enabled = true;
