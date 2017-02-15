@@ -4,16 +4,16 @@
 
     <parent>
         <groupId>org.infinispan</groupId>
-        <artifactId>inifinispan-spring-boot-starter-parent</artifactId>
+        <artifactId>infinispan-spring-boot-starter-parent</artifactId>
         <version>1.0.0.Beta1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>inifinispan-spring-boot-starter-test-embedded</artifactId>
+    <artifactId>infinispan-spring-boot-starter-test-embedded</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.infinispan</groupId>
-            <artifactId>inifinispan-spring-boot-starter</artifactId>
+            <artifactId>infinispan-spring-boot-starter</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
@@ -38,7 +38,6 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

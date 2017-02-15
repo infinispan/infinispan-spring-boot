@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.infinispan</groupId>
-        <artifactId>inifinispan-spring-boot-starter-parent</artifactId>
+        <artifactId>infinispan-spring-boot-starter-parent</artifactId>
         <version>1.0.0.Beta1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>inifinispan-spring-boot-starter-autoconfigure</artifactId>
+    <artifactId>infinispan-spring-boot-starter-autoconfigure</artifactId>
 
     <dependencies>
         <dependency>
