@@ -31,5 +31,15 @@
             <artifactId>infinispan-client-hotrod</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-spring4-embedded</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-spring4-remote</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 </project>

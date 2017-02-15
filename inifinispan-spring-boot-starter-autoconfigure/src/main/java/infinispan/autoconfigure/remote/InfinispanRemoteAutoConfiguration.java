@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.infinispan.manager.EmbeddedCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,7 +21,10 @@ import infinispan.autoconfigure.common.InfinispanProperties;
 
 @Configuration
 @ComponentScan
-@ConditionalOnClass(RemoteCacheManager.class)
+//Since a jar with configuration might be missing (which would result in TypeNotPresentExceptionProxy), we need to
+//use String based methods.
+//See https://github.com/spring-projects/spring-boot/issues/1733
+@ConditionalOnClass(name = "org.infinispan.client.hotrod.RemoteCacheManager")
 @Conditional(InfinispanRemoteFileChecker.class)
 @ConditionalOnProperty(value = "infinispan.remote.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(InfinispanProperties.class)
@@ -41,7 +43,7 @@ public class InfinispanRemoteAutoConfiguration {
    @Conditional(InfinispanRemoteFileChecker.class)
    public RemoteCacheManager remoteCacheManager() throws IOException {
       org.infinispan.client.hotrod.configuration.Configuration configuration;
-      if(infinispanRemoteConfigurer != null) {
+      if (infinispanRemoteConfigurer != null) {
          configuration = infinispanRemoteConfigurer.getRemoteConfiguration();
       } else {
          final String remoteClientPropertiesLocation = infinispanProperties.getRemote().getClientProperties();

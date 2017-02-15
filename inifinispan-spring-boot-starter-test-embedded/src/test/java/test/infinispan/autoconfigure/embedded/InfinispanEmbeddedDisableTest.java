@@ -11,10 +11,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
+import infinispan.autoconfigure.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {InfinispanEmbeddedAutoConfiguration.class})
-@TestPropertySource(properties = {"infinispan.embedded.enabled=false"})
+@SpringBootTest(classes = {InfinispanEmbeddedAutoConfiguration.class, InfinispanEmbeddedCacheManagerAutoConfiguration.class})
+@TestPropertySource(properties = {"infinispan.embedded.enabled=false", "infinispan.embedded.caching.enabled=false"})
 public class InfinispanEmbeddedDisableTest {
 
    @Autowired
