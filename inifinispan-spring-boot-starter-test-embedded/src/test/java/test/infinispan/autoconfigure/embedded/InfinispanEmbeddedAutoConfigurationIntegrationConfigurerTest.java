@@ -11,7 +11,7 @@ import org.infinispan.manager.EmbeddedCacheManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
@@ -19,7 +19,7 @@ import infinispan.autoconfigure.embedded.InfinispanEmbeddedCacheManagerAutoConfi
 import test.infinispan.autoconfigure.testconfiguration.InfinispanCacheTestConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {InfinispanEmbeddedAutoConfiguration.class, InfinispanEmbeddedCacheManagerAutoConfiguration.class
+@SpringBootTest(classes = {InfinispanEmbeddedAutoConfiguration.class, InfinispanEmbeddedCacheManagerAutoConfiguration.class
       , InfinispanCacheTestConfiguration.class})
 public class InfinispanEmbeddedAutoConfigurationIntegrationConfigurerTest {
 
