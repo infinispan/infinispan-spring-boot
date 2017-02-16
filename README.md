@@ -11,7 +11,7 @@ In order to get started, just add our Spring Boot Starter as dependency in your 
 ```xml
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>inifinispan-spring-boot-starter</artifactId>
+    <artifactId>infinispan-spring-boot-starter</artifactId>
     <version>${version.infinispan.starter}</version>
 </dependency>
 ```
@@ -22,7 +22,7 @@ And for the Embedded mode you will need add `infinispan-core`:
 ```xml
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>inifinispan-spring-boot-starter</artifactId>
+    <artifactId>infinispan-spring-boot-starter</artifactId>
     <version>${version.infinispan.starter}</version>
 </dependency>
 <dependency>
