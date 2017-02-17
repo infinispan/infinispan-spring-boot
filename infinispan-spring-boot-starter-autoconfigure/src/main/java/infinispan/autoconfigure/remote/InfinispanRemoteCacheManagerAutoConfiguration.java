@@ -16,12 +16,12 @@ import org.springframework.context.annotation.Configuration;
 //use String based methods.
 //See https://github.com/spring-projects/spring-boot/issues/1733
 @ConditionalOnClass(name = "org.infinispan.spring.provider.SpringRemoteCacheManager")
-@ConditionalOnMissingBean(type = {"org.infinispan.spring.provider.SpringRemoteCacheManager", "org.infinispan.spring.provider.SpringRemoteCacheManagerFactoryBean"})
-@ConditionalOnBean(type = "org.infinispan.client.hotrod.RemoteCacheManager")
 @ConditionalOnProperty(value = "infinispan.remote.cache.enabled", havingValue = "true", matchIfMissing = true)
 public class InfinispanRemoteCacheManagerAutoConfiguration {
 
    @Bean
+   @ConditionalOnBean(RemoteCacheManager.class)
+   @ConditionalOnMissingBean(type = {"org.infinispan.spring.provider.SpringRemoteCacheManager", "org.infinispan.spring.provider.SpringRemoteCacheManagerFactoryBean"})
    public SpringRemoteCacheManager springRemoteCacheManager(RemoteCacheManager remoteCacheManager) {
       return new SpringRemoteCacheManager(remoteCacheManager);
    }
