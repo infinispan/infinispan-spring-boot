@@ -16,12 +16,12 @@ import org.springframework.context.annotation.Configuration;
 //use String based methods.
 //See https://github.com/spring-projects/spring-boot/issues/1733
 @ConditionalOnClass(name = "org.infinispan.spring.provider.SpringEmbeddedCacheManager")
-@ConditionalOnMissingBean(type = {"org.infinispan.spring.provider.SpringEmbeddedCacheManager", "org.infinispan.spring.provider.SpringEmbeddedCacheManagerFactoryBean"})
-@ConditionalOnBean(type = "org.infinispan.manager.EmbeddedCacheManager")
 @ConditionalOnProperty(value = "infinispan.embedded.cache.enabled", havingValue = "true", matchIfMissing = true)
 public class InfinispanEmbeddedCacheManagerAutoConfiguration {
 
    @Bean
+   @ConditionalOnMissingBean(type = {"org.infinispan.spring.provider.SpringEmbeddedCacheManager", "org.infinispan.spring.provider.SpringEmbeddedCacheManagerFactoryBean"})
+   @ConditionalOnBean(type = "org.infinispan.manager.EmbeddedCacheManager")
    public SpringEmbeddedCacheManager springEmbeddedCacheManager(EmbeddedCacheManager embeddedCacheManager) {
       return new SpringEmbeddedCacheManager(embeddedCacheManager);
    }
