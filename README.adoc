@@ -81,6 +81,10 @@ infinispan.embedded.config-xml=infinispan-conf.xml
 
 Please note, if `infinispan.embedded.config-xml` is used, the global configuration returned by the bean of type `InfinispanGlobalConfigurer` will *not* be used.
 
+### Spring Cache support
+
+Once the starter detects `EmbeddedCacheManager` bean, it will instantiate a new `SpringEmbeddedCacheManager` which provides an implementation of https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache]. The one last bit is a matter of adding `@EnableCaching` to the user application.
+
 ## Using Client/Server mode
 
 The Starter will try to locate `hotrod-client.properties` file placed on the classpath and create a `RemoteCacheManager` based on it.
@@ -116,5 +120,10 @@ public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
 }
 ```
 
-### Example Project
-Please take a look at the [`infinispan-simple-tutorials`](https://github.com/blocha/infinispan-simple-tutorials) and look for `spring-boot` project.
+### Spring Cache support
+
+Once the starter detects `RemoteCacheManager` bean, it will instantiate a new `SpringRemoteCacheManager` which provides an implementation of https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache]. The one last bit is a matter of adding `@EnableCaching` to the user application.
+
+## Example Project
+
+Please take a look at the https://github.com/infinispan/infinispan-simple-tutorials/tree/master/spring-boot[Infinispan Simple Tutorials].
