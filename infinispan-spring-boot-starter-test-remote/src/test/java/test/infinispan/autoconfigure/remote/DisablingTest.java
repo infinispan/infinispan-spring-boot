@@ -16,7 +16,7 @@ import infinispan.autoconfigure.remote.InfinispanRemoteCacheManagerAutoConfigura
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {InfinispanRemoteAutoConfiguration.class, InfinispanRemoteCacheManagerAutoConfiguration.class})
 @TestPropertySource(properties = {"infinispan.remote.client-properties=test-hotrod-client.properties", "infinispan.remote.enabled=false"})
-public class InfinispanRemoteDisableTest {
+public class DisablingTest {
 
    @Autowired
    private ListableBeanFactory beanFactory;

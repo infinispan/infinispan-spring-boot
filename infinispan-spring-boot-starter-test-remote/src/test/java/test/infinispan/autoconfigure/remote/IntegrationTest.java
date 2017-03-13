@@ -18,7 +18,7 @@ import test.infinispan.autoconfigure.testconfiguration.InfinispanCacheTestConfig
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {InfinispanRemoteAutoConfiguration.class, InfinispanRemoteCacheManagerAutoConfiguration.class, InfinispanCacheTestConfiguration.class})
 @TestPropertySource(properties = "infinispan.remote.client-properties=test-hotrod-client.properties")
-public class InfinispanRemoteAutoConfigurationIntegrationTest {
+public class IntegrationTest {
 
    @Autowired
    private RemoteCacheManager remoteCacheManager;
