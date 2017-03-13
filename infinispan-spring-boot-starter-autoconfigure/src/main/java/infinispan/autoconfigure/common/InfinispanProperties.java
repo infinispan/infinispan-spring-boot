@@ -32,6 +32,10 @@ public class InfinispanProperties {
 
       private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
       private boolean enabled = true;
+      private String serverList;
+      private Integer socketTimeout;
+      private Integer connectTimeout;
+      private Integer maxRetries;
 
       public String getClientProperties() {
          return clientProperties;
@@ -47,6 +51,38 @@ public class InfinispanProperties {
 
       public void setEnabled(boolean enabled) {
          this.enabled = enabled;
+      }
+
+      public String getServerList() {
+         return serverList;
+      }
+
+      public void setServerList(String serverList) {
+         this.serverList = serverList;
+      }
+
+      public Integer getSocketTimeout() {
+         return socketTimeout;
+      }
+
+      public void setSocketTimeout(Integer socketTimeout) {
+         this.socketTimeout = socketTimeout;
+      }
+
+      public Integer getConnectTimeout() {
+         return connectTimeout;
+      }
+
+      public void setConnectTimeout(Integer connectTimeout) {
+         this.connectTimeout = connectTimeout;
+      }
+
+      public Integer getMaxRetries() {
+         return maxRetries;
+      }
+
+      public void setMaxRetries(Integer maxRetries) {
+         this.maxRetries = maxRetries;
       }
    }
 
