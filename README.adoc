@@ -94,6 +94,8 @@ The Starter will try to locate `hotrod-client.properties` file placed on the cla
 infinispan.client.hotrod.server_list=127.0.0.1:6667
 ```
 
+All properties are mentioned in http://infinispan.org/docs/dev/user_guide/user_guide.html#configuration_11[official Infinispan documentation].
+
 After the configuration file is accessible on the classpath, just add this code snippet to your app:
 ```java
 private final RemoteCacheManager cacheManager;
