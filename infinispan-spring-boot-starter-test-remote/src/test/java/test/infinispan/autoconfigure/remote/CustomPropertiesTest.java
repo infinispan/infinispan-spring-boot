@@ -25,8 +25,10 @@ public class CustomPropertiesTest {
     public void testDefaultClient() {
         //when
         int portObtainedFromPropertiesFile = remoteCacheManager.getConfiguration().servers().get(0).port();
+        boolean tcpNoDelay = remoteCacheManager.getConfiguration().tcpNoDelay();
 
         //then
         assertThat(portObtainedFromPropertiesFile).isEqualTo(6667);
+        assertThat(tcpNoDelay).isFalse();
     }
 }
