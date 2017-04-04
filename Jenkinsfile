@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     def mvnHome = tool 'Maven'
-                    sh "${mvnHome}/bin/mvn clean install -s $MAVEN_SETTINGS -Dmaven.test.failure.ignore=true"
+                    sh "${mvnHome}/bin/mvn clean install -Dmaven.test.failure.ignore=true"
                     junit '**/target/*-reports/*.xml'
                 }
             }
