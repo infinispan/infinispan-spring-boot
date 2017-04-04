@@ -11,9 +11,11 @@ pipeline {
 
         stage('Build') {
             steps {
-                def mvnHome = tool 'Maven'
-                sh "${mvnHome}/bin/mvn clean install -s $MAVEN_SETTINGS -Dmaven.test.failure.ignore=true"
-                junit '**/target/*-reports/*.xml'
+                script {
+                    def mvnHome = tool 'Maven'
+                    sh "${mvnHome}/bin/mvn clean install -s $MAVEN_SETTINGS -Dmaven.test.failure.ignore=true"
+                    junit '**/target/*-reports/*.xml'
+                }
             }
         }
 
