@@ -30,11 +30,36 @@ public class InfinispanProperties {
 
       public static final String DEFAULT_CLIENT_PROPERTIES = "classpath:hotrod-client.properties";
 
-      private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
+      /**
+       * Enable remote cache.
+       */
       private boolean enabled = true;
+
+      /**
+       * The hotrod client properties location.
+       */
+      private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
+
+      /**
+       * A list of remote servers in the form: host1[:port][;host2[:port]]...
+       */
       private String serverList;
+
+      /**
+       * The maximum socket read timeout in milliseconds before giving up waiting
+       * for bytes from the server.
+       */
       private Integer socketTimeout;
+
+      /**
+       * The maximum socket connect timeout before giving up connecting to the
+       * server.
+       */
       private Integer connectTimeout;
+
+      /**
+       * The maximum number of retries for each request.
+       */
       private Integer maxRetries;
 
       public String getClientProperties() {
@@ -90,10 +115,22 @@ public class InfinispanProperties {
 
       public static final String DEFAULT_CLUSTER_NAME = "default-autoconfigure";
 
-      private String configXml = "";
-      private String machineId = "";
-      private String clusterName = DEFAULT_CLUSTER_NAME;
+      /**
+       * Enable embedded cache.
+       */
       private boolean enabled = true;
+
+      /**
+       *  The configuration file to use as a template for all caches created.
+       */
+      private String configXml = "";
+
+      private String machineId = "";
+
+      /**
+       *The name of the cluster.
+       */
+      private String clusterName = DEFAULT_CLUSTER_NAME;
 
       public String getConfigXml() {
          return configXml;
