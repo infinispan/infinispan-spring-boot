@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-The Infinispan Spring Boot Starter can operate on one of two modes:
+Infinispan Spring Boot Starter can operate on one of two modes:
 
 * Embedded (Infinispan operates along with your application)
 * Client/Server (your app connects to a remote Infinispan cluster)
@@ -32,18 +32,53 @@ And for the Embedded mode you will need add `infinispan-core`:
 </dependency>
 ```
 
+## Enforcing specific version
+
+The starters use high level API provided by Infinispan. Therefore they should be compatible even within major version changes.
+If you wish to use different Infinispan version than provided by this starter, provide Infinispan BOM before this starter declaration:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+       <dependency>
+           <groupId>org.infinispan</groupId>
+           <artifactId>infinispan-bom</artifactId>
+           <version>{version.infinispan}</version>
+           <type>pom</type>
+           <scope>import</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.boot</groupId>
+           <artifactId>spring-boot-starter-parent</artifactId>
+           <version>${version.spring.boot}</version>
+           <type>pom</type>
+           <scope>import</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.infinispan</groupId>
+           <artifactId>infinispan-spring-boot-starter</artifactId>
+           <version>${version.infinispan.starter}</version>
+       </dependency>
+    </dependencies>
+ </dependencyManagement>
+
+```
+
 ## Using Embedded mode
+
+The starters operate in Client/Server mode by default. Enabling Embedded mode requires adding `infinispan-core`
+to the classpath.
 
 Once you add infinispan's `spring-boot-starter` as a dependency to your project, a bean of type `EmbeddedCacheManager` can
 be `autowired` into your java configuration classes. Just simply add:
- 
+
 ```java
 private final EmbeddedCacheManager cacheManager;
 
 @Autowired
 public YourClassName(EmbeddedCacheManager cacheManager) {
     this.cacheManager = cacheManager;
-} 
+}
 ```
 
 And that's it. You can use it now as you wish. For example:
@@ -52,11 +87,18 @@ cacheManager.getCache("testCache").put("testKey", "testValue");
 System.out.println("Received value from cache: " + cacheManager.getCache("testCache").get("testKey"));
 ```
 
+The starter provide additional properties that can be placed in `application.properties`:
+
+* `infinispan.embedded.enabled` - Set it to `false` to disable Infinispan Embedded support provided by this starter.
+* `infinispan.embedded.configXml` - Sets path to the Infinispan XML configuration file.
+* `infinispan.embedded.machineId` - Sets machine id.
+* `infinispan.embedded.clusterName` - Sets cluster name.
+
 ### Customization
 
 You can further customize the cache manager by creating beans of types `InfinispanCacheConfigurer` and/or `InfinispanGlobalConfigurer`.
 
-You can have multiple beans of type `InfinispanCacheConfigurer`. But you can *only* have one bean of type `InfinispanGlobalConfigurer`. 
+You can have multiple beans of type `InfinispanCacheConfigurer`. But you can *only* have one bean of type `InfinispanGlobalConfigurer`.
 
 An example of `InfinispanCacheConfigurer` bean:
 
@@ -83,27 +125,43 @@ Please note, if `infinispan.embedded.config-xml` is used, the global configurati
 
 ### Spring Cache support
 
-Once the starter detects `EmbeddedCacheManager` bean, it will instantiate a new `SpringEmbeddedCacheManager` which provides an implementation of https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache]. The one last bit is a matter of adding `@EnableCaching` to the user application.
+Once the starter detects `EmbeddedCacheManager` bean, it will instantiate a new `SpringEmbeddedCacheManager` which provides an implementation of
+https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache].
+The one last bit is a matter of adding `@EnableCaching` to the user application.
 
 ## Using Client/Server mode
 
 The Starter will try to locate `hotrod-client.properties` file placed on the classpath and create a `RemoteCacheManager` based on it.
  A sample file may look like the following
- 
+
 ```text
 infinispan.client.hotrod.server_list=127.0.0.1:6667
 ```
 
-All properties are mentioned in http://infinispan.org/docs/dev/user_guide/user_guide.html#configuration_11[official Infinispan documentation].
+If the file is not found, the starters will check `infinispan.remote.server-list` property from `application.properties` file:
 
-After the configuration file is accessible on the classpath, just add this code snippet to your app:
+```text
+infinispan.remote.server-list=127.0.0.1:11222
+```
+
+The configuration also uses the following properties:
+
+* `infinispan.remote.enabled` - Set it to `false` to disable Infinispan Client/Server support provided by this starter.
+* `infinispan.remote.serverList` - Comma separated list of Infinispan endpoints (address and port pairs).
+* `infinispan.remote.socketTimeout` - Socket timeout for connection.
+* `infinispan.remote.connectTimeout` - Timeout for initializing connection.
+* `infinispan.remote.maxRetries` - Maximum number of retries.
+
+It is also possible to use application parameters described in http://infinispan.org/docs/dev/user_guide/user_guide.html#configuration_11[official Infinispan documentation].
+
+After supplying valid server list parameter, just add this code snippet to your app:
 ```java
 private final RemoteCacheManager cacheManager;
 
 @Autowired
 public YourClassName(RemoteCacheManager cacheManager) {
     this.cacheManager = cacheManager;
-} 
+}
 ```
 
 ### Customization
@@ -125,6 +183,17 @@ public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
 ### Spring Cache support
 
 Once the starter detects `RemoteCacheManager` bean, it will instantiate a new `SpringRemoteCacheManager` which provides an implementation of https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache]. The one last bit is a matter of adding `@EnableCaching` to the user application.
+
+### Spring Session support
+
+http://infinispan.org/docs/stable/user_guide/user_guide.html#externalizing_session_using_spring_session[Infinispan Spring Session support] is built on
+`SpringRemoteCacheManager` and `SpringEmbeddedCacheManager`. Those beans are produced by this starter by default.
+In order to use Spring Session in your project you will need to:
+
+* Add this starter to your project.
+* Add `infinispan-spring4-remote` or `infinispan-spring4-embedded` to the classpath.
+* Add Spring Session to the classpath.
+* Add `@EnableCaching` and `@EnableInfinispanRemoteHttpSession` or `@EnableInfinispanEmbeddedHttpSession` to your configuration.
 
 ## Example Project
 
