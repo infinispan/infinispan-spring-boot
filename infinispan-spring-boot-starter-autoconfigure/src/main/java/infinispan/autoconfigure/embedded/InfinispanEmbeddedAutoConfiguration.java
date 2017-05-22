@@ -48,12 +48,15 @@ public class InfinispanEmbeddedAutoConfiguration {
                   .transport().clusterName(infinispanProperties.getEmbedded().getClusterName())
                   .build();
 
+      final org.infinispan.configuration.cache.Configuration defaultConfiguration =
+            new org.infinispan.configuration.cache.ConfigurationBuilder().build();
+
       final GlobalConfiguration globalConfiguration =
             infinispanGlobalConfigurer == null ? defaultGlobalConfiguration
                   : infinispanGlobalConfigurer.getGlobalConfiguration();
 
       final DefaultCacheManager manager =
-            configXml.isEmpty() ? new DefaultCacheManager(globalConfiguration)
+            configXml.isEmpty() ? new DefaultCacheManager(globalConfiguration, defaultConfiguration)
                   : new DefaultCacheManager(configXml);
 
       configureCaches(manager);
