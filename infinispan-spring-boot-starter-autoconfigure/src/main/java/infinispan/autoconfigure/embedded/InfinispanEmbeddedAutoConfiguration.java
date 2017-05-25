@@ -3,11 +3,12 @@ package infinispan.autoconfigure.embedded;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-import org.infinispan.configuration.global.GlobalConfiguration;
+import infinispan.autoconfigure.common.InfinispanProperties;
+import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
-import org.infinispan.manager.EmbeddedCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,8 +16,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import infinispan.autoconfigure.common.InfinispanProperties;
 
 @Configuration
 @ComponentScan
@@ -37,34 +36,44 @@ public class InfinispanEmbeddedAutoConfiguration {
    private List<InfinispanCacheConfigurer> configurers = Collections.emptyList();
 
    @Autowired(required = false)
+   private List<InfinispanConfigurationCustomizer> configurationCustomizers = Collections.emptyList();
+
+   @Autowired(required = false)
+   private Map<String, org.infinispan.configuration.cache.Configuration> cacheConfigurations = Collections.emptyMap();
+
+   @Autowired(required = false)
    private InfinispanGlobalConfigurer infinispanGlobalConfigurer;
+
+   @Autowired(required = false)
+   private List<InfinispanGlobalConfigurationCustomizer> globalConfigurationCustomizers = Collections.emptyList();
 
    @Bean(destroyMethod = "stop")
    public DefaultCacheManager defaultCacheManager() throws IOException {
       final String configXml = infinispanProperties.getEmbedded().getConfigXml();
-      final GlobalConfiguration defaultGlobalConfiguration =
-            new GlobalConfigurationBuilder()
-                  .globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable()
-                  .transport().clusterName(infinispanProperties.getEmbedded().getClusterName())
-                  .build();
+      final DefaultCacheManager manager;
 
-      final org.infinispan.configuration.cache.Configuration defaultConfiguration =
-            new org.infinispan.configuration.cache.ConfigurationBuilder().build();
+      if (!configXml.isEmpty()) {
+         manager = new DefaultCacheManager(configXml);
+      } else {
+         GlobalConfigurationBuilder globalConfigurationBuilder = new GlobalConfigurationBuilder();
+         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 
-      final GlobalConfiguration globalConfiguration =
-            infinispanGlobalConfigurer == null ? defaultGlobalConfiguration
-                  : infinispanGlobalConfigurer.getGlobalConfiguration();
+         if (infinispanGlobalConfigurer != null) {
+            globalConfigurationBuilder.read(infinispanGlobalConfigurer.getGlobalConfiguration());
+         } else {
+            globalConfigurationBuilder.globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable();
+            globalConfigurationBuilder.transport().clusterName(infinispanProperties.getEmbedded().getClusterName());
+         }
 
-      final DefaultCacheManager manager =
-            configXml.isEmpty() ? new DefaultCacheManager(globalConfiguration, defaultConfiguration)
-                  : new DefaultCacheManager(configXml);
+         globalConfigurationCustomizers.forEach(customizer -> customizer.cusomize(globalConfigurationBuilder));
+         configurationCustomizers.forEach(customizer -> customizer.cusomize(configurationBuilder));
 
-      configureCaches(manager);
+         manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build());
+      }
+
+      cacheConfigurations.forEach(manager::defineConfiguration);
+      configurers.forEach(configurer -> configurer.configureCache(manager));
 
       return manager;
-   }
-
-   private void configureCaches(final EmbeddedCacheManager manager) {
-      configurers.forEach(configurer -> configurer.configureCache(manager));
    }
 }

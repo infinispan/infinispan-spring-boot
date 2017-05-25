@@ -3,9 +3,13 @@ package infinispan.autoconfigure.remote;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
+import infinispan.autoconfigure.common.InfinispanProperties;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.slf4j.Logger;
@@ -21,8 +25,6 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.util.StringUtils;
-
-import infinispan.autoconfigure.common.InfinispanProperties;
 
 @Configuration
 @ComponentScan
@@ -42,6 +44,12 @@ public class InfinispanRemoteAutoConfiguration {
    @Autowired(required = false)
    private InfinispanRemoteConfigurer infinispanRemoteConfigurer;
 
+   @Autowired(required = false)
+   private org.infinispan.client.hotrod.configuration.Configuration infinispanConfiguration;
+
+   @Autowired(required = false)
+   private List<InfinispanRemoteCacheCustomizer> cacheCustomizers = Collections.emptyList();
+
    @Autowired
    private ApplicationContext ctx;
 
@@ -57,25 +65,45 @@ public class InfinispanRemoteAutoConfiguration {
       org.infinispan.client.hotrod.configuration.Configuration configuration;
       if (hasConfigurer) {
          configuration = infinispanRemoteConfigurer.getRemoteConfiguration();
+         Objects.nonNull(configuration);
+
+         ConfigurationBuilder builder = new ConfigurationBuilder().read(configuration);
+         cacheCustomizers.forEach(c -> c.customize(builder));
+         configuration = builder.build();
       } else if (hasHotRodPropertiesFile) {
          String remoteClientPropertiesLocation = remoteProperties.getClientProperties();
          Resource hotRodClientPropertiesFile = ctx.getResource(remoteClientPropertiesLocation);
          Properties hotrodClientProperties = new Properties();
          try (InputStream stream = hotRodClientPropertiesFile.getURL().openStream()) {
             hotrodClientProperties.load(stream);
-            configuration = new ConfigurationBuilder().withProperties(hotrodClientProperties).build();
+
+            ConfigurationBuilder builder = new ConfigurationBuilder().withProperties(hotrodClientProperties);
+
+            cacheCustomizers.forEach(c -> c.customize(builder));
+
+            configuration = builder.build();
          }
       } else if (hasProperties) {
-         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-         configurationBuilder.addServers(remoteProperties.getServerList());
-         Optional.ofNullable(remoteProperties.getConnectTimeout()).map(v -> configurationBuilder.connectionTimeout(v));
-         Optional.ofNullable(remoteProperties.getMaxRetries()).map(v -> configurationBuilder.maxRetries(v));
-         Optional.ofNullable(remoteProperties.getSocketTimeout()).map(v -> configurationBuilder.socketTimeout(v));
-         configuration = configurationBuilder.build();
+         ConfigurationBuilder builder = new ConfigurationBuilder();
+         builder.addServers(remoteProperties.getServerList());
+         Optional.ofNullable(remoteProperties.getConnectTimeout()).map(v -> builder.connectionTimeout(v));
+         Optional.ofNullable(remoteProperties.getMaxRetries()).map(v -> builder.maxRetries(v));
+         Optional.ofNullable(remoteProperties.getSocketTimeout()).map(v -> builder.socketTimeout(v));
+
+         cacheCustomizers.forEach(c -> c.customize(builder));
+
+         configuration = builder.build();
+      } else if (infinispanConfiguration != null) {
+         ConfigurationBuilder builder = new ConfigurationBuilder().read(infinispanConfiguration);
+
+         cacheCustomizers.forEach(c -> c.customize(builder));
+
+         configuration = builder.build();
       } else {
          throw new IllegalStateException("Not enough data to create RemoteCacheManager. Check InfinispanRemoteCacheManagerChecker" +
                "and update conditions.");
       }
+
       return new RemoteCacheManager(configuration);
    }
 }
