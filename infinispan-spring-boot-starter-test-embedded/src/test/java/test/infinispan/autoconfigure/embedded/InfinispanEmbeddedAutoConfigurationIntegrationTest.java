@@ -16,10 +16,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration.DEFAULT_JMX_DOMAIN;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {InfinispanEmbeddedAutoConfiguration.class, InfinispanEmbeddedCacheManagerAutoConfiguration.class})
+@SpringBootTest(
+    classes = {
+        InfinispanEmbeddedAutoConfiguration.class,
+        InfinispanEmbeddedCacheManagerAutoConfiguration.class
+    },
+    properties = {
+        "spring.main.banner-mode=off"
+    }
+)
 public class InfinispanEmbeddedAutoConfigurationIntegrationTest {
 
    @Autowired

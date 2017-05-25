@@ -1,9 +1,9 @@
 package test.infinispan.autoconfigure.embedded;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Collections;
 
+import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
+import infinispan.autoconfigure.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.eviction.EvictionStrategy;
@@ -17,13 +17,19 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
-import infinispan.autoconfigure.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {InfinispanEmbeddedAutoConfiguration.class, InfinispanEmbeddedCacheManagerAutoConfiguration.class})
+@SpringBootTest(
+    classes = {
+        InfinispanEmbeddedAutoConfiguration.class,
+        InfinispanEmbeddedCacheManagerAutoConfiguration.class
+    },
+    properties = {
+        "spring.main.banner-mode=off"
+    }
+)
 @TestPropertySource(properties = "infinispan.embedded.config-xml=infinispan-test-conf.xml")
 public class InfinispanEmbeddedAutoConfigurationPropertiesTest {
 
