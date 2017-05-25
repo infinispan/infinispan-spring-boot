@@ -15,7 +15,6 @@ import test.infinispan.autoconfigure.testconfiguration.InfinispanCacheConfigurat
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(
@@ -23,7 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
       InfinispanEmbeddedAutoConfiguration.class,
       InfinispanEmbeddedCacheManagerAutoConfiguration.class,
       InfinispanCacheConfigurationBaseTestConfiguration.class,
-      InfinispanCacheConfigurationTestConfiguration.class },
+      InfinispanCacheConfigurationTestConfiguration.class
+   },
    properties = {
       "spring.main.banner-mode=off"
    }
