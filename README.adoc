@@ -96,13 +96,13 @@ The starter provide additional properties that can be placed in `application.pro
 
 ### Customization
 
-You can further customize the cache manager by creating beans of types `InfinispanCacheConfigurer` and/or `InfinispanGlobalConfigurer`.
+You can further customize the cache manager by creating beans of types `InfinispanCacheConfigurer`, `Configuration`, `InfinispanConfigurationCustomizer`, `InfinispanGlobalConfigurationCustomizer`, `InfinispanGlobalConfigurer`.
 
-You can have multiple beans of type `InfinispanCacheConfigurer`. But you can *only* have one bean of type `InfinispanGlobalConfigurer`.
+You can have multiple beans of type `InfinispanCacheConfigurer`, `Configuration`, `InfinispanConfigurationCustomizer`, and `InfinispanGlobalConfigurationCustomizer`but you can *only* have one bean of type `InfinispanGlobalConfigurer`.
 
-An example of `InfinispanCacheConfigurer` bean:
-
-```java
+[source,java]
+.InfinispanCacheConfigurer
+----
 @Bean
 public InfinispanCacheConfigurer cacheConfigurer() {
 	return manager -> {
@@ -114,14 +114,54 @@ public InfinispanCacheConfigurer cacheConfigurer() {
 		manager.defineConfiguration("local-sync-config", ispnConfig);
 	};
 }
-```
+----
 
-Moreover, you can specify the location of the infinispan XML configuration file by setting the property `infinispan.embedded.config-xml` in `application.properties` or `application.yml`. Example:
-```xml
+If `Configuration` is used, the bean name is used to link the configuration to the cache it refers to:
+
+[source,java]
+.Configuration
+----
+@Bean(name = "small-cache")
+public org.infinispan.configuration.cache.Configuration smallCache() {
+    return new ConfigurationBuilder()
+        .read(baseCache)
+        .memory().size(1000L)
+        .memory().evictionType(EvictionType.MEMORY)
+        .build();
+}
+
+@Bean(name = "large-cache")
+public org.infinispan.configuration.cache.Configuration largeCache() {
+    return new ConfigurationBuilder()
+        .read(baseCache)
+        .memory().size(2000L)
+        .build();
+}
+----
+
+[source,java]
+.Customizers
+----
+@Bean
+public InfinispanGlobalConfigurationCustomizer globalCustomizer() {
+   return builder -> builder.transport().clusterName(CLUSTER_NAME);
+}
+
+@Bean
+public InfinispanConfigurationCustomizer configurationCustomizer() {
+   return builder -> builder.memory().evictionType(EvictionType.COUNT);
+}
+----
+
+Moreover, you can specify the location of the infinispan XML configuration file by setting the property `infinispan.embedded.config-xml` in `application.properties` or `application.yml`.
+
+[source,xml]
+.Example
+----
 infinispan.embedded.config-xml=infinispan-conf.xml
-```
+----
 
-Please note, if `infinispan.embedded.config-xml` is used, the global configuration returned by the bean of type `InfinispanGlobalConfigurer` will *not* be used.
+Please note, if `infinispan.embedded.config-xml` is used, the global configuration returned by the bean of type `InfinispanGlobalConfigurer` and any customizer will *not* be used.
 
 ### Spring Cache support
 
@@ -168,17 +208,46 @@ public YourClassName(RemoteCacheManager cacheManager) {
 
 The default filename for Hot Rod client can be altered using the following property: `infinispan.remote.client-properties`.
 
-It is also possible to create a custom configuration using `InfinispanRemoteConfigurer`:
-```java
+It is also possible to create a custom configuration using either a bean of type `InfinispanRemoteConfigurer` or of type `Configuration` :
+
+[source,java]
+.InfinispanRemoteConfigurer
+----
 @Bean
 public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
-   return () -> new ConfigurationBuilder()
-                     .addServer()
-                     .host("127.0.0.1")
-                     .port(12345)
-                     .build();
+    return () -> new ConfigurationBuilder()
+        .addServer()
+        .host("127.0.0.1")
+        .port(12345)
+        .build();
 }
-```
+----
+
+[source,java]
+.Configration
+----
+@Bean
+public org.infinispan.client.hotrod.configuration.Configuration customConfiguration() {
+    new ConfigurationBuilder()
+        .addServer()
+        .host("127.0.0.1")
+        .port(12345)
+        .build();
+}
+----
+
+In addition you can add a number of `InfinispanRemoteCacheCustomizer` instances to further tuning the configuration.
+
+TIP: to apply the custmoizers according to as pecifi order, you can use the `@Ordered` annotation.
+
+[source,java]
+.Example
+----
+@Bean
+public InfinispanRemoteCacheCustomizer customizer() {
+    return b -> b.tcpKeepAlive(false);
+}
+----
 
 ### Spring Cache support
 
