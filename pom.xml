@@ -78,9 +78,8 @@
     </build>
 
     <modules>
-        <module>infinispan-spring-boot-starter-autoconfigure</module>
+        <module>infinispan-spring-boot-starter-embedded</module>
+        <module>infinispan-spring-boot-starter-remote</module>
         <module>infinispan-spring-boot-starter</module>
-        <module>infinispan-spring-boot-starter-test-remote</module>
-        <module>infinispan-spring-boot-starter-test-embedded</module>
     </modules>
 </project>

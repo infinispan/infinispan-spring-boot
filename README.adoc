@@ -8,29 +8,26 @@ Infinispan Spring Boot Starter can operate on one of two modes:
 * Client/Server (your app connects to a remote Infinispan cluster)
 
 In order to get started, just add our Spring Boot Starter as dependency in your project's pom file:
-```xml
+
+[source,xml]
+.Embedded
+----
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-spring-boot-starter</artifactId>
+    <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
     <version>${version.infinispan.starter}</version>
 </dependency>
-```
+----
 
-For the Client/Server mode that's all you will need (`infinispan-client-hotrod` artifact will be pulled transitively).
-
-And for the Embedded mode you will need add `infinispan-core`:
-```xml
+[source,xml]
+.Client/Server
+----
 <dependency>
     <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-spring-boot-starter</artifactId>
+    <artifactId>infinispan-spring-boot-starter-remote</artifactId>
     <version>${version.infinispan.starter}</version>
 </dependency>
-<dependency>
-    <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-core</artifactId>
-    <version>${version.infinispan}</version>
-</dependency>
-```
+----
 
 ## Enforcing specific version
 

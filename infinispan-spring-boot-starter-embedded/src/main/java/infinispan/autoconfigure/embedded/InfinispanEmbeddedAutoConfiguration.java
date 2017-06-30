@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import infinispan.autoconfigure.common.InfinispanProperties;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
@@ -24,13 +23,13 @@ import org.springframework.context.annotation.Configuration;
 //See https://github.com/spring-projects/spring-boot/issues/1733
 @ConditionalOnClass(name = "org.infinispan.manager.EmbeddedCacheManager")
 @ConditionalOnProperty(value = "infinispan.embedded.enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(InfinispanProperties.class)
+@EnableConfigurationProperties(InfinispanEmbeddedConfigurationProperties.class)
 public class InfinispanEmbeddedAutoConfiguration {
 
    public static final String DEFAULT_JMX_DOMAIN = "infinispan";
 
    @Autowired
-   private InfinispanProperties infinispanProperties;
+   private InfinispanEmbeddedConfigurationProperties infinispanProperties;
 
    @Autowired(required = false)
    private List<InfinispanCacheConfigurer> configurers = Collections.emptyList();
@@ -49,7 +48,7 @@ public class InfinispanEmbeddedAutoConfiguration {
 
    @Bean(destroyMethod = "stop")
    public DefaultCacheManager defaultCacheManager() throws IOException {
-      final String configXml = infinispanProperties.getEmbedded().getConfigXml();
+      final String configXml = infinispanProperties.getConfigXml();
       final DefaultCacheManager manager;
 
       if (!configXml.isEmpty()) {
@@ -62,7 +61,7 @@ public class InfinispanEmbeddedAutoConfiguration {
             globalConfigurationBuilder.read(infinispanGlobalConfigurer.getGlobalConfiguration());
          } else {
             globalConfigurationBuilder.globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable();
-            globalConfigurationBuilder.transport().clusterName(infinispanProperties.getEmbedded().getClusterName());
+            globalConfigurationBuilder.transport().clusterName(infinispanProperties.getClusterName());
          }
 
          globalConfigurationCustomizers.forEach(customizer -> customizer.cusomize(globalConfigurationBuilder));
