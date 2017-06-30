@@ -2,18 +2,14 @@ package infinispan.autoconfigure.remote;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 
-import infinispan.autoconfigure.common.InfinispanProperties;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,13 +29,10 @@ import org.springframework.util.StringUtils;
 //See https://github.com/spring-projects/spring-boot/issues/1733
 @ConditionalOnClass(name = "org.infinispan.client.hotrod.RemoteCacheManager")
 @ConditionalOnProperty(value = "infinispan.remote.enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(InfinispanProperties.class)
+@EnableConfigurationProperties(InfinispanRemoteConfigurationProperties.class)
 public class InfinispanRemoteAutoConfiguration {
-
-   public static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
    @Autowired
-   private InfinispanProperties infinispanProperties;
+   private InfinispanRemoteConfigurationProperties infinispanProperties;
 
    @Autowired(required = false)
    private InfinispanRemoteConfigurer infinispanRemoteConfigurer;
@@ -56,11 +49,10 @@ public class InfinispanRemoteAutoConfiguration {
    @Bean
    @Conditional(InfinispanRemoteCacheManagerChecker.class)
    public RemoteCacheManager remoteCacheManager() throws IOException {
-      InfinispanProperties.Remote remoteProperties = infinispanProperties.getRemote();
 
-      boolean hasHotRodPropertiesFile = ctx.getResource(remoteProperties.getClientProperties()).exists();
+      boolean hasHotRodPropertiesFile = ctx.getResource(infinispanProperties.getClientProperties()).exists();
       boolean hasConfigurer = infinispanRemoteConfigurer != null;
-      boolean hasProperties = StringUtils.hasText(remoteProperties.getServerList());
+      boolean hasProperties = StringUtils.hasText(infinispanProperties.getServerList());
 
       org.infinispan.client.hotrod.configuration.Configuration configuration;
       if (hasConfigurer) {
@@ -71,7 +63,7 @@ public class InfinispanRemoteAutoConfiguration {
          cacheCustomizers.forEach(c -> c.customize(builder));
          configuration = builder.build();
       } else if (hasHotRodPropertiesFile) {
-         String remoteClientPropertiesLocation = remoteProperties.getClientProperties();
+         String remoteClientPropertiesLocation = infinispanProperties.getClientProperties();
          Resource hotRodClientPropertiesFile = ctx.getResource(remoteClientPropertiesLocation);
          Properties hotrodClientProperties = new Properties();
          try (InputStream stream = hotRodClientPropertiesFile.getURL().openStream()) {
@@ -85,10 +77,10 @@ public class InfinispanRemoteAutoConfiguration {
          }
       } else if (hasProperties) {
          ConfigurationBuilder builder = new ConfigurationBuilder();
-         builder.addServers(remoteProperties.getServerList());
-         Optional.ofNullable(remoteProperties.getConnectTimeout()).map(v -> builder.connectionTimeout(v));
-         Optional.ofNullable(remoteProperties.getMaxRetries()).map(v -> builder.maxRetries(v));
-         Optional.ofNullable(remoteProperties.getSocketTimeout()).map(v -> builder.socketTimeout(v));
+         builder.addServers(infinispanProperties.getServerList());
+         Optional.ofNullable(infinispanProperties.getConnectTimeout()).map(v -> builder.connectionTimeout(v));
+         Optional.ofNullable(infinispanProperties.getMaxRetries()).map(v -> builder.maxRetries(v));
+         Optional.ofNullable(infinispanProperties.getSocketTimeout()).map(v -> builder.socketTimeout(v));
 
          cacheCustomizers.forEach(c -> c.customize(builder));
 

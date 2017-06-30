@@ -1,6 +1,5 @@
 package infinispan.autoconfigure.remote;
 
-import infinispan.autoconfigure.common.InfinispanProperties;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -37,7 +36,7 @@ public class InfinispanRemoteCacheManagerChecker implements Condition {
    private boolean hasHotRodClientPropertiesFile(ConditionContext conditionContext) {
       String hotRodPropertiesPath = conditionContext.getEnvironment().getProperty("infinispan.remote.client-properties");
       if (hotRodPropertiesPath == null) {
-         hotRodPropertiesPath = InfinispanProperties.Remote.DEFAULT_CLIENT_PROPERTIES;
+         hotRodPropertiesPath = InfinispanRemoteConfigurationProperties.DEFAULT_CLIENT_PROPERTIES;
       }
 
       return conditionContext.getResourceLoader().getResource(hotRodPropertiesPath).exists();
