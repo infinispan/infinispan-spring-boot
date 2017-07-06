@@ -11,7 +11,10 @@ import java.util.Properties;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +27,7 @@ import org.springframework.util.StringUtils;
 
 @Configuration
 @ComponentScan
+@AutoConfigureBefore(CacheAutoConfiguration.class)
 //Since a jar with configuration might be missing (which would result in TypeNotPresentExceptionProxy), we need to
 //use String based methods.
 //See https://github.com/spring-projects/spring-boot/issues/1733
@@ -48,6 +52,7 @@ public class InfinispanRemoteAutoConfiguration {
 
    @Bean
    @Conditional(InfinispanRemoteCacheManagerChecker.class)
+   @ConditionalOnMissingBean
    public RemoteCacheManager remoteCacheManager() throws IOException {
 
       boolean hasHotRodPropertiesFile = ctx.getResource(infinispanProperties.getClientProperties()).exists();
