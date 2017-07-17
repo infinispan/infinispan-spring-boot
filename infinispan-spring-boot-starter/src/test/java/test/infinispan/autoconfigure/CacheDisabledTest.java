@@ -1,9 +1,9 @@
 package test.infinispan.autoconfigure;
 
-import infinispan.autoconfigure.embedded.InfinispanEmbeddedAutoConfiguration;
-import infinispan.autoconfigure.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
-import infinispan.autoconfigure.remote.InfinispanRemoteAutoConfiguration;
-import infinispan.autoconfigure.remote.InfinispanRemoteCacheManagerAutoConfiguration;
+import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
+import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
+import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
+import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.manager.DefaultCacheManager;
 import org.junit.Assert;
