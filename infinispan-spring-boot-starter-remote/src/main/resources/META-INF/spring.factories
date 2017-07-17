@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-infinispan.autoconfigure.remote.InfinispanRemoteAutoConfiguration,\
-infinispan.autoconfigure.remote.InfinispanRemoteCacheManagerAutoConfiguration
+org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration,\
+org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration
 
