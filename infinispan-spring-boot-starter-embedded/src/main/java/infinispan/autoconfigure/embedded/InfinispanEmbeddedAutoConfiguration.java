@@ -72,7 +72,7 @@ public class InfinispanEmbeddedAutoConfiguration {
          }
 
          globalConfigurationCustomizers.forEach(customizer -> customizer.cusomize(globalConfigurationBuilder));
-         configurationCustomizers.forEach(customizer -> customizer.cusomize(configurationBuilder));
+         configurationCustomizers.forEach(customizer -> customizer.customize(configurationBuilder));
 
          manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build());
       }
