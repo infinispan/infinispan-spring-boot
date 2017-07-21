@@ -13,6 +13,9 @@ import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
+import org.springframework.boot.autoconfigure.cache.CacheType;
+import org.springframework.boot.autoconfigure.condition.AnyNestedCondition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,9 +23,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ConfigurationCondition;
 import org.springframework.core.io.Resource;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.StringUtils;
 
 @Configuration
@@ -51,7 +58,7 @@ public class InfinispanRemoteAutoConfiguration {
    private ApplicationContext ctx;
 
    @Bean
-   @Conditional(InfinispanRemoteCacheManagerChecker.class)
+   @Conditional({ConditionalOnCacheType.class, ConditionalOnConfiguration.class })
    @ConditionalOnMissingBean
    public RemoteCacheManager remoteCacheManager() throws IOException {
 
@@ -103,4 +110,51 @@ public class InfinispanRemoteAutoConfiguration {
 
       return new RemoteCacheManager(configuration);
    }
+
+   public static class ConditionalOnConfiguration extends AnyNestedCondition {
+      public ConditionalOnConfiguration() {
+         super(ConfigurationCondition.ConfigurationPhase.REGISTER_BEAN);
+      }
+
+      @Conditional(ConditionalOnConfigurationResources.class)
+      static class OnConfigurationResources {
+      }
+
+      @ConditionalOnBean(InfinispanRemoteConfigurer.class)
+      static class OnRemoteConfigurer {
+      }
+
+      @ConditionalOnBean(org.infinispan.client.hotrod.configuration.Configuration.class)
+      static class OnConfiguration {
+      }
+   }
+
+   public static class ConditionalOnCacheType implements Condition {
+      @Override
+      public boolean matches(ConditionContext ctx, AnnotatedTypeMetadata atm) {
+         String cacheType = ctx.getEnvironment().getProperty("spring.cache.type");
+         return cacheType == null || CacheType.INFINISPAN.name().equalsIgnoreCase(cacheType);
+      }
+   }
+
+   public static class ConditionalOnConfigurationResources implements Condition {
+      @Override
+      public boolean matches(ConditionContext ctx, AnnotatedTypeMetadata atm) {
+         return hasHotRodClientPropertiesFile(ctx) || hasServersProperty(ctx);
+      }
+
+      private boolean hasServersProperty(ConditionContext conditionContext) {
+         return conditionContext.getEnvironment().getProperty("infinispan.remote.server-list") != null;
+      }
+
+      private boolean hasHotRodClientPropertiesFile(ConditionContext conditionContext) {
+         String hotRodPropertiesPath = conditionContext.getEnvironment().getProperty("infinispan.remote.client-properties");
+         if (hotRodPropertiesPath == null) {
+            hotRodPropertiesPath = InfinispanRemoteConfigurationProperties.DEFAULT_CLIENT_PROPERTIES;
+         }
+
+         return conditionContext.getResourceLoader().getResource(hotRodPropertiesPath).exists();
+      }
+   }
+
 }
