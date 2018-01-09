@@ -29,6 +29,8 @@ In order to get started, just add our Spring Boot Starter as dependency in your 
 </dependency>
 ----
 
+Each one of the aforementioned dependencies transitively pulls all the necessary dependencies to allow the Spring Boot application to work seamlessly with Infinispan in the specified mode.
+
 ## Enforcing specific version
 
 The starters use high level API provided by Infinispan. Therefore they should be compatible even within major version changes.
@@ -162,9 +164,9 @@ Please note, if `infinispan.embedded.config-xml` is used, the global configurati
 
 ### Spring Cache support
 
-Once the starter detects `EmbeddedCacheManager` bean, it will instantiate a new `SpringEmbeddedCacheManager` which provides an implementation of
+Simply adding `@EnableCaching` to the application will enable Spring Cache support.
+This works because once the starter detects `EmbeddedCacheManager` bean, it will instantiate a new `SpringEmbeddedCacheManager` which provides an implementation of
 https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache].
-The one last bit is a matter of adding `@EnableCaching` to the user application.
 
 ## Using Client/Server mode
 
@@ -248,7 +250,9 @@ public InfinispanRemoteCacheCustomizer customizer() {
 
 ### Spring Cache support
 
-Once the starter detects `RemoteCacheManager` bean, it will instantiate a new `SpringRemoteCacheManager` which provides an implementation of https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache]. The one last bit is a matter of adding `@EnableCaching` to the user application.
+Simply adding `@EnableCaching` to the application will enable Spring Cache support.
+This works because once the starter detects `RemoteCacheManager` bean, it will instantiate a new `SpringRemoteCacheManager` which provides an implementation of
+https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache].
 
 ### Spring Session support
 
@@ -257,7 +261,6 @@ http://infinispan.org/docs/stable/user_guide/user_guide.html#externalizing_sessi
 In order to use Spring Session in your project you will need to:
 
 * Add this starter to your project.
-* Add `infinispan-spring4-remote` or `infinispan-spring4-embedded` to the classpath.
 * Add Spring Session to the classpath.
 * Add `@EnableCaching` and `@EnableInfinispanRemoteHttpSession` or `@EnableInfinispanEmbeddedHttpSession` to your configuration.
 
