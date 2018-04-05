@@ -64,10 +64,14 @@ public class InfinispanRemoteAutoConfiguration {
 
       boolean hasHotRodPropertiesFile = ctx.getResource(infinispanProperties.getClientProperties()).exists();
       boolean hasConfigurer = infinispanRemoteConfigurer != null;
+      boolean hasConfiguration = infinispanConfiguration != null;
       boolean hasProperties = StringUtils.hasText(infinispanProperties.getServerList());
 
       org.infinispan.client.hotrod.configuration.Configuration configuration;
-      if (hasConfigurer) {
+      
+      if (hasConfiguration) {
+         configuration = infinispanConfiguration;
+      } else if (hasConfigurer) {
          configuration = infinispanRemoteConfigurer.getRemoteConfiguration();
          Objects.nonNull(configuration);
 
@@ -93,12 +97,6 @@ public class InfinispanRemoteAutoConfiguration {
          Optional.ofNullable(infinispanProperties.getConnectTimeout()).map(v -> builder.connectionTimeout(v));
          Optional.ofNullable(infinispanProperties.getMaxRetries()).map(v -> builder.maxRetries(v));
          Optional.ofNullable(infinispanProperties.getSocketTimeout()).map(v -> builder.socketTimeout(v));
-
-         cacheCustomizers.forEach(c -> c.customize(builder));
-
-         configuration = builder.build();
-      } else if (infinispanConfiguration != null) {
-         ConfigurationBuilder builder = new ConfigurationBuilder().read(infinispanConfiguration);
 
          cacheCustomizers.forEach(c -> c.customize(builder));
 
