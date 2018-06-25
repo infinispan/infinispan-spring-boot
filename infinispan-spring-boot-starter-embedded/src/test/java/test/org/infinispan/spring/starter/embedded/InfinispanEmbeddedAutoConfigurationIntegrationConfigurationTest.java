@@ -38,7 +38,7 @@ public class InfinispanEmbeddedAutoConfigurationIntegrationConfigurationTest {
       assertThat(manager.getCacheConfiguration("base-cache").memory().size()).isEqualTo(500L);
       assertThat(manager.getCacheConfiguration("base-cache").memory().evictionType()).isEqualTo(EvictionType.COUNT);
       assertThat(manager.getCacheConfiguration("small-cache").memory().size()).isEqualTo(1000L);
-      assertThat(manager.getCacheConfiguration("small-cache").memory().evictionType()).isEqualTo(EvictionType.MEMORY);
+      assertThat(manager.getCacheConfiguration("small-cache").memory().evictionType()).isEqualTo(EvictionType.COUNT);
       assertThat(manager.getCacheConfiguration("large-cache").memory().size()).isEqualTo(2000L);
       assertThat(manager.getCacheConfiguration("large-cache").memory().evictionType()).isEqualTo(EvictionType.COUNT);
    }

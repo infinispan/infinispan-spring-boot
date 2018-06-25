@@ -125,7 +125,7 @@ public org.infinispan.configuration.cache.Configuration smallCache() {
     return new ConfigurationBuilder()
         .read(baseCache)
         .memory().size(1000L)
-        .memory().evictionType(EvictionType.MEMORY)
+        .memory().evictionType(EvictionType.COUNT)
         .build();
 }
 

@@ -2,6 +2,7 @@ package test.org.infinispan.spring.starter.embedded;
 
 import java.util.UUID;
 
+import org.infinispan.configuration.cache.StorageType;
 import org.infinispan.spring.starter.embedded.InfinispanConfigurationCustomizer;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
@@ -45,7 +46,7 @@ public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
 
       assertThat(manager.getCacheNames()).contains("small-cache");
       assertThat(manager.getCacheConfiguration("small-cache").memory().size()).isEqualTo(1000L);
-      assertThat(manager.getCacheConfiguration("small-cache").memory().evictionType()).isEqualTo(EvictionType.MEMORY);
+      assertThat(manager.getCacheConfiguration("small-cache").memory().evictionType()).isEqualTo(EvictionType.COUNT);
    }
 
    @Configuration
@@ -55,7 +56,7 @@ public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
          return new ConfigurationBuilder()
              .simpleCache(true)
              .memory().size(1000L)
-             .memory().evictionType(EvictionType.MEMORY)
+             .memory().evictionType(EvictionType.COUNT)
              .build();
       }
 
