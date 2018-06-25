@@ -50,10 +50,6 @@ public class InfinispanEmbeddedAutoConfigurationPropertiesTest {
         assertThat(globalConfiguration.globalJmxStatistics().domain()).isEqualTo("properties.test.spring.infinispan");
 
         final Configuration defaultCacheConfiguration = defaultCacheManager.getDefaultCacheConfiguration();
-        assertThat(defaultCacheConfiguration.eviction().maxEntries()).isEqualTo(2000L);
-        assertThat(defaultCacheConfiguration.eviction().strategy()).isEqualTo(EvictionStrategy.LIRS);
-        assertThat(defaultCacheConfiguration.eviction().threadPolicy()).isEqualTo(EvictionThreadPolicy.PIGGYBACK);
-        assertThat(defaultCacheConfiguration.storeAsBinary().storeKeysAsBinary()).isTrue();
-        assertThat(defaultCacheConfiguration.storeAsBinary().storeValuesAsBinary()).isTrue();
+        assertThat(defaultCacheConfiguration.memory().size()).isEqualTo(2000L);
     }
 }
