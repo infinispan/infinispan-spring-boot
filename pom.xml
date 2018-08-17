@@ -39,7 +39,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
-        <infinispan.version>9.3.0.Final</infinispan.version>
+        <infinispan.version>9.4.0-SNAPSHOT</infinispan.version>
         <assertj.version>3.8.0</assertj.version>
     </properties>
 

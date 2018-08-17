@@ -1,5 +1,7 @@
 package test.org.infinispan.spring.starter.remote;
 
+import org.infinispan.client.hotrod.configuration.Configuration;
+import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -37,11 +39,11 @@ public class IntegrationTest {
 
    @Test
    public void testConfiguredClient() {
-      //when
-      int portObtainedFromPropertiesFile = remoteCacheManager.getConfiguration().servers().get(0).port();
+      Configuration configuration = remoteCacheManager.getConfiguration();
 
-      //then
-      assertThat(portObtainedFromPropertiesFile).isEqualTo(InfinispanCacheTestConfiguration.PORT);
+      assertThat(configuration.servers().get(0).port()).isEqualTo(InfinispanCacheTestConfiguration.PORT);
+      assertThat(configuration.nearCache().mode()).isEqualTo(NearCacheMode.INVALIDATED);
+      assertThat(configuration.nearCache().maxEntries()).isEqualTo(InfinispanCacheTestConfiguration.NEAR_CACHE_MAX_ENTRIES);
    }
 
    @Test
