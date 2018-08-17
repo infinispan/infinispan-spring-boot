@@ -2,6 +2,8 @@ package test.org.infinispan.spring.starter.embedded;
 
 import java.util.Collections;
 
+import org.infinispan.configuration.cache.StorageType;
+import org.infinispan.eviction.EvictionType;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.infinispan.configuration.cache.Configuration;
@@ -47,8 +49,9 @@ public class InfinispanEmbeddedAutoConfigurationIntegrationConfigurerTest {
 
       final Configuration testCacheConfiguration = defaultCacheManager.getCacheConfiguration(InfinispanCacheTestConfiguration.TEST_CACHE_NAME);
       assertThat(testCacheConfiguration.jmxStatistics().enabled()).isTrue();
-      assertThat(testCacheConfiguration.eviction().size()).isEqualTo(1000L);
-      assertThat(testCacheConfiguration.eviction().strategy()).isEqualTo(EvictionStrategy.LRU);
+      assertThat(testCacheConfiguration.memory().storageType()).isEqualTo(StorageType.OBJECT);
+      assertThat(testCacheConfiguration.memory().evictionType()).isEqualTo(EvictionType.COUNT);
+      assertThat(testCacheConfiguration.memory().evictionStrategy()).isEqualTo(EvictionStrategy.MANUAL);
    }
 
    @Test
