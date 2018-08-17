@@ -1,5 +1,7 @@
 package test.org.infinispan.spring.starter.remote;
 
+import org.infinispan.client.hotrod.configuration.NearCacheConfiguration;
+import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -11,6 +13,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.regex.Pattern;
 
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,12 +35,16 @@ public class CustomPropertiesTest {
 
     @Test
     public void testDefaultClient() {
-        //when
         int portObtainedFromPropertiesFile = remoteCacheManager.getConfiguration().servers().get(0).port();
         boolean tcpNoDelay = remoteCacheManager.getConfiguration().tcpNoDelay();
 
-        //then
         assertThat(portObtainedFromPropertiesFile).isEqualTo(6667);
         assertThat(tcpNoDelay).isFalse();
+
+        NearCacheConfiguration nearCacheConfiguration = remoteCacheManager.getConfiguration().nearCache();
+
+        assertThat(nearCacheConfiguration.maxEntries()).isEqualTo(1000);
+        assertThat(nearCacheConfiguration.mode()).isEqualTo(NearCacheMode.INVALIDATED);
+        assertThat(nearCacheConfiguration.cacheNamePattern().toString()).isEqualTo("cus*");
     }
 }
