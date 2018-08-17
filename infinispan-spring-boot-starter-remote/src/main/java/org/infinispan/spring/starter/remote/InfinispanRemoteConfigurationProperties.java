@@ -1,89 +1,56 @@
 package org.infinispan.spring.starter.remote;
 
+import java.util.Map;
+import java.util.Properties;
+
+import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
-@ConfigurationProperties("infinispan.remote")
-public class InfinispanRemoteConfigurationProperties {
-    public static final String DEFAULT_CLIENT_PROPERTIES = "classpath:hotrod-client.properties";
+@ConfigurationProperties(value = "infinispan.remote", ignoreInvalidFields = true)
+public class InfinispanRemoteConfigurationProperties extends org.infinispan.client.hotrod.impl.ConfigurationProperties {
+   public static final String DEFAULT_CLIENT_PROPERTIES = "classpath:hotrod-client.properties";
 
-    /**
-     * Enable remote cache.
-     */
-    private boolean enabled = true;
+   /**
+    * Enable remote cache.
+    */
+   private boolean enabled = true;
 
-    /**
-     * The hotrod client properties location.
-     */
-    private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
+   /**
+    * The hotrod client properties location.
+    */
+   private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
 
-    /**
-     * A list of remote servers in the form: host1[:port][;host2[:port]]...
-     */
-    private String serverList;
+   public String getClientProperties() {
+      return clientProperties;
+   }
 
-    /**
-     * The maximum socket read timeout in milliseconds before giving up waiting
-     * for bytes from the server.
-     */
-    private Integer socketTimeout;
+   public void setClientProperties(String clientProperties) {
+      this.clientProperties = clientProperties;
+   }
 
-    /**
-     * The maximum socket connect timeout before giving up connecting to the
-     * server.
-     */
-    private Integer connectTimeout;
+   public boolean isEnabled() {
+      return enabled;
+   }
 
-    /**
-     * The maximum number of retries for each request.
-     */
-    private Integer maxRetries;
+   public void setEnabled(boolean enabled) {
+      this.enabled = enabled;
+   }
 
-    public String getClientProperties() {
-        return clientProperties;
-    }
 
-    public void setClientProperties(String clientProperties) {
-        this.clientProperties = clientProperties;
-    }
+   public ConfigurationBuilder getConfigurationBuilder() {
+      ConfigurationBuilder builder = new ConfigurationBuilder();
+      Properties properties = this.getProperties();
+      builder.withProperties(properties);
+      return builder;
+   }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+   public void setSaslProperties(Map<String, String> saslProperties) {
+      saslProperties.forEach((k, v) -> this.getProperties().setProperty(SASL_PROPERTIES_PREFIX + "." + k, v));
+   }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+   public void setCluster(Map<String, String> cluster) {
+      cluster.forEach((k, v) -> this.getProperties().setProperty(CLUSTER_PROPERTIES_PREFIX + "." + k, v));
+   }
 
-    public String getServerList() {
-        return serverList;
-    }
-
-    public void setServerList(String serverList) {
-        this.serverList = serverList;
-    }
-
-    public Integer getSocketTimeout() {
-        return socketTimeout;
-    }
-
-    public void setSocketTimeout(Integer socketTimeout) {
-        this.socketTimeout = socketTimeout;
-    }
-
-    public Integer getConnectTimeout() {
-        return connectTimeout;
-    }
-
-    public void setConnectTimeout(Integer connectTimeout) {
-        this.connectTimeout = connectTimeout;
-    }
-
-    public Integer getMaxRetries() {
-        return maxRetries;
-    }
-
-    public void setMaxRetries(Integer maxRetries) {
-        this.maxRetries = maxRetries;
-    }
 }

@@ -88,11 +88,7 @@ public class InfinispanRemoteAutoConfiguration {
             configuration = builder.build();
          }
       } else if (hasProperties) {
-         ConfigurationBuilder builder = new ConfigurationBuilder();
-         builder.addServers(infinispanProperties.getServerList());
-         Optional.ofNullable(infinispanProperties.getConnectTimeout()).map(v -> builder.connectionTimeout(v));
-         Optional.ofNullable(infinispanProperties.getMaxRetries()).map(v -> builder.maxRetries(v));
-         Optional.ofNullable(infinispanProperties.getSocketTimeout()).map(v -> builder.socketTimeout(v));
+         ConfigurationBuilder builder = infinispanProperties.getConfigurationBuilder();
 
          cacheCustomizers.forEach(c -> c.customize(builder));
 
