@@ -23,6 +23,13 @@
       <groupId>org.infinispan</groupId>
       <artifactId>infinispan-client-hotrod</artifactId>
     </dependency>
+
+    <!-- Even if query is an optional feature, query DSL dependency is necessary to @Autowire a RemoteCache by Spring -->
+    <dependency>
+      <groupId>org.infinispan</groupId>
+      <artifactId>infinispan-query-dsl</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.infinispan</groupId>
       <artifactId>infinispan-spring4-remote</artifactId>
