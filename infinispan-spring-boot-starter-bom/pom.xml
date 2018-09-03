@@ -2,16 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>21</version>
-    </parent>
-
     <groupId>org.infinispan</groupId>
-    <artifactId>infinispan-spring-boot-starter-parent</artifactId>
+    <artifactId>infinispan-spring-boot-starter-bom</artifactId>
     <version>2.0.0.CR1-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <organization>
+        <name>Red Hat</name>
+        <url>http://www.redhat.com</url>
+    </organization>
 
     <licenses>
       <license>
@@ -20,6 +19,19 @@
         <distribution>repo</distribution>
       </license>
     </licenses>
+
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Release Repository</name>
+            <url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshot Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <issueManagement>
         <system>jira</system>
@@ -70,21 +82,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-            </plugin>
-        </plugins>
-    </build>
-
-    <modules>
-        <module>infinispan-spring-boot-starter-bom</module>
-        <module>infinispan-spring-boot-starter-embedded</module>
-        <module>infinispan-spring-boot-starter-remote</module>
-        <module>infinispan-spring-boot-starter</module>
-    </modules>
 </project>
