@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>21</version>
-    </parent>
-
     <groupId>org.infinispan</groupId>
     <artifactId>infinispan-spring-boot-starter-parent</artifactId>
     <version>1.0.1-SNAPSHOT</version>
@@ -20,6 +14,11 @@
         <distribution>repo</distribution>
       </license>
     </licenses>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://ci.infinispan.org</url>
+    </ciManagement>
 
     <issueManagement>
         <system>jira</system>
@@ -44,7 +43,7 @@
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>
         <jboss.releases.nexus.url>https://repository.jboss.org/nexus</jboss.releases.nexus.url>
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
-
+        <jboss.releases.repo.url>${jboss.releases.nexus.url}/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
     </properties>
 
     <dependencyManagement>
