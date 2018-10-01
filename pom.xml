@@ -115,7 +115,6 @@
     </build>
 
     <modules>
-        <module>infinispan-spring-boot-starter-bom</module>
         <module>infinispan-spring-boot-starter-embedded</module>
         <module>infinispan-spring-boot-starter-remote</module>
         <module>infinispan-spring-boot-starter</module>
