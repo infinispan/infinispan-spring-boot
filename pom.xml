@@ -55,18 +55,48 @@
             -->
             <dependency>
                 <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-bom</artifactId>
+                <artifactId>infinispan-commons</artifactId>
                 <version>${infinispan.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
-           <dependency>
+
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-core</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-spring4-embedded</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-query-dsl</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-spring4-remote</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-client-hotrod</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
