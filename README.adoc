@@ -42,7 +42,7 @@ If you wish to use different Infinispan version than provided by this starter, p
        <dependency>
            <groupId>org.infinispan</groupId>
            <artifactId>infinispan-bom</artifactId>
-           <version>{version.infinispan}</version>
+           <version>${version.infinispan}</version>
            <type>pom</type>
            <scope>import</scope>
        </dependency>
