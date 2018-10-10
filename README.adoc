@@ -223,7 +223,7 @@ public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
 ----
 
 [source,java]
-.Configration
+.Configuration
 ----
 @Bean
 public org.infinispan.client.hotrod.configuration.Configuration customConfiguration() {
