@@ -8,6 +8,7 @@ import java.util.Map;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
+import org.infinispan.spring.starter.embedded.actuator.InfinispanCacheMeterBinderProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
@@ -15,6 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Conditional;
@@ -51,6 +53,9 @@ public class InfinispanEmbeddedAutoConfiguration {
    @Autowired(required = false)
    private List<InfinispanGlobalConfigurationCustomizer> globalConfigurationCustomizers = Collections.emptyList();
 
+   @Autowired
+   private ApplicationContext ctx;
+
    @Bean(destroyMethod = "stop")
    @Conditional(InfinispanEmbeddedCacheManagerChecker.class)
    @ConditionalOnMissingBean
@@ -71,7 +76,7 @@ public class InfinispanEmbeddedAutoConfiguration {
             globalConfigurationBuilder.transport().clusterName(infinispanProperties.getClusterName());
          }
 
-         globalConfigurationCustomizers.forEach(customizer -> customizer.cusomize(globalConfigurationBuilder));
+         globalConfigurationCustomizers.forEach(customizer -> customizer.customize(globalConfigurationBuilder));
          configurationCustomizers.forEach(customizer -> customizer.customize(configurationBuilder));
 
          manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build());
