@@ -148,5 +148,7 @@
         <module>infinispan-spring-boot-starter-embedded</module>
         <module>infinispan-spring-boot-starter-remote</module>
         <module>infinispan-spring-boot-starter</module>
+        <module>infinispan-spring-boot-samples/embedded</module>
+        <module>infinispan-spring-boot-samples/remote</module>
     </modules>
 </project>

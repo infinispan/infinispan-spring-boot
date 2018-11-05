@@ -1,10 +1,9 @@
 package test.org.infinispan.spring.starter.remote.testconfiguration;
 
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.spring.starter.remote.InfinispanRemoteConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import org.infinispan.spring.starter.remote.InfinispanRemoteConfigurer;
 
 @Configuration
 public class InfinispanCacheTestConfiguration {

@@ -1,0 +1,28 @@
+= Infinispan Spring-Boot samples
+
+.Covers
+* [x] Embedded cache
+* [x] Remote cache
+* [x] https://docs.spring.io/spring-boot/docs/current/actuator-api/html/[Actuator] cache metrics
+* [x] Integration with https://prometheus.io/[Prometheus]
+
+== Building instructions
+
+Invoke `mvn install spring-boot:run` for the embedded or the remote example
+
+== Display actuator stats
+
+You will see in ```http://localhost:8080/actuator/metrics``` a list of metrics available.
+Cache metrics are prefixed by *"cache."*
+
+http://localhost:8080/actuator/metrics
+
+Display each metric for each cache using tags. For example for the 'puts' stats in the basque-names cache:
+http://localhost:8080/actuator/metrics/cache.puts?tag=name:basque-names
+
+
+== Run Prometheus
+
+For docker for mac or windows, execute `run-prometheus.sh`.
+The `prometheus.yml` file contains the _host.docker.internal_ binding that will allow prometheus scrap the metrics exposed by spring actuator.
+

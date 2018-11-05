@@ -16,6 +16,7 @@
             <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-spring-boot-starter-remote</artifactId>

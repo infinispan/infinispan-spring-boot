@@ -1,24 +1,25 @@
 package test.org.infinispan.spring.starter.embedded;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Collections;
 
-import org.infinispan.configuration.cache.StorageType;
-import org.infinispan.eviction.EvictionType;
-import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
-import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.infinispan.configuration.cache.Configuration;
+import org.infinispan.configuration.cache.StorageType;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.eviction.EvictionStrategy;
+import org.infinispan.eviction.EvictionType;
 import org.infinispan.manager.EmbeddedCacheManager;
+import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
+import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import test.org.infinispan.spring.starter.embedded.testconfiguration.InfinispanCacheTestConfiguration;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import test.org.infinispan.spring.starter.embedded.testconfiguration.InfinispanCacheTestConfiguration;
 
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)

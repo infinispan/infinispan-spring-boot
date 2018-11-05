@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Properties;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -58,22 +57,21 @@ public class InfinispanRemoteAutoConfiguration {
    private ApplicationContext ctx;
 
    @Bean
-   @Conditional({ConditionalOnCacheType.class, ConditionalOnConfiguration.class })
+   @Conditional({ConditionalOnCacheType.class, ConditionalOnConfiguration.class})
    @ConditionalOnMissingBean
    public RemoteCacheManager remoteCacheManager() throws IOException {
 
       boolean hasHotRodPropertiesFile = ctx.getResource(infinispanProperties.getClientProperties()).exists();
       boolean hasConfigurer = infinispanRemoteConfigurer != null;
       boolean hasProperties = StringUtils.hasText(infinispanProperties.getServerList());
+      ConfigurationBuilder builder;
 
-      org.infinispan.client.hotrod.configuration.Configuration configuration;
       if (hasConfigurer) {
-         configuration = infinispanRemoteConfigurer.getRemoteConfiguration();
+         org.infinispan.client.hotrod.configuration.Configuration configuration = infinispanRemoteConfigurer.getRemoteConfiguration();
          Objects.nonNull(configuration);
 
-         ConfigurationBuilder builder = new ConfigurationBuilder().read(configuration);
+         builder = new ConfigurationBuilder().read(configuration);
          cacheCustomizers.forEach(c -> c.customize(builder));
-         configuration = builder.build();
       } else if (hasHotRodPropertiesFile) {
          String remoteClientPropertiesLocation = infinispanProperties.getClientProperties();
          Resource hotRodClientPropertiesFile = ctx.getResource(remoteClientPropertiesLocation);
@@ -81,30 +79,27 @@ public class InfinispanRemoteAutoConfiguration {
          try (InputStream stream = hotRodClientPropertiesFile.getURL().openStream()) {
             hotrodClientProperties.load(stream);
 
-            ConfigurationBuilder builder = new ConfigurationBuilder().withProperties(hotrodClientProperties);
+            builder = new ConfigurationBuilder().withProperties(hotrodClientProperties);
 
             cacheCustomizers.forEach(c -> c.customize(builder));
 
-            configuration = builder.build();
          }
       } else if (hasProperties) {
-         ConfigurationBuilder builder = infinispanProperties.getConfigurationBuilder();
+         builder = infinispanProperties.getConfigurationBuilder();
 
          cacheCustomizers.forEach(c -> c.customize(builder));
 
-         configuration = builder.build();
       } else if (infinispanConfiguration != null) {
-         ConfigurationBuilder builder = new ConfigurationBuilder().read(infinispanConfiguration);
+         builder = new ConfigurationBuilder().read(infinispanConfiguration);
 
          cacheCustomizers.forEach(c -> c.customize(builder));
 
-         configuration = builder.build();
       } else {
          throw new IllegalStateException("Not enough data to create RemoteCacheManager. Check InfinispanRemoteCacheManagerChecker" +
                "and update conditions.");
       }
 
-      return new RemoteCacheManager(configuration);
+      return new RemoteCacheManager(builder.build());
    }
 
    public static class ConditionalOnConfiguration extends AnyNestedCondition {
