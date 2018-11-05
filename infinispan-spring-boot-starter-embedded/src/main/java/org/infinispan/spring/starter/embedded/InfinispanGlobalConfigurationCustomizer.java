@@ -4,5 +4,5 @@ import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 
 @FunctionalInterface
 public interface InfinispanGlobalConfigurationCustomizer {
-    void cusomize(GlobalConfigurationBuilder builder);
+    void customize(GlobalConfigurationBuilder builder);
 }
