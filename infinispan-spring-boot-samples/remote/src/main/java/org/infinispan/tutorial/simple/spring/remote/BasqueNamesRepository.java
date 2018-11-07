@@ -3,7 +3,6 @@ package org.infinispan.tutorial.simple.spring.remote;
 import java.lang.invoke.MethodHandles;
 import java.util.logging.Logger;
 
-import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
