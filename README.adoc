@@ -264,6 +264,90 @@ In order to use Spring Session in your project you will need to:
 * Add Spring Session to the classpath.
 * Add `@EnableCaching` and `@EnableInfinispanRemoteHttpSession` or `@EnableInfinispanEmbeddedHttpSession` to your configuration.
 
-## Example Project
 
-Please take a look at the https://github.com/infinispan/infinispan-simple-tutorials/tree/master/spring-boot[Infinispan Simple Tutorials].
+### Actuator support
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-metrics.html[Spring-Boot Actuator] is an optional dependency
+that can be added to your Spring-Boot application and expose production ready metrics.
+
+Infinispan cache statistics can be exposed as actuator metrics.
+
+Statistics are not enabled by default. To do so:
+
+* Use 'actuator' and 'web' dependencies in your project
+
+[source,xml]
+.pom.xml
+----
+ <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+    <version>${spring-boot.version}</version>
+ </dependency>
+
+ <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>${spring-boot.version}</version>
+ </dependency>
+----
+
+* Activate statistics for the caches you wish to get the stats from.
+   ** _code_:
+
+[source,java]
+.MyConfig.java
+----
+@Bean
+public InfinispanCacheConfigurer cacheConfigurer() {
+   return cacheManager -> {
+      final org.infinispan.configuration.cache.Configuration config =
+            new ConfigurationBuilder()
+                  .jmxStatistics().enable()
+                  .build();
+
+      cacheManager.defineConfiguration("my-cache", config);
+   };
+}
+----
+
+   ** _xml_:
+
+[source,xml]
+.infinispan.xml
+----
+   <?xml version="1.0" encoding="UTF-8"?>
+   <infinispan xmlns="urn:infinispan:config:9.4">
+       <cache-container>
+           <local-cache name="my-cache" statistics="true"/>
+           <local-cache name="other"/>
+       </cache-container>
+   </infinispan>
+----
+
+Note that caches must be configured before the actuator registry binds them, so during the application startup.
+If you need to create caches on the fly, and you want to expose their metrics, you will need to bind yourself the caches to the
+actuator registry using the ```CacheMetricsRegistrar``` bean.
+
+[source,java]
+.configuration
+----
+   @Autowire
+   CacheMetricsRegistrar cacheMetricsRegistrar;
+
+   @Autowire
+   CacheManager cacheManager;
+   ...
+
+   cacheMetricsRegistrar.bindCacheToRegistry(cacheManager.getCache("my-cache"));
+----
+
+Run the code samples under the ```infinispan-spring-boot-samples``` repository in this repository to see it in action.
+
+## Example Projects
+
+* Two sample projects can be found in this repository under the ```infinispan-spring-boot-samples``` folder
+
+* Remote example showcasing https://github.com/infinispan-demos/infinispan-near-cache[near caching]
+
+* https://github.com/infinispan/infinispan-simple-tutorials/tree/master/spring-boot[Infinispan Simple Tutorials].
