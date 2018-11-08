@@ -346,7 +346,7 @@ Run the code samples under the ```infinispan-spring-boot-samples``` repository i
 
 ## Example Projects
 
-* Two sample projects can be found in this repository under the ```infinispan-spring-boot-samples``` folder
+* Two sample projects can be found in this repository under the link:infinispan-spring-boot-samples[infinispan-spring-boot-samples] folder
 
 * Remote example showcasing https://github.com/infinispan-demos/infinispan-near-cache[near caching]
 
