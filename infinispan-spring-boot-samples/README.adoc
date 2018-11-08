@@ -8,7 +8,30 @@
 
 == Building instructions
 
-Invoke `mvn install spring-boot:run` for the embedded or the remote example
+Invoke `mvn clean install` for the embedded or the remote example
+
+== Running instructions
+
+=== Embedded
+
+`mvn spring:boot run`
+
+=== Remote
+
+Use docker or download and run the http://infinispan.org/download/[Infinispan Server]
+
+[source,bash]
+.Docker
+----
+docker run -it -p 11222:11222 jboss/infinispan-server:9.4.1.Final
+----
+
+[source,bash]
+.Server
+----
+cd UNZIP_SERVER_PATH/bin/
+./standalone.sh
+----
 
 == Display actuator stats
 
