@@ -191,7 +191,7 @@ The configuration also uses the following properties:
 * `infinispan.remote.connectTimeout` - Timeout for initializing connection.
 * `infinispan.remote.maxRetries` - Maximum number of retries.
 
-It is also possible to use application parameters described in http://infinispan.org/docs/dev/user_guide/user_guide.html#configuration_11[official Infinispan documentation].
+It is also possible to use application parameters described in https://docs.jboss.org/infinispan/9.4/apidocs/org/infinispan/client/hotrod/configuration/package-summary.html#package.description[official Infinispan Javadoc].
 
 After supplying valid server list parameter, just add this code snippet to your app:
 ```java
