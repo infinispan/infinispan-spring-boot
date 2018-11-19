@@ -7,11 +7,6 @@ public class InfinispanEmbeddedConfigurationProperties {
     public static final String DEFAULT_CLUSTER_NAME = "default-autoconfigure";
 
     /**
-     * Enable embedded cache.
-     */
-    private boolean enabled = true;
-
-    /**
      * The configuration file to use as a template for all caches created.
      */
     private String configXml = "";
@@ -47,11 +42,4 @@ public class InfinispanEmbeddedConfigurationProperties {
         this.clusterName = clusterName;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 }

@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "infinispan.embedded.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Embedded Infinispan.",
+      "defaultValue": "true"
+    },
+    {
+      "name": "infinispan.embedded.cache.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Embedded Infinispan's cache support.",
+      "defaultValue": "true"
+    }
+  ]
+}

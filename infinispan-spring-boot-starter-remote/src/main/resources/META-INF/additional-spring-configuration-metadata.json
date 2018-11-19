@@ -1,0 +1,16 @@
+{
+  "properties": [
+    {
+      "name": "infinispan.remote.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Remote Infinispan.",
+      "defaultValue": "true"
+    },
+    {
+      "name": "infinispan.remote.cache.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable Embedded Infinispan's cache support.",
+      "defaultValue": "true"
+    }
+  ]
+}

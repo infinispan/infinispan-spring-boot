@@ -8,11 +8,6 @@ public class InfinispanRemoteConfigurationProperties {
     public static final String DEFAULT_CLIENT_PROPERTIES = "classpath:hotrod-client.properties";
 
     /**
-     * Enable remote cache.
-     */
-    private boolean enabled = true;
-
-    /**
      * The hotrod client properties location.
      */
     private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
@@ -45,14 +40,6 @@ public class InfinispanRemoteConfigurationProperties {
 
     public void setClientProperties(String clientProperties) {
         this.clientProperties = clientProperties;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public String getServerList() {
