@@ -8,34 +8,34 @@ public class InfinispanRemoteConfigurationProperties {
     public static final String DEFAULT_CLIENT_PROPERTIES = "classpath:hotrod-client.properties";
 
     /**
-     * Enable remote cache.
+     * Enable Infinispan support.
      */
     private boolean enabled = true;
 
     /**
-     * The hotrod client properties location.
+     * Specifies a custom filename for Hot Rod client properties.
      */
     private String clientProperties = DEFAULT_CLIENT_PROPERTIES;
 
     /**
-     * A list of remote servers in the form: host1[:port][;host2[:port]]...
+     * Defines a comma-separated list of Infinispan servers in this format:
+     * `host1[:port],host2[:port]`.
      */
     private String serverList;
 
     /**
-     * The maximum socket read timeout in milliseconds before giving up waiting
-     * for bytes from the server.
+     * Sets a timeout value, in milliseconds, for socket connections.
      */
     private Integer socketTimeout;
 
     /**
-     * The maximum socket connect timeout before giving up connecting to the
-     * server.
+     * Sets a timeout value for initializing connections with
+     * Infinispan servers.
      */
     private Integer connectTimeout;
 
     /**
-     * The maximum number of retries for each request.
+     * Sets the maximum number of attempts to connect to Infinispan servers.
      */
     private Integer maxRetries;
 

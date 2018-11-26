@@ -1,16 +1,18 @@
-# Infinispan Spring Boot Starter
+= Infinispan Spring Boot Starter
 
-## Getting Started
+Quickly get your Spring Boot project up and running with Infinispan.
 
-Infinispan Spring Boot Starter can operate on one of two modes:
+== Setting Up Your Project
 
-* Embedded (Infinispan operates along with your application)
-* Client/Server (your app connects to a remote Infinispan cluster)
+This starter provides a set of managed transitive dependencies that include everything your Spring Boot project needs to seamlessly interact with Infinispan in one of two modes:
 
-In order to get started, just add our Spring Boot Starter as dependency in your project's pom file:
+* Embedded Mode runs Infinispan inside your application.
+* Remote Client/Server Mode connects your application to an Infinispan cluster.
 
-[source,xml]
-.Embedded
+To set up your project, add one of the following to your `pom.xml` file:
+
+.Embedded Mode
+[source,xml,options="nowrap"]
 ----
 <dependency>
     <groupId>org.infinispan</groupId>
@@ -19,8 +21,8 @@ In order to get started, just add our Spring Boot Starter as dependency in your 
 </dependency>
 ----
 
-[source,xml]
-.Client/Server
+.Remote Client/Server Mode
+[source,xml,options="nowrap"]
 ----
 <dependency>
     <groupId>org.infinispan</groupId>
@@ -29,14 +31,14 @@ In order to get started, just add our Spring Boot Starter as dependency in your 
 </dependency>
 ----
 
-Each one of the aforementioned dependencies transitively pulls all the necessary dependencies to allow the Spring Boot application to work seamlessly with Infinispan in the specified mode.
+=== Enforcing Infinispan Versions
 
-## Enforcing specific version
+This starter uses a high-level API to ensure compatibility between major versions of Infinispan. However you can enforce a specific version of Infinispan with the `infinispan-bom` module.
 
-The starters use high level API provided by Infinispan. Therefore they should be compatible even within major version changes.
-If you wish to use different Infinispan version than provided by this starter, provide Infinispan BOM before this starter declaration:
+Add `infinispan-bom` to your `pom.xml` file before the starter dependenices, as follows:
 
-```xml
+[source,xml,options="nowrap"]
+----
 <dependencyManagement>
     <dependencies>
        <dependency>
@@ -60,47 +62,51 @@ If you wish to use different Infinispan version than provided by this starter, p
        </dependency>
     </dependencies>
  </dependencyManagement>
+----
 
-```
+== Running in Embedded Mode
 
-## Using Embedded mode
-
-The starters operate in Client/Server mode by default. Enabling Embedded mode requires adding `infinispan-core`
-to the classpath.
-
-Once you add infinispan's `spring-boot-starter` as a dependency to your project, a bean of type `EmbeddedCacheManager` can
-be `autowired` into your java configuration classes. Just simply add:
-
-```java
+. Add `infinispan-spring-boot-starter-embedded` to your project's classpath to enable Embedded mode.
++
+This starter operates in Remote Client/Server mode with `infinispan-spring-boot-starter-remote` on the classpath by default.
++
+. Use the Spring `@Autowired` annotation to include an `EmbeddedCacheManager` bean in your Java configuration classes, as in the following example:
++
+[source,java,options="nowrap"]
+----
 private final EmbeddedCacheManager cacheManager;
 
 @Autowired
 public YourClassName(EmbeddedCacheManager cacheManager) {
     this.cacheManager = cacheManager;
 }
-```
-
-And that's it. You can use it now as you wish. For example:
-```java
+----
++
+You are now ready to use Infinispan in Embedded Mode. Here is a simple example:
++
+[source,java,options="nowrap"]
+----
 cacheManager.getCache("testCache").put("testKey", "testValue");
 System.out.println("Received value from cache: " + cacheManager.getCache("testCache").get("testKey"));
-```
+----
 
-The starter provide additional properties that can be placed in `application.properties`:
+=== Customizing the Cache Manager
 
-* `infinispan.embedded.enabled` - Set it to `false` to disable Infinispan Embedded support provided by this starter.
-* `infinispan.embedded.configXml` - Sets path to the Infinispan XML configuration file.
-* `infinispan.embedded.machineId` - Sets machine id.
-* `infinispan.embedded.clusterName` - Sets cluster name.
+Customize the cache manager with the following configuration beans:
 
-### Customization
+* `InfinispanGlobalConfigurer`
+* `InfinispanCacheConfigurer`
+* `Configuration`
+* `InfinispanConfigurationCustomizer`
+* `InfinispanGlobalConfigurationCustomizer`
++
+[NOTE]
+====
+You can create one `InfinispanGlobalConfigurer` bean only. However you can create multiple configurations with the other beans.
+====
 
-You can further customize the cache manager by creating beans of types `InfinispanCacheConfigurer`, `Configuration`, `InfinispanConfigurationCustomizer`, `InfinispanGlobalConfigurationCustomizer`, `InfinispanGlobalConfigurer`.
-
-You can have multiple beans of type `InfinispanCacheConfigurer`, `Configuration`, `InfinispanConfigurationCustomizer`, and `InfinispanGlobalConfigurationCustomizer`but you can *only* have one bean of type `InfinispanGlobalConfigurer`.
-
-[source,java]
-.InfinispanCacheConfigurer
+.InfinispanCacheConfigurer Bean
+[source,java,options="nowrap"]
 ----
 @Bean
 public InfinispanCacheConfigurer cacheConfigurer() {
@@ -115,10 +121,9 @@ public InfinispanCacheConfigurer cacheConfigurer() {
 }
 ----
 
-If `Configuration` is used, the bean name is used to link the configuration to the cache it refers to:
-
-[source,java]
-.Configuration
+.Configuration Bean
+Link the bean name to the cache that it configures, as follows:
+[source,java,options="nowrap"]
 ----
 @Bean(name = "small-cache")
 public org.infinispan.configuration.cache.Configuration smallCache() {
@@ -138,8 +143,8 @@ public org.infinispan.configuration.cache.Configuration largeCache() {
 }
 ----
 
-[source,java]
-.Customizers
+.Customizer Beans
+[source,java,options="nowrap"]
 ----
 @Bean
 public InfinispanGlobalConfigurationCustomizer globalCustomizer() {
@@ -152,65 +157,77 @@ public InfinispanConfigurationCustomizer configurationCustomizer() {
 }
 ----
 
-Moreover, you can specify the location of the infinispan XML configuration file by setting the property `infinispan.embedded.config-xml` in `application.properties` or `application.yml`.
+=== Enabling Spring Cache Support
 
-[source,xml]
-.Example
-----
-infinispan.embedded.config-xml=infinispan-conf.xml
-----
+Add the `@EnableCaching` annotation to your application to enable Spring Cache support.
 
-Please note, if `infinispan.embedded.config-xml` is used, the global configuration returned by the bean of type `InfinispanGlobalConfigurer` and any customizer will *not* be used.
-
-### Spring Cache support
-
-Simply adding `@EnableCaching` to the application will enable Spring Cache support.
-This works because once the starter detects `EmbeddedCacheManager` bean, it will instantiate a new `SpringEmbeddedCacheManager` which provides an implementation of
+When the Infinispan Spring Boot Starter detects the `EmbeddedCacheManager` bean, it instantiates a new `SpringEmbeddedCacheManager`, which provides an implementation of
 https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache].
 
-## Using Client/Server mode
+=== Configuration Properties
 
-The Starter will try to locate `hotrod-client.properties` file placed on the classpath and create a `RemoteCacheManager` based on it.
- A sample file may look like the following
+Include the following properties in the `application.properties` or `application.yml` file to configure your project:
 
-```text
+[source,yaml,options="nowrap"]
+----
+infinispan.embedded.enabled = # Enables Infinispan capabilities in your application. The value is true (default) or false.
+infinispan.embedded.machineId = # Sets the Spring state machine ID.
+infinispan.embedded.clusterName = # Sets the name of the Infinispan cluster.
+infinispan.embedded.configXml = # Specifies an Infinispan XML configuration file.
+----
+
+[NOTE]
+====
+If you specify an Infinispan configuration with the `infinispan.embedded.configXml` property, it takes priority over the global configuration bean or any configuration customizer.
+====
+
+== Running in Remote Client/Server Mode
+
+. Provide the location for the Infinispan server so the starter can create the `RemoteCacheManager` bean.
++
+This starter first attempts to locate the server from the `hotrod-client.properties` file on the classpath. If not found, the starter then attempts to locate the server from your `application.properties` file.
++
+* `hotrod-client.properties`:
++
+[source,text,options=nowrap]
+----
 infinispan.client.hotrod.server_list=127.0.0.1:6667
-```
-
-If the file is not found, the starters will check `infinispan.remote.server-list` property from `application.properties` file:
-
-```text
+----
++
+* `application.properties`:
++
+[source,text,options=nowrap]
+----
 infinispan.remote.server-list=127.0.0.1:11222
-```
-
-The configuration also uses the following properties:
-
-* `infinispan.remote.enabled` - Set it to `false` to disable Infinispan Client/Server support provided by this starter.
-* `infinispan.remote.serverList` - Comma separated list of Infinispan endpoints (address and port pairs).
-* `infinispan.remote.socketTimeout` - Socket timeout for connection.
-* `infinispan.remote.connectTimeout` - Timeout for initializing connection.
-* `infinispan.remote.maxRetries` - Maximum number of retries.
-
-It is also possible to use application parameters described in http://infinispan.org/docs/dev/user_guide/user_guide.html#configuration_11[official Infinispan documentation].
-
-After supplying valid server list parameter, just add this code snippet to your app:
-```java
+----
++
+. Use the Spring `@Autowired` annotation to include your own custom cache manager class in your application:
++
+[source,java,options="nowrap"]
+----
 private final RemoteCacheManager cacheManager;
 
 @Autowired
 public YourClassName(RemoteCacheManager cacheManager) {
     this.cacheManager = cacheManager;
 }
-```
+----
 
-### Customization
+=== Customizing the Cache Manager
 
-The default filename for Hot Rod client can be altered using the following property: `infinispan.remote.client-properties`.
+Customize the cache manager with the following configuration beans:
 
-It is also possible to create a custom configuration using either a bean of type `InfinispanRemoteConfigurer` or of type `Configuration` :
+* `InfinispanRemoteConfigurer`
+* `Configuration`
+* `InfinispanRemoteCacheCustomizer`
++
+[NOTE]
+====
+You can create one `InfinispanRemoteConfigurer` bean only. However you can create multiple configurations with the other beans.
+====
 
-[source,java]
-.InfinispanRemoteConfigurer
+.InfinispanRemoteConfigurer Bean
+[source,java,options="nowrap"]
 ----
 @Bean
 public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
@@ -222,8 +239,8 @@ public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
 }
 ----
 
-[source,java]
-.Configration
+.Configuration Bean
+[source,java,options="nowrap"]
 ----
 @Bean
 public org.infinispan.client.hotrod.configuration.Configuration customConfiguration() {
@@ -235,12 +252,8 @@ public org.infinispan.client.hotrod.configuration.Configuration customConfigurat
 }
 ----
 
-In addition you can add a number of `InfinispanRemoteCacheCustomizer` instances to further tuning the configuration.
-
-TIP: to apply the custmoizers according to as pecifi order, you can use the `@Ordered` annotation.
-
-[source,java]
-.Example
+.InfinispanRemoteCacheCustomizer Bean
+[source,java,options="nowrap"]
 ----
 @Bean
 public InfinispanRemoteCacheCustomizer customizer() {
@@ -248,22 +261,48 @@ public InfinispanRemoteCacheCustomizer customizer() {
 }
 ----
 
-### Spring Cache support
+[TIP]
+====
+Use the `@Ordered` annotation to apply customizers in a specific order.
+====
 
-Simply adding `@EnableCaching` to the application will enable Spring Cache support.
-This works because once the starter detects `RemoteCacheManager` bean, it will instantiate a new `SpringRemoteCacheManager` which provides an implementation of
+=== Enabling Spring Cache Support
+
+Add the `@EnableCaching` annotation to your application to enable Spring Cache support.
+
+When the Infinispan Spring Boot Starter detects the `RemoteCacheManager` bean, it instantiates a new `SpringRemoteCacheManager`, which provides an implementation of
 https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache].
 
-### Spring Session support
+=== Enabling Spring Session Support
 
 http://infinispan.org/docs/stable/user_guide/user_guide.html#externalizing_session_using_spring_session[Infinispan Spring Session support] is built on
-`SpringRemoteCacheManager` and `SpringEmbeddedCacheManager`. Those beans are produced by this starter by default.
-In order to use Spring Session in your project you will need to:
+`SpringRemoteCacheManager` and `SpringEmbeddedCacheManager`. This starter produces those beans by default.
 
-* Add this starter to your project.
-* Add Spring Session to the classpath.
-* Add `@EnableCaching` and `@EnableInfinispanRemoteHttpSession` or `@EnableInfinispanEmbeddedHttpSession` to your configuration.
+To use Spring Session in your project, do the following:
 
-## Example Project
+. Add this starter to your project.
+. Add Spring Session to the classpath.
+. Add the following annotations to your configuration:
+- `@EnableCaching`
+- `@EnableInfinispanRemoteHttpSession`
+- `@EnableInfinispanEmbeddedHttpSession`
 
-Please take a look at the https://github.com/infinispan/infinispan-simple-tutorials/tree/master/spring-boot[Infinispan Simple Tutorials].
+=== Configuration Properties
+
+Include the following properties in the `application.properties` or `application.yml` file to configure your project:
+
+[source,yaml,options="nowrap"]
+----
+infinispan.remote.clientProperties = # Specifies a custom filename for Hot Rod client properties.
+infinispan.remote.enabled = # Enables Infinispan capabilities in your application. The value is true (default) or false.
+infinispan.remote.serverList = # Defines a comma-separated list of Infinispan servers in this format: `host1[:port],host2[:port]`.
+infinispan.remote.socketTimeout = # Sets a timeout value, in milliseconds, for socket connections.
+infinispan.remote.connectTimeout = # Sets a timeout value for initializing connections with Infinispan servers.
+infinispan.remote.maxRetries = # Sets the maximum number of attempts to connect to Infinispan servers.
+----
+
+You can also set application parameters covered in the link:http://infinispan.org/docs/stable/user_guide/user_guide.html#configuration_11[Infinispan documentation].
+
+== Spring Boot Tutorials
+
+Now that you have an Infinispan project set up with this Spring Boot Starter, take a look at the https://github.com/infinispan/infinispan-simple-tutorials/tree/master/spring-boot[Infinispan Simple Tutorials for Spring Boot].
