@@ -7,19 +7,23 @@ public class InfinispanEmbeddedConfigurationProperties {
     public static final String DEFAULT_CLUSTER_NAME = "default-autoconfigure";
 
     /**
-     * Enable embedded cache.
+     * Enable Infinispan support.
      */
     private boolean enabled = true;
 
     /**
-     * The configuration file to use as a template for all caches created.
+     * Specify an XML configuration file to use as a template
+     * when creating caches.
      */
     private String configXml = "";
 
+    /**
+     * Specify a Spring state machine ID.
+     */
     private String machineId = "";
 
     /**
-     * The name of the cluster.
+     * Specify the name of the Infinispan cluster.
      */
     private String clusterName = DEFAULT_CLUSTER_NAME;
 

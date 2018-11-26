@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <name>Infinispan Spring Boot Starter Parent</name>
-    <description>Infinispan Spring Boot Starter parent POM </description>
+    <description>Infinispan Spring Boot Starter parent POM</description>
     <url>https://github.com/infinispan/infinispan-spring-boot</url>
 
     <licenses>
@@ -66,8 +66,7 @@
     <dependencyManagement>
         <dependencies>
             <!--
-            Infinispan BOM should be defined before Spring Boot BOM.
-            This enables Infinispan dependencies to be picked instead of Infinispan dependencies in Spring Boot.
+            Define the Infinispan BOM module before the Spring Boot dependencies. This enables Infinispan dependencies from Infinispan instead of Spring Boot.
             -->
             <dependency>
                 <groupId>org.infinispan</groupId>
