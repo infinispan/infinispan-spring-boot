@@ -42,7 +42,7 @@ If you wish to use different Infinispan version than provided by this starter, p
        <dependency>
            <groupId>org.infinispan</groupId>
            <artifactId>infinispan-bom</artifactId>
-           <version>{version.infinispan}</version>
+           <version>${version.infinispan}</version>
            <type>pom</type>
            <scope>import</scope>
        </dependency>
@@ -256,7 +256,7 @@ https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache
 
 ### Spring Session support
 
-http://infinispan.org/docs/stable/user_guide/user_guide.html#externalizing_session_using_spring_session[Infinispan Spring Session support] is built on
+http://infinispan.org/docs/stable/user_guide/user_guide.html#spring_externalize_sessions[Infinispan Spring Session support] is built on
 `SpringRemoteCacheManager` and `SpringEmbeddedCacheManager`. Those beans are produced by this starter by default.
 In order to use Spring Session in your project you will need to:
 
