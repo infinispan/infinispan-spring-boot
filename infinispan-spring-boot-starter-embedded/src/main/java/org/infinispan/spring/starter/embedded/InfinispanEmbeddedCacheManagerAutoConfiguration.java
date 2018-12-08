@@ -1,7 +1,7 @@
 package org.infinispan.spring.starter.embedded;
 
 import org.infinispan.manager.EmbeddedCacheManager;
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
+import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -15,12 +15,12 @@ import org.springframework.context.annotation.Configuration;
 //Since a jar with configuration might be missing (which would result in TypeNotPresentExceptionProxy), we need to
 //use String based methods.
 //See https://github.com/spring-projects/spring-boot/issues/1733
-@ConditionalOnClass(name = "org.infinispan.spring.provider.SpringEmbeddedCacheManager")
+@ConditionalOnClass(name = "org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager")
 @ConditionalOnProperty(value = "infinispan.embedded.cache.enabled", havingValue = "true", matchIfMissing = true)
 public class InfinispanEmbeddedCacheManagerAutoConfiguration {
 
    @Bean
-   @ConditionalOnMissingBean(type = {"org.infinispan.spring.provider.SpringEmbeddedCacheManager", "org.infinispan.spring.provider.SpringEmbeddedCacheManagerFactoryBean"})
+   @ConditionalOnMissingBean(type = {"org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager", "org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManagerFactoryBean"})
    @ConditionalOnBean(type = "org.infinispan.manager.EmbeddedCacheManager")
    public SpringEmbeddedCacheManager springEmbeddedCacheManager(EmbeddedCacheManager embeddedCacheManager) {
       return new SpringEmbeddedCacheManager(embeddedCacheManager);

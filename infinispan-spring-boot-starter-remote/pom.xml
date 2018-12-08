@@ -45,7 +45,7 @@
 
     <dependency>
       <groupId>org.infinispan</groupId>
-      <artifactId>infinispan-spring4-remote</artifactId>
+      <artifactId>infinispan-spring5-remote</artifactId>
     </dependency>
 
     <dependency>

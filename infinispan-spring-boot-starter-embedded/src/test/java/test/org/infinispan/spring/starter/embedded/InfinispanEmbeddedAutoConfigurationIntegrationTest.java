@@ -6,7 +6,7 @@ import static org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfi
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.manager.EmbeddedCacheManager;
-import org.infinispan.spring.provider.SpringEmbeddedCacheManager;
+import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.junit.Test;
