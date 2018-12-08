@@ -23,7 +23,7 @@ Use docker or download and run the http://infinispan.org/download/[Infinispan Se
 [source,bash]
 .Docker
 ----
-docker run -it -p 11222:11222 jboss/infinispan-server:9.4.1.Final
+docker run -it -p 11222:11222 jboss/infinispan-server:9.4.4.Final
 ----
 
 [source,bash]

@@ -3,7 +3,7 @@ package test.org.infinispan.spring.starter.remote;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
-import org.infinispan.spring.provider.SpringRemoteCacheManager;
+import org.infinispan.spring.remote.provider.SpringRemoteCacheManager;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.junit.Test;
