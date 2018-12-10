@@ -26,31 +26,43 @@ public class InfinispanCacheMeterBinder extends CacheMeterBinder {
 
    @Override
    protected Long size() {
+      if (cache == null) return 0L;
+
       return cache.getAdvancedCache().getStats().getTotalNumberOfEntries();
    }
 
    @Override
    protected long hitCount() {
+      if (cache == null) return 0L;
+
       return cache.getAdvancedCache().getStats().getHits();
    }
 
    @Override
    protected Long missCount() {
+      if (cache == null) return 0L;
+
       return cache.getAdvancedCache().getStats().getMisses();
    }
 
    @Override
    protected Long evictionCount() {
+      if (cache == null) return 0L;
+
       return cache.getAdvancedCache().getStats().getEvictions();
    }
 
    @Override
    protected long putCount() {
+      if (cache == null) return 0L;
+
       return cache.getAdvancedCache().getStats().getStores();
    }
 
    @Override
    protected void bindImplementationSpecificMetrics(MeterRegistry registry) {
+      if (cache == null) return;
+
       Gauge.builder("cache.start", cache, cache -> cache.getAdvancedCache().getStats().getTimeSinceStart())
             .baseUnit(TimeUnit.SECONDS.name())
             .tags(getTagsWithCacheName())

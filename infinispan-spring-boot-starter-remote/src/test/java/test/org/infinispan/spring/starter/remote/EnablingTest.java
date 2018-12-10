@@ -22,17 +22,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
       properties = {
             "spring.main.banner-mode=off",
             "infinispan.remote.client-properties=test-hotrod-client.properties",
-            "infinispan.remote.enabled=false"
+            "infinispan.remote.enabled=true"
       }
 )
-public class DisablingTest {
+public class EnablingTest {
 
    @Autowired
    private ListableBeanFactory beanFactory;
 
    @Test
    public void testDefaultClient() {
-      assertThat(beanFactory.containsBeanDefinition(InfinispanRemoteAutoConfiguration.REMOTE_CACHE_MANAGER_BEAN_QUALIFIER)).isFalse();
-      assertThat(beanFactory.containsBeanDefinition(RemoteInfinispanCacheMeterBinderProvider.NAME)).isFalse();
+      assertThat(beanFactory.containsBeanDefinition(InfinispanRemoteAutoConfiguration.REMOTE_CACHE_MANAGER_BEAN_QUALIFIER)).isTrue();
+      assertThat(beanFactory.containsBeanDefinition(RemoteInfinispanCacheMeterBinderProvider.NAME)).isTrue();
    }
 }

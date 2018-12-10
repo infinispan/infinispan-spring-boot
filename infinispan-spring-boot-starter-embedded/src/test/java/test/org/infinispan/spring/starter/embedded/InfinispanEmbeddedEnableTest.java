@@ -23,18 +23,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     },
     properties = {
         "spring.main.banner-mode=off",
-        "infinispan.embedded.enabled=false",
+        "infinispan.embedded.enabled=true",
         "infinispan.embedded.caching.enabled=true"
     }
 )
-public class InfinispanEmbeddedDisableTest {
+public class InfinispanEmbeddedEnableTest {
 
    @Autowired
    private ListableBeanFactory beanFactory;
 
    @Test
    public void testDefaultClient() {
-      assertThat(beanFactory.containsBeanDefinition(DEFAULT_CACHE_MANAGER_QUALIFIER)).isFalse();
-      assertThat(beanFactory.containsBeanDefinition(InfinispanCacheMeterBinderProvider.NAME)).isFalse();
+      assertThat(beanFactory.containsBeanDefinition(DEFAULT_CACHE_MANAGER_QUALIFIER)).isTrue();
+      assertThat(beanFactory.containsBeanDefinition(InfinispanCacheMeterBinderProvider.NAME)).isTrue();
    }
 }

@@ -24,6 +24,8 @@ public class RemoteInfinispanCacheMeterBinder extends CacheMeterBinder {
 
    @Override
    protected Long size() {
+      if (cache == null) return 0L;
+
       /**
        * TODO implement this. Which is the equivalent to
        * {@code cache.getAdvancedCache().getStats().getTotalNumberOfEntries();}
@@ -33,26 +35,35 @@ public class RemoteInfinispanCacheMeterBinder extends CacheMeterBinder {
 
    @Override
    protected long hitCount() {
+      if (cache == null) return 0L;
+
       return cache.clientStatistics().getRemoteHits();
    }
 
    @Override
    protected Long missCount() {
+      if (cache == null) return 0L;
+
       return cache.clientStatistics().getRemoteMisses();
    }
 
    @Override
    protected Long evictionCount() {
+      if (cache == null) return 0L;
+
       return cache.clientStatistics().getRemoteRemoves();
    }
 
    @Override
    protected long putCount() {
+      if (cache == null) return 0L;
+
       return cache.clientStatistics().getRemoteStores();
    }
 
    @Override
    protected void bindImplementationSpecificMetrics(MeterRegistry registry) {
+      if (cache == null) return;
 
       Gauge.builder("cache.reset", cache, cache -> cache.clientStatistics().getTimeSinceReset())
             .tags(getTagsWithCacheName()).tag("ownership", "backup")
