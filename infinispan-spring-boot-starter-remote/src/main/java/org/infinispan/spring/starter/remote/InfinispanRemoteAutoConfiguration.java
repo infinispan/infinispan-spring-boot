@@ -10,6 +10,7 @@ import java.util.Properties;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheType;
@@ -41,6 +42,9 @@ import org.springframework.util.StringUtils;
 @ConditionalOnProperty(value = "infinispan.remote.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(InfinispanRemoteConfigurationProperties.class)
 public class InfinispanRemoteAutoConfiguration {
+
+   public static final String REMOTE_CACHE_MANAGER_BEAN_QUALIFIER = "remoteCacheManager";
+
    @Autowired
    private InfinispanRemoteConfigurationProperties infinispanProperties;
 
@@ -59,6 +63,7 @@ public class InfinispanRemoteAutoConfiguration {
    @Bean
    @Conditional({ConditionalOnCacheType.class, ConditionalOnConfiguration.class})
    @ConditionalOnMissingBean
+   @Qualifier(REMOTE_CACHE_MANAGER_BEAN_QUALIFIER)
    public RemoteCacheManager remoteCacheManager() throws IOException {
 
       boolean hasHotRodPropertiesFile = ctx.getResource(infinispanProperties.getClientProperties()).exists();
