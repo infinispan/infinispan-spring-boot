@@ -13,6 +13,10 @@
     <version>2.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>Infinispan Spring Boot Starter Parent</name>
+    <description>Infinispan Spring Boot Starter parent POM</description>
+    <url>https://github.com/infinispan/infinispan-spring-boot</url>
+
     <licenses>
       <license>
         <name>Apache License, Version 2.0</name>
@@ -20,6 +24,18 @@
         <distribution>repo</distribution>
       </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <id>placeholder</id>
+            <name>See https://github.com/infinispan/infinispan-spring-boot for a complete list of contributors</name>
+        </developer>
+    </developers>
+
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://ci.infinispan.org</url>
+    </ciManagement>
 
     <issueManagement>
         <system>jira</system>
@@ -44,67 +60,54 @@
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>
         <jboss.releases.nexus.url>https://repository.jboss.org/nexus</jboss.releases.nexus.url>
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
+        <jboss.releases.repo.url>${jboss.releases.nexus.url}/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <version.checkstyle>8.1</version.checkstyle>
         <version.checkstyle.maven-plugin>2.17</version.checkstyle.maven-plugin>
-
     </properties>
+
+    <profiles>
+        <profile>
+            <!-- nexus-staging-maven-plugin blocks maven-deploy-plugin -->
+            <id>nexus-staging</id>
+            <activation>
+                <property><name>!skipNexusStaging</name></property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
             <!--
-            Infinispan BOM should be defined before Spring Boot BOM.
-            This enables Infinispan dependencies to be picked instead of Infinispan dependencies in Spring Boot.
+            Define the Infinispan BOM module before the Spring Boot dependencies. This enables Infinispan dependencies from Infinispan instead of Spring Boot.
             -->
             <dependency>
                 <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-commons</artifactId>
+                <artifactId>infinispan-bom</artifactId>
                 <version>${infinispan.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-core</artifactId>
-                <version>${infinispan.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-spring5-embedded</artifactId>
-                <version>${infinispan.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-query-dsl</artifactId>
-                <version>${infinispan.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-spring5-remote</artifactId>
-                <version>${infinispan.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-client-hotrod</artifactId>
-                <version>${infinispan.version}</version>
-            </dependency>
-
-            <dependency>
+           <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
@@ -163,19 +166,13 @@
                         <linkXRef>false</linkXRef>
                     </configuration>
                 </plugin>
-            </plugins>
-
+        </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <extensions>true</extensions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
