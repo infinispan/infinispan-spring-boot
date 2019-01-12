@@ -12,7 +12,7 @@
     <artifactId>infinispan-spring-boot-sample-remote</artifactId>
     <name>Infinispan Simple Tutorials: Spring Boot Remote</name>
     <properties>
-        <spring-boot.version>2.1.1.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
         <infinispan.version>9.4.1.Final</infinispan.version>
     </properties>
 
