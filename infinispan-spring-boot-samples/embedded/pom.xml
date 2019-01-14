@@ -14,7 +14,7 @@
     <properties>
         <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
         <infinispan.version>9.4.4.Final</infinispan.version>
-        <micrometer.version>1.1.0</micrometer.version>
+        <micrometer.version>1.1.2</micrometer.version>
     </properties>
 
     <dependencies>
