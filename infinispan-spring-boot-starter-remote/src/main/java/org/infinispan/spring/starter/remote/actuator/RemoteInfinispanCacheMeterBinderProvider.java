@@ -14,7 +14,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 /**
  * When actuate dependency is found in the classpath, this component links Infinispan cache metrics with Actuator
  *
- * @author Katia Aresti, karesti@redtat.com
+ * @author Katia Aresti, karesti@redhat.com
  * @since 2.1
  */
 @Component
@@ -23,12 +23,12 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 @ConditionalOnProperty(value = "infinispan.remote.enabled", havingValue = "true", matchIfMissing = true)
 public class RemoteInfinispanCacheMeterBinderProvider implements CacheMeterBinderProvider<Cache> {
 
-   public static final String NAME ="remoteInfinispanCacheMeterBinderProvider";
+   public static final String NAME = "remoteInfinispanCacheMeterBinderProvider";
 
    @Override
    public MeterBinder getMeterBinder(Cache cache, Iterable<Tag> tags) {
 
-      if(cache.getNativeCache() instanceof RemoteCache) {
+      if (cache.getNativeCache() instanceof RemoteCache) {
          return new RemoteInfinispanCacheMeterBinder((RemoteCache) cache.getNativeCache(), tags);
       } else {
          return new RemoteInfinispanCacheMeterBinder(null, tags);
