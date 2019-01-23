@@ -7,18 +7,21 @@ import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.infinispan.spring.starter.embedded.actuator.InfinispanCacheMeterBinder;
-import org.junit.AfterClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinder;
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinderCompatibilityKit;
 
+@ExtendWith(SpringExtension.class)
 public class InfinispanCacheMetricBinderTest extends CacheMeterBinderCompatibilityKit {
 
-   private EmbeddedCacheManager cacheManager;
+   private static EmbeddedCacheManager cacheManager;
    private Cache<String, String> cache;
 
-   @AfterClass
-   void cleanup() {
+   @AfterAll
+   public static void cleanup() {
       cacheManager.stop();
    }
 

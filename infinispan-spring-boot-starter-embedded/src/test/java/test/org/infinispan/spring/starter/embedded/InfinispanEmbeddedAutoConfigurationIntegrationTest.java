@@ -9,15 +9,13 @@ import org.infinispan.manager.EmbeddedCacheManager;
 import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@DirtiesContext
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(
     classes = {
         InfinispanEmbeddedAutoConfiguration.class,
@@ -34,11 +32,6 @@ public class InfinispanEmbeddedAutoConfigurationIntegrationTest {
 
    @Autowired
    SpringEmbeddedCacheManager springEmbeddedCacheManager;
-
-   @Test
-   public void contextLoads() {
-
-   }
 
    @Test
    public void testAutowired() {
