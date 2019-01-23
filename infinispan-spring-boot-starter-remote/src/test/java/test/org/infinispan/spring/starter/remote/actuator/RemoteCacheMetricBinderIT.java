@@ -6,19 +6,17 @@ import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ClientIntelligence;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
-import org.infinispan.spring.starter.remote.actuator.RemoteInfinispanCacheMeterBinder;
+import org.infinispan.spring.common.provider.SpringCache;
+import org.infinispan.spring.starter.remote.actuator.RemoteInfinispanCacheMeterBinderProvider;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinder;
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinderCompatibilityKit;
 
-// TODO: start infinispan server to build this remote test. Look at hotrod tests
 @ExtendWith(SpringExtension.class)
-@Disabled
-public class RemoteCacheMetricBinderTest extends CacheMeterBinderCompatibilityKit {
+public class RemoteCacheMetricBinderIT extends CacheMeterBinderCompatibilityKit {
 
    private static RemoteCacheManager cacheManager;
    private RemoteCache<String, String> cache;
@@ -34,7 +32,8 @@ public class RemoteCacheMetricBinderTest extends CacheMeterBinderCompatibilityKi
             .clientIntelligence(ClientIntelligence.BASIC)
             .statistics().enable().build());
       cache = cacheManager.administration().getOrCreateCache("mycache", "default");
-      return new RemoteInfinispanCacheMeterBinder(cache, emptyList());
+      RemoteInfinispanCacheMeterBinderProvider remoteInfinispanCacheMeterBinderProvider = new RemoteInfinispanCacheMeterBinderProvider();
+      return (CacheMeterBinder) remoteInfinispanCacheMeterBinderProvider.getMeterBinder(new SpringCache(cache), emptyList());
    }
 
    @Override
