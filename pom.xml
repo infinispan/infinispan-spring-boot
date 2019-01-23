@@ -56,7 +56,8 @@
 
         <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
         <infinispan.version>9.4.5.Final</infinispan.version>
-        <assertj.version>3.8.0</assertj.version>
+        <assertj.version>3.11.1</assertj.version>
+        <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>
         <jboss.releases.nexus.url>https://repository.jboss.org/nexus</jboss.releases.nexus.url>
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
@@ -107,6 +108,16 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.jupiter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.puppycrawl.tools</groupId>
@@ -186,6 +197,16 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
             </plugin>
         </plugins>
     </build>
