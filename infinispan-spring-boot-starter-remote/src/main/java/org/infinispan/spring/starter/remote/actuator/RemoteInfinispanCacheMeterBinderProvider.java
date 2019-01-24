@@ -28,7 +28,7 @@ public class RemoteInfinispanCacheMeterBinderProvider implements CacheMeterBinde
    @Override
    public MeterBinder getMeterBinder(Cache cache, Iterable<Tag> tags) {
 
-      if(cache instanceof RemoteCache) {
+      if(cache.getNativeCache() instanceof RemoteCache) {
          return new RemoteInfinispanCacheMeterBinder((RemoteCache) cache.getNativeCache(), tags);
       } else {
          return new RemoteInfinispanCacheMeterBinder(null, tags);
