@@ -55,7 +55,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
-        <infinispan.version>9.4.5.Final</infinispan.version>
+        <infinispan.version>9.4.6.Final</infinispan.version>
         <assertj.version>3.11.1</assertj.version>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>

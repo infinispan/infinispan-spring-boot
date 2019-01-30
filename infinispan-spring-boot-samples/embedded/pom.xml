@@ -11,11 +11,6 @@
 
     <artifactId>infinispan-spring-boot-sample-embedded</artifactId>
     <name>Infinispan Simple Tutorials: Spring Boot Embedded</name>
-    <properties>
-        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
-        <infinispan.version>9.4.5.Final</infinispan.version>
-        <micrometer.version>1.1.2</micrometer.version>
-    </properties>
 
     <dependencies>
         <dependency>
