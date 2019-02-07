@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>21</version>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-build-configuration-parent</artifactId>
+        <version>9.4.6.Final</version>
     </parent>
 
     <groupId>org.infinispan</groupId>
@@ -64,25 +64,6 @@
         <version.checkstyle>8.1</version.checkstyle>
         <version.checkstyle.maven-plugin>2.17</version.checkstyle.maven-plugin>
     </properties>
-
-    <profiles>
-        <profile>
-            <!-- nexus-staging-maven-plugin blocks maven-deploy-plugin -->
-            <id>nexus-staging</id>
-            <activation>
-                <property><name>!skipNexusStaging</name></property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <dependencyManagement>
         <dependencies>
