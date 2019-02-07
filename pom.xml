@@ -116,7 +116,7 @@
                         <stagingDescription>${infinispan-springboot.brand.name} ${project.version} release</stagingDescription>
                         <nexusUrl>${jboss.releases.nexus.url}</nexusUrl>
                         <serverId>${jboss.releases.repo.id}</serverId>
-                        <stagingProfileId>2161b7b8da0080</stagingProfileId>
+                        <stagingProfileId>infinispan-nexus-release</stagingProfileId>
                         <stagingRepositoryId>${stagingRepositoryId}</stagingRepositoryId>
                     </configuration>
                 </plugin>
