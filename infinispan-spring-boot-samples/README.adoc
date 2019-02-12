@@ -14,7 +14,7 @@ Invoke `mvn clean install` for the embedded or the remote example
 
 === Embedded
 
-`mvn spring:boot run`
+`mvn spring-boot:run`
 
 === Remote
 
@@ -32,6 +32,8 @@ docker run -it -p 11222:11222 jboss/infinispan-server:9.4.5.Final
 cd UNZIP_SERVER_PATH/bin/
 ./standalone.sh
 ----
+
+`mvn spring-boot:run`
 
 == Display actuator stats
 
