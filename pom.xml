@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jboss</groupId>
-        <artifactId>jboss-parent</artifactId>
-        <version>21</version>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-build-configuration-parent</artifactId>
+        <version>9.4.8.Final</version>
     </parent>
 
     <groupId>org.infinispan</groupId>
@@ -54,18 +54,16 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
-        <infinispan.version>9.4.6.Final</infinispan.version>
+        <spring-boot.version>2.1.3.RELEASE</spring-boot.version>
+        <infinispan.version>9.4.8.Final</infinispan.version>
         <assertj.version>3.11.1</assertj.version>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>
         <jboss.releases.nexus.url>https://repository.jboss.org/nexus</jboss.releases.nexus.url>
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
         <jboss.releases.repo.url>${jboss.releases.nexus.url}/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
-        <version.checkstyle>8.1</version.checkstyle>
-        <version.checkstyle.maven-plugin>2.17</version.checkstyle.maven-plugin>
-        <version.maven.failsafe>2.22.0</version.maven.failsafe>
-        <version.maven.surefire>2.22.0</version.maven.surefire>
+        <version.maven.failsafe>3.0.0-M3</version.maven.failsafe>
+        <version.maven.wildfly-plugin>2.0.1.Final</version.maven.wildfly-plugin>
     </properties>
 
     <profiles>
@@ -182,11 +180,6 @@
         </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
