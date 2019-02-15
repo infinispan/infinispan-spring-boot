@@ -23,7 +23,7 @@ Use docker or download and run the http://infinispan.org/download/[Infinispan Se
 [source,bash]
 .Docker
 ----
-docker run -it -p 11222:11222 jboss/infinispan-server:9.4.5.Final
+docker run -it -p 11222:11222 jboss/infinispan-server:latest
 ----
 
 [source,bash]
@@ -43,11 +43,20 @@ Cache metrics are prefixed by *"cache."*
 http://localhost:8080/actuator/metrics
 
 Display each metric for each cache using tags. For example for the 'puts' stats in the basque-names cache:
+
 http://localhost:8080/actuator/metrics/cache.puts?tag=name:basque-names
 
 
 == Run Prometheus
 
-For docker for mac or windows, execute `run-prometheus.sh`.
-The `prometheus.yml` file contains the _host.docker.internal_ binding that will allow prometheus scrap the metrics exposed by spring actuator.
+The `prometheus.yml` file contains the _host.docker.internal_ binding that will allow prometheus scrap the metrics
+exposed by spring actuator.
+
+Change the `YOUR_PATH` value to the folder you are running prometheus from.
+
+[source,bash]
+.Docker
+----
+docker run -d --name=prometheus -p 9090:9090 -v YOUR_PATH/infinispan-spring-boot/infinispan-spring-boot-samples/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus --config.file=/etc/prometheus/prometheus.yml
+----
 
