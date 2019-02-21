@@ -21,9 +21,14 @@ public class BasqueName implements Serializable {
       return this.name;
    }
 
+
    @Override
    public boolean equals(Object o) {
-      return Objects.deepEquals(o, this);
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      BasqueName that = (BasqueName) o;
+      return id == that.id &&
+            Objects.equals(name, that.name);
    }
 
    @Override
@@ -31,4 +36,11 @@ public class BasqueName implements Serializable {
       return Objects.hash(id, name);
    }
 
+   @Override
+   public String toString() {
+      return "BasqueName{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            '}';
+   }
 }

@@ -128,6 +128,12 @@ public class ApplicationPropertiesTest {
       assertThat(configuration.clusters()).hasSize(1);
       ClusterConfiguration site = configuration.clusters().get(0);
       assertThat(site.getCluster()).extracting("host", "port").containsExactly(tuple("hostOi1", 21222), tuple("hostOi2", 21223));
+
+      // statistics
+      assertThat(configuration.statistics().enabled()).isTrue();
+      assertThat(configuration.statistics().jmxEnabled()).isTrue();
+      assertThat(configuration.statistics().jmxName()).isEqualTo("oiJmx");
+      assertThat(configuration.statistics().jmxDomain()).isEqualTo("oiJmxDom");
    }
 
 }
