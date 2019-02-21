@@ -132,5 +132,11 @@ public class CustomPropertiesTest {
       assertThat(siteB.getClusterName()).isEqualTo("siteB");
       assertThat(siteA.getCluster()).extracting("host", "port").containsExactly(tuple("hostA1", 11222), tuple("hostA2", 11223));
       assertThat(siteB.getCluster()).extracting("host", "port").containsExactly(tuple("hostB1", 11224), tuple("hostB2", 11225));
+
+      // statistics
+      assertThat(configuration.statistics().enabled()).isTrue();
+      assertThat(configuration.statistics().jmxEnabled()).isTrue();
+      assertThat(configuration.statistics().jmxName()).isEqualTo("elaJmx");
+      assertThat(configuration.statistics().jmxDomain()).isEqualTo("elaJmxDom");
    }
 }
