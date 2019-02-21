@@ -203,6 +203,22 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${version.maven.failsafe}</version>
             </plugin>
+            <!-- Make sure we generate src jars too -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <inherited>true</inherited>
+            </plugin>
         </plugins>
     </build>
 
