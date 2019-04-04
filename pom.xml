@@ -56,14 +56,14 @@
 
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
         <infinispan.version>9.4.11.Final</infinispan.version>
-        <assertj.version>3.11.1</assertj.version>
+        <assertj.version>3.12.1</assertj.version>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
+        <testcontainers.version>1.11.1</testcontainers.version>
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>
         <jboss.releases.nexus.url>https://repository.jboss.org/nexus</jboss.releases.nexus.url>
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
         <jboss.releases.repo.url>${jboss.releases.nexus.url}/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <version.maven.failsafe>3.0.0-M3</version.maven.failsafe>
-        <version.maven.wildfly-plugin>2.0.1.Final</version.maven.wildfly-plugin>
     </properties>
 
     <profiles>
@@ -124,6 +124,16 @@
                 <artifactId>checkstyle</artifactId>
                 <version>${version.checkstyle}</version>
             </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -136,6 +146,10 @@
                     <configuration>
                         <tag>${project.version}</tag>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.maven.source}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
