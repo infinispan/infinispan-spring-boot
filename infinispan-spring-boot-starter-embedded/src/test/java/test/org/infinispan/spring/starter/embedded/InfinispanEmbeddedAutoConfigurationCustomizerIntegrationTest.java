@@ -12,25 +12,20 @@ import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguratio
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurationCustomizer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@DirtiesContext
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(
-   classes = {
-      InfinispanEmbeddedAutoConfiguration.class,
-      InfinispanEmbeddedCacheManagerAutoConfiguration.class,
-      InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest.TestConfiguration.class
-   },
-   properties = {
-      "spring.main.banner-mode=off"
-   }
+      classes = {
+            InfinispanEmbeddedAutoConfiguration.class,
+            InfinispanEmbeddedCacheManagerAutoConfiguration.class,
+            InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest.TestConfiguration.class
+      },
+      properties = {
+            "spring.main.banner-mode=off"
+      }
 )
 public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
    private static final String CLUSTER_NAME = UUID.randomUUID().toString();
@@ -53,10 +48,10 @@ public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
       @Bean(name = "small-cache")
       public org.infinispan.configuration.cache.Configuration smallCache() {
          return new ConfigurationBuilder()
-             .simpleCache(true)
-             .memory().size(1000L)
-             .memory().evictionType(EvictionType.COUNT)
-             .build();
+               .simpleCache(true)
+               .memory().size(1000L)
+               .memory().evictionType(EvictionType.COUNT)
+               .build();
       }
 
       @Bean

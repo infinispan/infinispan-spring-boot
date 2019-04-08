@@ -13,14 +13,11 @@ import org.infinispan.manager.EmbeddedCacheManager;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import test.org.infinispan.spring.starter.embedded.testconfiguration.InfinispanCacheTestConfiguration;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(
       classes = {
             InfinispanEmbeddedAutoConfiguration.class,

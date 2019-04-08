@@ -10,20 +10,17 @@ import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(
-    classes = {
-        InfinispanEmbeddedAutoConfiguration.class,
-        InfinispanEmbeddedCacheManagerAutoConfiguration.class
-    },
-    properties = {
-        "spring.main.banner-mode=off"
-    }
+      classes = {
+            InfinispanEmbeddedAutoConfiguration.class,
+            InfinispanEmbeddedCacheManagerAutoConfiguration.class
+      },
+      properties = {
+            "spring.main.banner-mode=off"
+      }
 )
 public class InfinispanEmbeddedAutoConfigurationIntegrationTest {
 

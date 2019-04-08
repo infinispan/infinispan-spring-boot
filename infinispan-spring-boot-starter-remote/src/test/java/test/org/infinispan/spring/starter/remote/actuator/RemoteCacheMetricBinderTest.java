@@ -8,8 +8,6 @@ import org.infinispan.spring.common.provider.SpringCache;
 import org.infinispan.spring.starter.remote.actuator.RemoteInfinispanCacheMeterBinderProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -17,7 +15,6 @@ import io.micrometer.core.instrument.binder.cache.CacheMeterBinder;
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinderCompatibilityKit;
 import test.org.infinispan.spring.starter.remote.container.InfinispanContainer;
 
-@ExtendWith(SpringExtension.class)
 @Testcontainers
 public class RemoteCacheMetricBinderTest extends CacheMeterBinderCompatibilityKit {
    @Container
@@ -28,7 +25,6 @@ public class RemoteCacheMetricBinderTest extends CacheMeterBinderCompatibilityKi
 
    @AfterAll
    public static void cleanup() {
-      cacheManager.stop();
       INFINISPAN_SERVER.stop();
    }
 
