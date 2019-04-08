@@ -7,16 +7,13 @@ import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheCustomizer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(
       classes = {
             CustomConfigurationTest.TestConfiguration.class,

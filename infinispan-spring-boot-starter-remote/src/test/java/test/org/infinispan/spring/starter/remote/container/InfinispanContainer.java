@@ -1,6 +1,5 @@
 package test.org.infinispan.spring.starter.remote.container;
 
-
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ClientIntelligence;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
@@ -8,8 +7,7 @@ import org.testcontainers.containers.GenericContainer;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
 
-@SuppressWarnings("unchecked")
-public class InfinispanContainer extends GenericContainer {
+public class InfinispanContainer extends GenericContainer<InfinispanContainer> {
 
    private String cacheName;
    private RemoteCacheManager cacheManager;
@@ -42,7 +40,9 @@ public class InfinispanContainer extends GenericContainer {
             .statistics().jmxEnable();
 
       cacheManager = new RemoteCacheManager(configBuilder.build());
-      getCacheManager().administration().createCache(cacheName, "default");
+      if (cacheName != null) {
+         getCacheManager().administration().createCache(cacheName, "default");
+      }
    }
 
    @Override
