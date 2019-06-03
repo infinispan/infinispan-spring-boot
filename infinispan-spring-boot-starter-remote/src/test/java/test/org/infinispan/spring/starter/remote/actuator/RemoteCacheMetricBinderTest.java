@@ -3,42 +3,43 @@ package test.org.infinispan.spring.starter.remote.actuator;
 import static java.util.Collections.emptyList;
 
 import org.infinispan.client.hotrod.RemoteCache;
-import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.spring.common.provider.SpringCache;
 import org.infinispan.spring.starter.remote.actuator.RemoteInfinispanCacheMeterBinderProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.junit.jupiter.api.BeforeAll;
 
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinder;
 import io.micrometer.core.instrument.binder.cache.CacheMeterBinderCompatibilityKit;
-import test.org.infinispan.spring.starter.remote.container.InfinispanContainer;
+import test.org.infinispan.spring.starter.remote.extension.InfinispanServerExtension;
 
-@Testcontainers
 public class RemoteCacheMetricBinderTest extends CacheMeterBinderCompatibilityKit {
-   @Container
-   private final static InfinispanContainer INFINISPAN_SERVER = new InfinispanContainer().withCache("mycache");
+   private static InfinispanServerExtension infinispanServerExtension = InfinispanServerExtension.builder()
+         .withCaches("mycache").build();
 
-   private static RemoteCacheManager cacheManager;
    private RemoteCache<String, String> cache;
-
-   @AfterAll
-   public static void cleanup() {
-      INFINISPAN_SERVER.stop();
-   }
 
    @AfterEach
    public void cleanCache() {
       cache.clientStatistics().resetStatistics();
    }
 
+   @BeforeAll
+   public static void start() {
+      infinispanServerExtension.start();
+   }
+
+   @AfterAll
+   public static void stop() {
+      infinispanServerExtension.stop();
+   }
+
    @Override
    public CacheMeterBinder binder() {
-      cacheManager = INFINISPAN_SERVER.getCacheManager();
-      cache = cacheManager.getCache("mycache");
+      cache = infinispanServerExtension.hotRodClient().getCache("mycache");
       RemoteInfinispanCacheMeterBinderProvider remoteInfinispanCacheMeterBinderProvider = new RemoteInfinispanCacheMeterBinderProvider();
-      return (CacheMeterBinder) remoteInfinispanCacheMeterBinderProvider.getMeterBinder(new SpringCache(cache), emptyList());
+      return (CacheMeterBinder) remoteInfinispanCacheMeterBinderProvider
+            .getMeterBinder(new SpringCache(cache), emptyList());
    }
 
    @Override
