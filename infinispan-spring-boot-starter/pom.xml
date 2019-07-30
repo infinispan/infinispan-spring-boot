@@ -8,6 +8,7 @@
         <version>2.1.8-SNAPSHOT</version>
     </parent>
 
+    <name>Infinispan Spring Boot Starter Integration Test</name>
     <artifactId>infinispan-spring-boot-starter</artifactId>
 
     <dependencies>
