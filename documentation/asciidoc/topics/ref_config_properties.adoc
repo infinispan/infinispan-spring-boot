@@ -1,0 +1,8 @@
+= Application Properties
+
+Configure your project with `application.properties` or `application.yaml`.
+
+[source,text,options="nowrap"]
+----
+include::config_examples/application.properties[]
+----

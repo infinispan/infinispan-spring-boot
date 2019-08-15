@@ -1,0 +1,6 @@
+The {brandname} starter provides a set of managed transitive dependencies that include everything your Spring Boot project needs to seamlessly interact with {brandname}.
+
+[TIP]
+====
+The {brandname} Spring Boot starter gives you a convenient way to get started with Spring Boot but is optional. To use {brandname} with Spring Boot you can simply add the dependencies you want.
+====

@@ -1,0 +1,11 @@
+//Community attributes
+:toc2:
+:icons: font
+:toclevels: 3
+:numbered:
+include::../topics/attributes/community-attributes.adoc[]
+
+[id='sb_starter']
+= {brandname} Spring Boot Starter
+
+include::stories.adoc[]

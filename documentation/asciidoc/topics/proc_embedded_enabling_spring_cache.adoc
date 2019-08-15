@@ -1,0 +1,6 @@
+= Enabling Spring Cache Support
+
+Add the `@EnableCaching` annotation to your application to enable Spring Cache support.
+
+When this starter detects the `EmbeddedCacheManager` bean, it instantiates a new `SpringEmbeddedCacheManager`, which provides an implementation of
+https://docs.spring.io/spring/docs/current/spring-framework-reference/html/cache.html[Spring Cache].

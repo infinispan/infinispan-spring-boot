@@ -1,0 +1,26 @@
+= Setting Up the RemoteCacheManager
+
+. Provide the location for the {brandname} server so the starter can create the `RemoteCacheManager` bean.
++
+This starter first attempts to locate the server from the `hotrod-client.properties` file on the classpath. If not found, the starter then attempts to locate the server from your `application.properties` file.
++
+* `hotrod-client.properties`:
++
+[source,text,options=nowrap]
+----
+include::config_examples/hotrod-client.properties[]
+----
++
+* `application.properties`:
++
+[source,text,options=nowrap]
+----
+include::config_examples/application.properties[]
+----
++
+. Use the Spring `@Autowired` annotation to include your own custom cache manager class in your application:
++
+[source,java,options="nowrap"]
+----
+include::code_examples/AutowiredRemoteCacheManager.java[]
+----
