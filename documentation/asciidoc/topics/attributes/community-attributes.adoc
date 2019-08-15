@@ -1,0 +1,9 @@
+//
+// Avoid symlinks in community.
+//
+:topics: ../topics
+:stories: ../stories
+
+:brandname: Infinispan
+:github_repo: git@github.com:infinispan/infinispan-spring-boot.git
+:sb_starter: ${version.infinispan.starter}

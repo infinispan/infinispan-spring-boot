@@ -1,0 +1,9 @@
+[id='sb_starter_intro']
+:context: starter_intro
+
+include::{topics}/con_sb_starter.adoc[leveloffset=+1]
+include::{topics}/proc_clone_repo.adoc[leveloffset=+1]
+
+// Restore the parent context.
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
