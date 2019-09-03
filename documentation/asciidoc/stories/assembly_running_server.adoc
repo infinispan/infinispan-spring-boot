@@ -1,6 +1,6 @@
 [id='sb_starter_server']
-= Running in Server Mode
 :context: starter_server
+= Running in Server Mode
 
 Store and retrieve data from remote {brandname} clusters using Hot Rod, a
 custom TCP binary wire protocol.
