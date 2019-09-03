@@ -1,0 +1,108 @@
+//
+// Attributes for building Red Hat Data Grid documentation.
+//
+
+//
+// Spring Boot attributes
+//
+:sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
+:sb_starter: 2.1.1.Final-redhat-00001
+
+//
+// Conditional statements
+//
+:productized:
+:server:
+:library:
+
+//
+// Directory attributes
+//
+:images_dir: images
+:stories: stories
+:topics: topics
+
+//
+// Product names and versions
+// These attributes should always be conditional for product only
+//
+:RedHat: Red Hat
+:portal: Red Hat customer portal
+
+:FullProductName: Red Hat Data Grid
+:ProductName: Data Grid
+:ProductShortName: RHDG
+:ProductVersion: 8.0
+
+:ProductRelease: 8.0
+:FullProductRelease: 8.0.0
+:FullProductVersion: 8.0.0
+:DocInfoProductNumber: 8.0
+:ProductPreviousVersion: 7.3
+:ProductNextVersion: 8.0
+:ProductPreviousRelease: 7
+:ProductPreviousPreviousRelease: 6
+
+//Doc Home
+:doc_home: https://access.redhat.com/documentation/en-us/red_hat_data_grid/
+
+//
+// Special characters
+//
+:plusplus: ++
+:underscores: ___
+
+//
+// Community attributes
+// In the main Infinispan repo, these attributes are defined in
+// documentation/pom.xml
+//
+:brandname: Data Grid
+:fullbrandname: Red Hat Data Grid
+:wildflybrandname: EAP
+
+:infinispanversion: 8.0
+:infinispancomponentversion: 10.0.0-SNAPSHOT
+
+:brandcli: cli
+:moduleprefix: jdg
+:infinispanslot: jdg-8.0
+
+:download_url: https://access.redhat.com/downloads
+:javadocroot: https://access.redhat.com/webassets/avalon/d/red-hat-data-grid/7.3/api
+:configdocroot: https://access.redhat.com/webassets/avalon/d/red-hat-data-grid/7.3/Configuration/
+:wildflydocroot: https://docs.jboss.org/author/display/WFLY11
+:jdkdocroot: https://docs.oracle.com/javase/8/docs/api
+:javaeedocroot: https://docs.oracle.com/javaee/7/api
+
+//
+// Server artifacts
+//
+:server_home: $RHDG_HOME
+:server_root: ${rhdg.server.root}
+:server_config: ${rhdg.server.configuration}
+:runtime_readme: https://github.com/infinispan/infinispan/blob/master/server/runtime/README.md
+
+//
+// Operator
+//
+:ispn_operator: Data Grid Operator
+:k8s: Kubernetes
+:okd: OKD
+
+//
+// OpenShift
+//
+:openshift: Red Hat OpenShift
+:openshiftshort: OpenShift
+:openshiftplatform: Red Hat OpenShift Container Platform
+:ocp: OpenShift Container Platform
+:osweb: OpenShift Web Console
+
+//
+// Product only OpenShift
+//
+:osproduct: Red Hat Data Grid for OpenShift
+:osproductshort: Data Grid for OpenShift
+:datagridservice: datagrid-service
+:cacheservice: cache-service
