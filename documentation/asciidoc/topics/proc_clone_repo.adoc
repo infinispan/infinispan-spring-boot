@@ -2,5 +2,5 @@ Getting the Code::
 +
 [source,options="nowrap",subs=attributes+]
 ----
-$ git clone {github_repo}
+$ git clone {sb_repo}
 ----
