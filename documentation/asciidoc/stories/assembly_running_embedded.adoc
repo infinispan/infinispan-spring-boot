@@ -1,6 +1,6 @@
 [id='sb_starter_embedded']
-= Running in Embedded Mode
 :context: starter_embedded
+= Running in Embedded Mode
 
 Embed the {brandname} library in your project for in-memory data storage.
 
