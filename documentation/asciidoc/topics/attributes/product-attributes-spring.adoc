@@ -1,5 +1,0 @@
-//
-// Spring Boot attributes
-//
-:sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
-:sb_starter: 2.1.1.Final-redhat-00001
