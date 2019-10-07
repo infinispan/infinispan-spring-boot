@@ -11,3 +11,4 @@ To use Spring Session in your project, do the following:
 - `@EnableCaching`
 - `@EnableInfinispanRemoteHttpSession`
 - `@EnableInfinispanEmbeddedHttpSession`
+

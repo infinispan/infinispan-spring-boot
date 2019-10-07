@@ -2,8 +2,6 @@ package test.org.infinispan.spring.starter.embedded;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Collections;
-
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.StorageType;
 import org.infinispan.configuration.global.GlobalConfiguration;
@@ -35,8 +33,7 @@ public class InfinispanEmbeddedAutoConfigurationIntegrationConfigurerTest {
 
    @Test
    public void testWithCacheConfigurer() {
-      assertThat(defaultCacheManager.getCacheNames()).isEqualTo(
-            Collections.singleton(InfinispanCacheTestConfiguration.TEST_CACHE_NAME));
+      assertThat(defaultCacheManager.getCacheNames()).containsExactlyInAnyOrder(InfinispanCacheTestConfiguration.TEST_CACHE_NAME, "default");
 
       final Configuration testCacheConfiguration = defaultCacheManager.getCacheConfiguration(InfinispanCacheTestConfiguration.TEST_CACHE_NAME);
       assertThat(testCacheConfiguration.jmxStatistics().enabled()).isTrue();

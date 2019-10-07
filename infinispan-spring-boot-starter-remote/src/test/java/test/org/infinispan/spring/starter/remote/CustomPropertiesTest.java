@@ -18,6 +18,7 @@ import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.client.hotrod.configuration.TransactionMode;
 import org.infinispan.client.hotrod.impl.async.DefaultAsyncExecutorFactory;
 import org.infinispan.client.hotrod.security.BasicCallbackHandler;
+import org.infinispan.commons.marshall.ProtoStreamMarshaller;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ import org.springframework.boot.test.context.SpringBootTest;
       },
       properties = {
             "spring.main.banner-mode=off",
-            "infinispan.remote.client-properties=test-hotrod-client.properties"
+            "infinispan.remote.client-properties=custom-test-hotrod-client.properties"
       }
 )
 public class CustomPropertiesTest {
@@ -71,8 +72,7 @@ public class CustomPropertiesTest {
       // TODO: how to assert thread pool size ? default_executor_factory.pool_size
 
       // Marshalling properties
-      // TODO: this is null ???
-      assertThat(configuration.marshaller()).isNull(); //.isEqualTo(GenericJBossMarshaller.class);
+      assertThat(configuration.marshallerClass()).isEqualTo(ProtoStreamMarshaller.class);
       assertThat(configuration.keySizeEstimate()).isEqualTo(123456);
       assertThat(configuration.valueSizeEstimate()).isEqualTo(789012);
       assertThat(configuration.forceReturnValues()).isTrue();
@@ -134,6 +134,6 @@ public class CustomPropertiesTest {
       assertThat(configuration.statistics().enabled()).isTrue();
       assertThat(configuration.statistics().jmxEnabled()).isTrue();
       assertThat(configuration.statistics().jmxName()).isEqualTo("elaJmx");
-      assertThat(configuration.statistics().jmxDomain()).isEqualTo("elaJmxDom");
+      assertThat(configuration.statistics().jmxDomain()).isEqualTo("elaJmxDom2");
    }
 }

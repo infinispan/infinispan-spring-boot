@@ -1,0 +1,12 @@
+= Marshalling changes
+
+Latest version {brandname} comes with some important marshalling changes. ProtoStream marshaller is not the default marshaller.
+This marshaller is not still fully supported for Spring integration. Support will be coming in the future releases.
+
+https://infinispan.org/docs/stable/titles/developing/developing.html#marshalling[More about {brandname} Marshalling]
+
+For an existing Spring-Boot application, you need to specify two properties:
+
+`infinispan.remote.marshaller=org.infinispan.commons.marshall.JavaSerializationMarshaller`
+`infinispan.remote.java-serial-whitelist=your_marshalled_beans_package.*`
+

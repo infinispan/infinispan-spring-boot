@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.infinispan</groupId>
         <artifactId>infinispan-build-configuration-parent</artifactId>
-        <version>9.4.15.Final</version>
+        <version>10.1.1.Final</version>
     </parent>
 
     <groupId>org.infinispan</groupId>
     <artifactId>infinispan-spring-boot-starter-parent</artifactId>
-    <version>2.1.8-SNAPSHOT</version>
+    <version>2.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Infinispan Spring Boot Starter Parent</name>
@@ -54,8 +54,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
-        <infinispan.version>9.4.16.Final</infinispan.version>
+        <spring-boot.version>2.2.4.RELEASE</spring-boot.version>
+        <infinispan.version>10.1.1.Final</infinispan.version>
         <assertj.version>3.12.1</assertj.version>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <testcontainers.version>1.11.1</testcontainers.version>
@@ -64,6 +64,7 @@
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
         <jboss.releases.repo.url>${jboss.releases.nexus.url}/service/local/staging/deploy/maven2/</jboss.releases.repo.url>
         <version.maven.failsafe>3.0.0-M3</version.maven.failsafe>
+        <version.checkstyle>${versionx.com.puppycrawl.tools.checkstyle}</version.checkstyle>
     </properties>
 
     <profiles>

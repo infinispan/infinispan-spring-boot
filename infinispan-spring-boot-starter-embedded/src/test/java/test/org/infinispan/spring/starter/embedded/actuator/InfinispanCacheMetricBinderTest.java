@@ -3,6 +3,7 @@ package test.org.infinispan.spring.starter.embedded.actuator;
 import static java.util.Collections.emptyList;
 
 import org.infinispan.Cache;
+import org.infinispan.commons.api.CacheContainerAdmin;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
@@ -25,7 +26,7 @@ public class InfinispanCacheMetricBinderTest extends CacheMeterBinderCompatibili
    @Override
    public CacheMeterBinder binder() {
       cacheManager = new DefaultCacheManager();
-      cache = cacheManager.administration().getOrCreateCache("mycache", new ConfigurationBuilder().jmxStatistics().enable().build());
+      cache = cacheManager.administration().withFlags(CacheContainerAdmin.AdminFlag.VOLATILE).getOrCreateCache("mycache", new ConfigurationBuilder().jmxStatistics().enable().build());
       return new InfinispanCacheMeterBinder(cache, emptyList());
    }
 
