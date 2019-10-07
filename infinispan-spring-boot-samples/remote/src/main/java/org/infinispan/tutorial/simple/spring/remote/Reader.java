@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.commons.configuration.XMLStringConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,16 +21,18 @@ public class Reader {
    private final Random random;
 
    // Manipulate the underlying cache to show some messages
-   private final RemoteCache<Integer, String> cache;
+   private RemoteCache<Integer, String> cache;
+
+   private final String XML = String.format("<infinispan><cache-container><distributed-cache name=\"" + Data.BASQUE_NAMES_CACHE + "\"></distributed-cache></cache-container></infinispan>", "cache");
 
    public Reader(BasqueNamesRepository repository, RemoteCacheManager remoteCacheManager) {
       this.repository = repository;
       random = new Random();
-      cache = remoteCacheManager.administration().getOrCreateCache(Data.BASQUE_NAMES_CACHE, "default");
+      cache = remoteCacheManager.administration().getOrCreateCache(Data.BASQUE_NAMES_CACHE, new XMLStringConfiguration(XML));
       try {
          cache.clearAsync().get(1, TimeUnit.MINUTES);
       } catch (Exception e) {
-         logger.warn("Unable to clear the cache");
+         logger.error("Unable to clear the cache", e);
       }
    }
 

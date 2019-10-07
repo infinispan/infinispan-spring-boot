@@ -2,10 +2,13 @@ package org.infinispan.spring.starter.remote;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
@@ -42,6 +45,8 @@ import org.springframework.util.StringUtils;
 @ConditionalOnProperty(value = "infinispan.remote.enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(InfinispanRemoteConfigurationProperties.class)
 public class InfinispanRemoteAutoConfiguration {
+
+   private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
    public static final String REMOTE_CACHE_MANAGER_BEAN_QUALIFIER = "remoteCacheManager";
 
@@ -103,6 +108,12 @@ public class InfinispanRemoteAutoConfiguration {
          throw new IllegalStateException("Not enough data to create RemoteCacheManager. Check InfinispanRemoteCacheManagerChecker" +
                "and update conditions.");
       }
+
+      org.infinispan.client.hotrod.configuration.Configuration config = builder.build();
+
+      List<String> whiteList = new ArrayList<>(config.serialWhitelist());
+      whiteList.forEach(builder::addJavaSerialWhiteList);
+      builder.addJavaSerialWhiteList("java.time.*", "org.springframework.*", "org.infinispan.spring.common.*", "org.infinispan.spring.remote.*");
 
       return new RemoteCacheManager(builder.build());
    }

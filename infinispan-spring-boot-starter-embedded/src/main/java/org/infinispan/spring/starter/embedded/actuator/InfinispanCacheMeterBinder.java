@@ -28,7 +28,7 @@ public class InfinispanCacheMeterBinder extends CacheMeterBinder {
    protected Long size() {
       if (cache == null) return 0L;
 
-      return cache.getAdvancedCache().getStats().getTotalNumberOfEntries();
+      return cache.getAdvancedCache().getStats().getStores();
    }
 
    @Override

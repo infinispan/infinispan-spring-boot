@@ -18,6 +18,7 @@ import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.client.hotrod.configuration.TransactionMode;
 import org.infinispan.client.hotrod.impl.async.DefaultAsyncExecutorFactory;
 import org.infinispan.client.hotrod.security.BasicCallbackHandler;
+import org.infinispan.commons.marshall.ProtoStreamMarshaller;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.junit.jupiter.api.Test;
@@ -73,8 +74,7 @@ public class ApplicationPropertiesTest {
       // TODO: how to assert thread pool size ? default-executor-factory-pool-size
 
       // Marshalling properties
-      // TODO: this is null ???
-      assertThat(configuration.marshaller()).isNull(); //.isEqualTo(GenericJBossMarshaller.class);
+      assertThat(configuration.marshallerClass()).isEqualTo(ProtoStreamMarshaller.class);
       assertThat(configuration.keySizeEstimate()).isEqualTo(88889);
       assertThat(configuration.valueSizeEstimate()).isEqualTo(11112);
       assertThat(configuration.forceReturnValues()).isTrue();

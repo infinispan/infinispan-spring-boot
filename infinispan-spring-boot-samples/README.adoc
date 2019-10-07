@@ -23,16 +23,15 @@ Use docker or download and run the http://infinispan.org/download/[Infinispan Se
 [source,bash]
 .Docker
 ----
-docker run -it -p 11222:11222 jboss/infinispan-server:latest
+docker run -it -p 11222:11222 -e USER="Titus Bramble" -e PASS="Shambles" infinispan/server
 ----
 
 [source,bash]
 .Server
 ----
 cd UNZIP_SERVER_PATH/bin/
-./standalone.sh
+./server.sh
 ----
-
 `mvn spring-boot:run`
 
 == Display actuator stats

@@ -73,7 +73,7 @@ public class InfinispanEmbeddedAutoConfiguration {
             globalConfigurationBuilder.globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable();
             globalConfigurationBuilder.transport().clusterName(infinispanProperties.getClusterName());
          }
-
+         globalConfigurationBuilder.defaultCacheName("default");
          globalConfigurationCustomizers.forEach(customizer -> customizer.customize(globalConfigurationBuilder));
          configurationCustomizers.forEach(customizer -> customizer.customize(configurationBuilder));
 

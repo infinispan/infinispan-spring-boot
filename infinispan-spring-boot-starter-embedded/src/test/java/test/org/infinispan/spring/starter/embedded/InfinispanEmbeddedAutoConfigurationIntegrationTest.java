@@ -38,7 +38,7 @@ public class InfinispanEmbeddedAutoConfigurationIntegrationTest {
    @Test
    public void testDefaultConfigurations() {
       assertThat(defaultCacheManager.getClusterName()).isEqualTo("default-autoconfigure");
-      assertThat(defaultCacheManager.getCacheNames()).isEmpty();
+      assertThat(defaultCacheManager.getCacheNames()).containsExactly("default");
 
       final Configuration defaultCacheConfiguration = defaultCacheManager.getDefaultCacheConfiguration();
       assertThat(defaultCacheConfiguration.jmxStatistics().enabled()).isFalse();
