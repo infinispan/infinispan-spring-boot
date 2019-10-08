@@ -1,6 +1,6 @@
 # Infinispan Spring Boot Starter
 
-link:https://infinispan.org/documentation/[Infinispan Spring Boot Starter Documentation] is available on our site.
+link:https://infinispan.org/infinispan-spring-boot/master/spring_boot_starter.html[Infinispan Spring Boot Starter Documentation] is available on our site.
 
 Alternatively, you can build the docs locally with Asciidoctor:
 
