@@ -54,8 +54,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
-        <infinispan.version>9.4.15.Final</infinispan.version>
+        <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
+        <infinispan.version>9.4.16.Final</infinispan.version>
         <assertj.version>3.12.1</assertj.version>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <testcontainers.version>1.11.1</testcontainers.version>
