@@ -6,6 +6,7 @@ import static org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfi
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
 import org.infinispan.spring.starter.embedded.actuator.InfinispanCacheMeterBinderProvider;
+import org.infinispan.spring.starter.embedded.actuator.InfinispanCacheMeterBinderProviderAutoConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(
       classes = {
             InfinispanEmbeddedAutoConfiguration.class,
-            InfinispanEmbeddedCacheManagerAutoConfiguration.class
+            InfinispanEmbeddedCacheManagerAutoConfiguration.class,
+            InfinispanCacheMeterBinderProviderAutoConfiguration.class
       },
       properties = {
             "spring.main.banner-mode=off",
@@ -31,5 +33,7 @@ public class InfinispanEmbeddedEnableTest {
    public void testDefaultClient() {
       assertThat(beanFactory.containsBeanDefinition(DEFAULT_CACHE_MANAGER_QUALIFIER)).isTrue();
       assertThat(beanFactory.containsBeanDefinition(InfinispanCacheMeterBinderProvider.NAME)).isTrue();
+       assertThat(beanFactory.getBean(InfinispanCacheMeterBinderProvider.NAME))
+               .isInstanceOf(InfinispanCacheMeterBinderProvider.class);
    }
 }

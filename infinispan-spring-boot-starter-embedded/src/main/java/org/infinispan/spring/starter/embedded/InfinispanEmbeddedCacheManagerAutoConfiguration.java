@@ -7,11 +7,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
 //Since a jar with configuration might be missing (which would result in TypeNotPresentExceptionProxy), we need to
 //use String based methods.
 //See https://github.com/spring-projects/spring-boot/issues/1733

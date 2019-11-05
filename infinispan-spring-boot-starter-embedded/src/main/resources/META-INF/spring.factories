@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration,\
-org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration
+org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration,\
+org.infinispan.spring.starter.embedded.actuator.InfinispanCacheMeterBinderProviderAutoConfiguration
 
