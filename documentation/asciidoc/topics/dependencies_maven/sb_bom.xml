@@ -3,8 +3,6 @@
        <dependency>
            <groupId>org.infinispan</groupId>
            <artifactId>infinispan-bom</artifactId>
-           <!-- Replace ${version.infinispan} with the
-           version of {brandname} that you're using. -->
            <version>${version.infinispan}</version>
            <type>pom</type>
            <scope>import</scope>
@@ -12,8 +10,6 @@
        <dependency>
            <groupId>org.springframework.boot</groupId>
            <artifactId>spring-boot-starter-parent</artifactId>
-           <!-- Replace ${version.spring.boot} with
-           your Spring Boot version. -->
            <version>${version.spring.boot}</version>
            <type>pom</type>
            <scope>import</scope>
