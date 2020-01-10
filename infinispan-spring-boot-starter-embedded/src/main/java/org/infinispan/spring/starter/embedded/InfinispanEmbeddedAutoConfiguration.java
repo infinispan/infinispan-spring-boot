@@ -70,14 +70,14 @@ public class InfinispanEmbeddedAutoConfiguration {
          if (infinispanGlobalConfigurer != null) {
             globalConfigurationBuilder.read(infinispanGlobalConfigurer.getGlobalConfiguration());
          } else {
-            globalConfigurationBuilder.globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN).enable();
+            globalConfigurationBuilder.cacheContainer().statistics(true).globalJmxStatistics().jmxDomain(DEFAULT_JMX_DOMAIN);
             globalConfigurationBuilder.transport().clusterName(infinispanProperties.getClusterName());
          }
 
          globalConfigurationCustomizers.forEach(customizer -> customizer.customize(globalConfigurationBuilder));
          configurationCustomizers.forEach(customizer -> customizer.customize(configurationBuilder));
 
-         manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build());
+         manager = new DefaultCacheManager(globalConfigurationBuilder.build());
       }
 
       cacheConfigurations.forEach(manager::defineConfiguration);

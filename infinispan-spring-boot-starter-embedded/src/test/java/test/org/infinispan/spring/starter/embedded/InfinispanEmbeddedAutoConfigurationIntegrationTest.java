@@ -3,7 +3,6 @@ package test.org.infinispan.spring.starter.embedded;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration.DEFAULT_JMX_DOMAIN;
 
-import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.global.GlobalConfiguration;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.infinispan.spring.embedded.provider.SpringEmbeddedCacheManager;
@@ -40,11 +39,8 @@ public class InfinispanEmbeddedAutoConfigurationIntegrationTest {
       assertThat(defaultCacheManager.getClusterName()).isEqualTo("default-autoconfigure");
       assertThat(defaultCacheManager.getCacheNames()).isEmpty();
 
-      final Configuration defaultCacheConfiguration = defaultCacheManager.getDefaultCacheConfiguration();
-      assertThat(defaultCacheConfiguration.jmxStatistics().enabled()).isFalse();
-
       final GlobalConfiguration globalConfiguration = defaultCacheManager.getCacheManagerConfiguration();
-      assertThat(globalConfiguration.globalJmxStatistics().enabled()).isTrue();
+      assertThat(globalConfiguration.statistics()).isTrue();
       assertThat(globalConfiguration.globalJmxStatistics().domain()).isEqualTo(DEFAULT_JMX_DOMAIN);
    }
 

@@ -36,7 +36,6 @@ public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
    @Test
    public void testConfiguration() {
       assertThat(manager.getCacheManagerConfiguration().transport().clusterName()).isEqualTo(CLUSTER_NAME);
-      assertThat(manager.getDefaultCacheConfiguration().memory().evictionType()).isEqualTo(EvictionType.COUNT);
 
       assertThat(manager.getCacheNames()).contains("small-cache");
       assertThat(manager.getCacheConfiguration("small-cache").memory().size()).isEqualTo(1000L);
