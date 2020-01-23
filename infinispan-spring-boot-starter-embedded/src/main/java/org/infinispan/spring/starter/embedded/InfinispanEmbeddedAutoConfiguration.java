@@ -62,7 +62,7 @@ public class InfinispanEmbeddedAutoConfiguration {
       final DefaultCacheManager manager;
 
       if (!configXml.isEmpty()) {
-         manager = new DefaultCacheManager(configXml);
+         manager = new DefaultCacheManager(configXml, false);
       } else {
          GlobalConfigurationBuilder globalConfigurationBuilder = new GlobalConfigurationBuilder();
          ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
@@ -77,12 +77,13 @@ public class InfinispanEmbeddedAutoConfiguration {
          globalConfigurationCustomizers.forEach(customizer -> customizer.customize(globalConfigurationBuilder));
          configurationCustomizers.forEach(customizer -> customizer.customize(configurationBuilder));
 
-         manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build());
+         manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build(), false);
       }
 
       cacheConfigurations.forEach(manager::defineConfiguration);
       configurers.forEach(configurer -> configurer.configureCache(manager));
 
+      manager.start();
       return manager;
    }
 }
