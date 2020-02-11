@@ -2,21 +2,8 @@
 
 . Provide the location for the {brandname} server so the starter can create the `RemoteCacheManager` bean.
 +
-This starter first attempts to locate the server from the `hotrod-client.properties` file on the classpath. If not found, the starter then attempts to locate the server from your `application.properties` file.
-+
-* `hotrod-client.properties`:
-+
-[source,text,options=nowrap]
-----
-include::config_examples/hotrod-client.properties[]
-----
-+
-* `application.properties`:
-+
-[source,text,options=nowrap]
-----
-include::config_examples/application.properties[]
-----
+The starter first tries to find the server location in
+`hotrod-client.properties` and then from `application.properties`.
 +
 . Use the Spring `@Autowired` annotation to include your own custom cache manager class in your application:
 +
@@ -24,3 +11,19 @@ include::config_examples/application.properties[]
 ----
 include::code_examples/AutowiredRemoteCacheManager.java[]
 ----
+
+.Hot Rod client properties
+
+Specify client configuration in `hotrod-client.properties` on your classpath,
+for example:
+
+[source,text,options=nowrap]
+----
+include::config_examples/hotrod-client.properties[]
+----
+
+For more information, see link:{javadocroot}/org/infinispan/client/hotrod/configuration/package-summary.html[org.infinispan.client.hotrod.configuration].
+
+.Application properties
+
+Configure your project with `application.properties`. See link:#sb_starter_properties[Application Properties] for more information.
