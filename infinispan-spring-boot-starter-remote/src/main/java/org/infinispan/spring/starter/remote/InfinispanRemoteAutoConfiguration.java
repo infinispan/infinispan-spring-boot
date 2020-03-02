@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
+import org.infinispan.commons.marshall.JavaSerializationMarshaller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -113,8 +114,8 @@ public class InfinispanRemoteAutoConfiguration {
 
       List<String> whiteList = new ArrayList<>(config.serialWhitelist());
       whiteList.forEach(builder::addJavaSerialWhiteList);
-      builder.addJavaSerialWhiteList("java.time.*", "org.springframework.*", "org.infinispan.spring.common.*", "org.infinispan.spring.remote.*");
-
+      builder.addJavaSerialWhiteList("java.util.*", "java.time.*", "org.springframework.*", "org.infinispan.spring.common.*", "org.infinispan.spring.remote.*");
+      builder.marshaller(new JavaSerializationMarshaller());
       return new RemoteCacheManager(builder.build());
    }
 

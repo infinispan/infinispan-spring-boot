@@ -1,13 +1,5 @@
 package test.org.infinispan.spring.starter.remote;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.tuple;
-
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.NameCallback;
-import javax.security.auth.callback.PasswordCallback;
-import javax.security.sasl.RealmCallback;
-
 import org.infinispan.client.hotrod.ProtocolVersion;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ClientIntelligence;
@@ -18,12 +10,20 @@ import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.infinispan.client.hotrod.configuration.TransactionMode;
 import org.infinispan.client.hotrod.impl.async.DefaultAsyncExecutorFactory;
 import org.infinispan.client.hotrod.security.BasicCallbackHandler;
-import org.infinispan.commons.marshall.ProtoStreamMarshaller;
+import org.infinispan.commons.marshall.JavaSerializationMarshaller;
 import org.infinispan.spring.starter.remote.InfinispanRemoteAutoConfiguration;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.NameCallback;
+import javax.security.auth.callback.PasswordCallback;
+import javax.security.sasl.RealmCallback;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 
 @SpringBootTest(
       classes = {
@@ -72,7 +72,7 @@ public class CustomPropertiesTest {
       // TODO: how to assert thread pool size ? default_executor_factory.pool_size
 
       // Marshalling properties
-      assertThat(configuration.marshallerClass()).isEqualTo(ProtoStreamMarshaller.class);
+      assertThat(configuration.marshallerClass()).isEqualTo(JavaSerializationMarshaller.class);
       assertThat(configuration.keySizeEstimate()).isEqualTo(123456);
       assertThat(configuration.valueSizeEstimate()).isEqualTo(789012);
       assertThat(configuration.forceReturnValues()).isTrue();
