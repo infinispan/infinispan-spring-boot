@@ -16,7 +16,7 @@ Invoke `mvn clean install` for the embedded or the remote example
 
 `mvn spring-boot:run`
 
-=== Remote
+=== Remote and Session
 
 Use docker or download and run the http://infinispan.org/download/[Infinispan Server]
 
@@ -34,6 +34,14 @@ cd UNZIP_SERVER_PATH/bin/
 ----
 
 `mvn spring-boot:run`
+
+=== Create a cache called 'Sessions' for Session example
+
+When the server is running, if cache called 'sessions' does not exist, then the application
+won't start.
+To create this cache, you can log into the http://localhost:11222[web console] and use the
+interface.
+You can also use the https://infinispan.org/docs/stable/titles/cli/cli.html[CLI].
 
 == Display actuator stats
 
