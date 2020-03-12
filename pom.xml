@@ -10,7 +10,7 @@
 
     <groupId>org.infinispan</groupId>
     <artifactId>infinispan-spring-boot-starter-parent</artifactId>
-    <version>2.2.2-SNAPSHOT</version>
+    <version>2.2.2.Final</version>
     <packaging>pom</packaging>
 
     <name>Infinispan Spring Boot Starter Parent</name>
