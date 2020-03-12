@@ -12,7 +12,7 @@ import org.infinispan.server.hotrod.configuration.HotRodServerConfiguration;
 import org.infinispan.server.hotrod.configuration.HotRodServerConfigurationBuilder;
 import org.infinispan.server.hotrod.test.HotRodTestingUtil;
 import org.infinispan.test.fwk.TestCacheManagerFactory;
-import org.infinispan.test.fwk.TestResourceTracker;
+import org.infinispan.commons.test.TestResourceTracker;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
