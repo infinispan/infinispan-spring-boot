@@ -3,6 +3,7 @@
 .Covers
 * [x] Embedded cache
 * [x] Remote cache
+* [x] Session externalisation
 * [x] https://docs.spring.io/spring-boot/docs/current/actuator-api/html/[Actuator] cache metrics
 * [x] Integration with https://prometheus.io/[Prometheus]
 
