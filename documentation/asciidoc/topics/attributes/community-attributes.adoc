@@ -6,7 +6,7 @@
 // Spring Boot attributes
 //
 :sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
-:sb_starter: ${version.infinispan.starter}
+:sb_version: ${version.infinispan.starter}
 
 //
 // Conditional statements
@@ -24,30 +24,6 @@
 :doc_home: https://infinispan.org/documentation/
 
 //
-// Server artifacts
-//
-:server_home: $ISPN_HOME
-:server_root: ${infinispan.server.root}
-:server_config: ${infinispan.server.configuration}
-:runtime_readme: https://github.com/infinispan/infinispan/blob/master/server/runtime/README.md
-
-//
-// Operator
-//
-:ispn_operator: Infinispan Operator
-:k8s: Kubernetes
-:okd: OKD
-
-//
-// OpenShift
-//
-:openshift: Red Hat OpenShift
-:openshiftshort: OpenShift
-:openshiftplatform: Red Hat OpenShift Container Platform
-:ocp: OpenShift Container Platform
-:osweb: OpenShift Web Console
-
-//
 // Community attributes
 // In the main Infinispan repo, these attributes are defined in
 // documentation/pom.xml
@@ -56,7 +32,6 @@
 //
 :brandname: Infinispan
 :fullbrandname: Infinispan
-:wildflybrandname: WildFly
 
 :infinispanversion: 10.0
 :infinispancomponentversion: 10.0.0-SNAPSHOT
