@@ -9,8 +9,8 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>infinispan-spring-boot-sample-session</artifactId>
-    <name>Infinispan Simple Tutorials: Spring Boot Session</name>
+    <artifactId>infinispan-spring-boot-sample-session-remote</artifactId>
+    <name>Infinispan Simple Tutorials: Spring Boot Session Remote</name>
 
     <dependencies>
         <dependency>
