@@ -3,7 +3,7 @@
 .Covers
 * [x] Embedded cache
 * [x] Remote cache
-* [x] Session externalisation
+* [x] Session externalisation (embedded and remote)
 * [x] https://docs.spring.io/spring-boot/docs/current/actuator-api/html/[Actuator] cache metrics
 * [x] Integration with https://prometheus.io/[Prometheus]
 
@@ -35,7 +35,7 @@ cd UNZIP_SERVER_PATH/bin/
 ----
 `mvn spring-boot:run`
 
-=== Create a cache called 'Sessions' for Session example
+=== Create a cache called 'Sessions' for Remote session example
 
 When the server is running, if cache called 'sessions' does not exist, then the application
 won't start.
