@@ -8,41 +8,6 @@
 :sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
 :sb_version: ${version.infinispan.starter}
 
-//
-// Conditional statements
-//
-:server:
-:library:
-
-//
-// Special characters
-//
-:plusplus: ++
-:underscores: ___
-
-//Doc Home
-:doc_home: https://infinispan.org/documentation/
-
-//
-// Community attributes
-// In the main Infinispan repo, these attributes are defined in
-// documentation/pom.xml
-// In other Infinispan repos, uncomment these attributes to include them
-// in the source content.
-//
 :brandname: Infinispan
-:fullbrandname: Infinispan
 
-:infinispanversion: 10.0
-:infinispancomponentversion: 10.0.0-SNAPSHOT
-
-:brandcli: cli
-:moduleprefix: ispn
-:infinispanslot: ispn-10.0
-
-:download_url: https://infinispan.org/download/
-:javadocroot: https://docs.jboss.org/infinispan/10.0/apidocs
-:configdocroot: https://docs.jboss.org/infinispan/10.0/configdocs/
-:wildflydocroot: https://docs.jboss.org/author/display/WFLY11
-:jdkdocroot: https://docs.oracle.com/javase/8/docs/api
-:javaeedocroot: https://docs.oracle.com/javaee/7/api
+:javadocroot: https://docs.jboss.org/infinispan/11.0/apidocs
