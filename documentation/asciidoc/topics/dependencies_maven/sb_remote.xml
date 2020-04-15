@@ -1,5 +1,5 @@
 <dependency>
   <groupId>org.infinispan</groupId>
   <artifactId>infinispan-spring-boot-starter-remote</artifactId>
-  <version>{sb_starter}</version>
+  <version>${version.infinispan.starter}</version>
 </dependency>

@@ -2,7 +2,10 @@
 :context: starter_intro
 
 include::{topics}/con_sb_starter.adoc[leveloffset=+1]
+//Community Only
+ifndef::productized[]
 include::{topics}/proc_clone_repo.adoc[leveloffset=+1]
+endif::productized[]
 
 // Restore the parent context.
 ifdef::parent-context[:context: {parent-context}]

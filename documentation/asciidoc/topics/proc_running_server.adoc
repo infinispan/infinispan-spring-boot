@@ -8,14 +8,14 @@ This starter first attempts to locate the server from the `hotrod-client.propert
 +
 [source,text,options=nowrap]
 ----
-include::config_examples/hotrod-client.properties[]
+infinispan.client.hotrod.server_list=127.0.0.1:11222
 ----
 +
 * `application.properties`:
 +
 [source,text,options=nowrap]
 ----
-include::config_examples/application.properties[]
+infinispan.remote.server-list=127.0.0.1:11222
 ----
 +
 . Use the Spring `@Autowired` annotation to include your own custom cache manager class in your application:

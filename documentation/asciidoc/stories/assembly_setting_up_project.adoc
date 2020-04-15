@@ -4,6 +4,7 @@
 
 Add dependencies for the {brandname} Spring Boot Starter to your project.
 
+include::{topics}/ref_spring_boot_starter_versions.adoc[leveloffset=+1]
 include::{topics}/proc_enforcing_versions.adoc[leveloffset=+1]
 include::{topics}/proc_adding_dependencies.adoc[leveloffset=+1]
 

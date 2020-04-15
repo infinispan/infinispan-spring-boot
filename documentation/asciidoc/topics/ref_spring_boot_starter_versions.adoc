@@ -1,0 +1,15 @@
+= Spring Boot Starter Versions
+
+//Community
+
+ifndef::productized[]
+* Replace `${version.infinispan.starter}` with `{sb_starter}`.
+endif::productized[]
+
+//Product
+ifdef::productized[]
+{brandname} supports Spring Boot 1.5.x and 2.x. For Spring Boot 1.5.x, use the Spring 4 dependencies. For Spring Boot 2.x, use the Spring 5 dependencies.
+
+* Spring Boot 1.5.x: Replace `${version.infinispan.starter}` with `{sb_15_starter}`.
+* Spring Boot 2.x: Replace `${version.infinispan.starter}` with `{sb_starter}`.
+endif::productized[]
