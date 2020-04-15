@@ -6,7 +6,8 @@
 // Spring Boot attributes
 //
 :sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
-:sb_starter: 2.1.1.Final-redhat-00001
+:sb_15_starter: 1.0.7.Final-redhat-00015
+:sb_starter: 2.1.10.Final-redhat-00001
 
 //
 // Conditional statements
@@ -32,16 +33,14 @@
 :FullProductName: Red Hat Data Grid
 :ProductName: Data Grid
 :ProductShortName: RHDG
-:ProductVersion: 8.0
+:ProductVersion: 7.3
 
-:ProductRelease: 8.0
-:FullProductRelease: 8.0.0
-:FullProductVersion: 8.0.0
-:DocInfoProductNumber: 8.0
+:ProductRelease: 7.3
+:FullProductRelease: 7.3
+:FullProductVersion: 7.3
+:DocInfoProductNumber: 7.3
 :ProductPreviousVersion: 7.3
-:ProductNextVersion: 8.0
-:ProductPreviousRelease: 7
-:ProductPreviousPreviousRelease: 6
+
 
 //Doc Home
 :doc_home: https://access.redhat.com/documentation/en-us/red_hat_data_grid/
@@ -61,13 +60,6 @@
 :fullbrandname: Red Hat Data Grid
 :wildflybrandname: EAP
 
-:infinispanversion: 8.0
-:infinispancomponentversion: 10.0.0-SNAPSHOT
-
-:brandcli: cli
-:moduleprefix: jdg
-:infinispanslot: jdg-8.0
-
 :download_url: https://access.redhat.com/downloads
 :javadocroot: https://access.redhat.com/webassets/avalon/d/red-hat-data-grid/7.3/api
 :configdocroot: https://access.redhat.com/webassets/avalon/d/red-hat-data-grid/7.3/Configuration/
@@ -81,7 +73,6 @@
 :server_home: $RHDG_HOME
 :server_root: ${rhdg.server.root}
 :server_config: ${rhdg.server.configuration}
-:runtime_readme: https://github.com/infinispan/infinispan/blob/master/server/runtime/README.md
 
 //
 // Operator

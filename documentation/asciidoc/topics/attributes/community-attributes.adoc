@@ -6,7 +6,7 @@
 // Spring Boot attributes
 //
 :sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
-:sb_starter: ${version.infinispan.starter}
+:sb_starter: 2.1.10.Final
 
 //
 // Conditional statements
