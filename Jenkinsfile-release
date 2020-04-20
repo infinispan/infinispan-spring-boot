@@ -42,6 +42,16 @@ pipeline {
             }
         }
 
+        stage('Commit version for documentation') {
+            steps {
+                script {
+                    sh "sed -i \"s/^:sb_starter:.*\$/:sb_starter: ${version}/\" documentation/asciidoc/topics/attributes/community-attributes.adoc"
+                    sh "git add 'documentation/asciidoc/topics/attributes/community-attributes.adoc'"
+                    sh "git diff-index --quiet HEAD || git commit -m 'Committing ${version} to doc attribute file'"
+                }
+            }
+        }
+
         stage('Create Staging repository') {
             steps {
                 // Create a staging repository on Nexus
