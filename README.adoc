@@ -10,6 +10,5 @@ $ asciidoctor documentation/asciidoc/titles/spring_boot_starter.asciidoc
 
 Code Examples and Tutorials::
 +
-* link:infinispan-spring-boot-samples[infinispan-spring-boot-samples] in this repository contains two projects that show you Infinispan in action with Spring Boot.
-* link:https://github.com/infinispan-demos/infinispan-near-cache[infinispan-near-cache] showcases Infinispan near caching with Spring Boot.
 * link:https://github.com/infinispan/infinispan-simple-tutorials/tree/master/spring-boot[Infinispan Spring Boot Tutorial]
+* link:https://github.com/infinispan-demos/infinispan-near-cache[infinispan-near-cache] showcases Infinispan near caching with Spring Boot.
