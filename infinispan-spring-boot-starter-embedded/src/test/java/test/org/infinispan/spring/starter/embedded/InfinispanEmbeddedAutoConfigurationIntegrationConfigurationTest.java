@@ -1,24 +1,27 @@
 package test.org.infinispan.spring.starter.embedded;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.infinispan.eviction.EvictionType;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedAutoConfiguration;
 import org.infinispan.spring.starter.embedded.InfinispanEmbeddedCacheManagerAutoConfiguration;
+import org.infinispan.spring.starter.embedded.InfinispanGlobalConfigurer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import test.org.infinispan.spring.starter.embedded.testconfiguration.GlobalConfigurerJmxDisabledConfiguration;
 import test.org.infinispan.spring.starter.embedded.testconfiguration.InfinispanCacheConfigurationBaseTestConfiguration;
 import test.org.infinispan.spring.starter.embedded.testconfiguration.InfinispanCacheConfigurationTestConfiguration;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(
       classes = {
             InfinispanEmbeddedAutoConfiguration.class,
             InfinispanEmbeddedCacheManagerAutoConfiguration.class,
             InfinispanCacheConfigurationBaseTestConfiguration.class,
-            InfinispanCacheConfigurationTestConfiguration.class
+            InfinispanCacheConfigurationTestConfiguration.class,
+            InfinispanGlobalConfigurer.class,
+            GlobalConfigurerJmxDisabledConfiguration.class
       },
       properties = {
             "spring.main.banner-mode=off"

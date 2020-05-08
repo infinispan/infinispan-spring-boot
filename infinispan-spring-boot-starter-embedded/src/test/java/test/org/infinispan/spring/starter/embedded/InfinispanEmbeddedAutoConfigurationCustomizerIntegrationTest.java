@@ -1,9 +1,5 @@
 package test.org.infinispan.spring.starter.embedded;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.UUID;
-
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.eviction.EvictionType;
 import org.infinispan.manager.EmbeddedCacheManager;
@@ -21,11 +17,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest(
       classes = {
             InfinispanEmbeddedAutoConfiguration.class,
             InfinispanEmbeddedCacheManagerAutoConfiguration.class,
-            InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest.TestConfiguration.class
+            InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest.TestConfiguration.class,
       },
       properties = {
             "spring.main.banner-mode=off"
@@ -42,7 +42,7 @@ public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
    @Test
    public void testConfiguration() {
       assertThat(manager.getCacheManagerConfiguration().transport().clusterName()).isEqualTo(CLUSTER_NAME);
-      assertThat(manager.getDefaultCacheConfiguration().memory().evictionType()).isEqualTo(EvictionType.COUNT);
+      assertThat(manager.getDefaultCacheConfiguration()).isNull();
 
       assertThat(manager.getCacheNames()).contains("small-cache");
       assertThat(manager.getCacheConfiguration("small-cache").memory().size()).isEqualTo(1000L);
@@ -77,9 +77,7 @@ public class InfinispanEmbeddedAutoConfigurationCustomizerIntegrationTest {
 
       @Bean
       public InfinispanGlobalConfigurationCustomizer globalCustomizer() {
-         return builder -> {
-            builder.transport().clusterName(CLUSTER_NAME);
-         };
+         return builder -> builder.transport().clusterName(CLUSTER_NAME).jmx().disable();
       }
 
       @Bean

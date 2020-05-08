@@ -1,5 +1,6 @@
 package org.infinispan.spring.starter.embedded;
 
+import org.infinispan.commons.api.CacheContainerAdmin;
 import org.infinispan.commons.marshall.JavaSerializationMarshaller;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
@@ -33,7 +34,6 @@ import java.util.Map;
 @EnableConfigurationProperties(InfinispanEmbeddedConfigurationProperties.class)
 public class InfinispanEmbeddedAutoConfiguration {
 
-   public static final String DEFAULT_JMX_DOMAIN = "infinispan";
    public static final String DEFAULT_CACHE_MANAGER_QUALIFIER = "defaultCacheManager";
 
    @Autowired
@@ -68,28 +68,30 @@ public class InfinispanEmbeddedAutoConfiguration {
       globalConfigurationBuilder.serialization().whiteList().addClass("org.springframework.session.MapSession");
       globalConfigurationBuilder.serialization().whiteList().addRegexp("java.util.*");
 
+      ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
       if (!configXml.isEmpty()) {
          manager = new DefaultCacheManager(configXml, false);
       } else {
-         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
-
          if (infinispanGlobalConfigurer != null) {
             globalConfigurationBuilder.read(infinispanGlobalConfigurer.getGlobalConfiguration());
          } else {
-            globalConfigurationBuilder.jmx().domain(DEFAULT_JMX_DOMAIN).enable();
             globalConfigurationBuilder.transport().clusterName(infinispanProperties.getClusterName());
+            globalConfigurationBuilder.jmx().enable();
          }
-         globalConfigurationBuilder.defaultCacheName("default");
          globalConfigurationCustomizers.forEach(customizer -> customizer.customize(globalConfigurationBuilder));
          configurationCustomizers.forEach(customizer -> customizer.customize(configurationBuilder));
 
-         manager = new DefaultCacheManager(globalConfigurationBuilder.build(), configurationBuilder.build(), false);
+         manager = new DefaultCacheManager(globalConfigurationBuilder.build(), false);
       }
 
       cacheConfigurations.forEach(manager::defineConfiguration);
       configurers.forEach(configurer -> configurer.configureCache(manager));
 
       manager.start();
+      if (configXml.isEmpty()) {
+         manager.administration().withFlags(CacheContainerAdmin.AdminFlag.VOLATILE)
+               .getOrCreateCache("default", configurationBuilder.build());
+      }
       return manager;
    }
 }
