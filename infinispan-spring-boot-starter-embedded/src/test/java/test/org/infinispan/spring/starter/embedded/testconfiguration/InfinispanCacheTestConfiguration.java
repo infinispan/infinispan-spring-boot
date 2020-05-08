@@ -21,16 +21,17 @@ public class InfinispanCacheTestConfiguration {
    @Bean
    public InfinispanCacheConfigurer cacheConfigurer() {
       return cacheManager -> {
-         final org.infinispan.configuration.cache.Configuration testCache =
-               new ConfigurationBuilder().simpleCache(true)
-                     .memory()
-                     .storageType(StorageType.OBJECT)
-                     .evictionType(EvictionType.COUNT)
-                     .evictionStrategy(EvictionStrategy.MANUAL)
-                     .jmxStatistics().enable()
-                     .build();
+         final org.infinispan.configuration.cache.ConfigurationBuilder testCacheBuilder = new ConfigurationBuilder();
 
-         cacheManager.defineConfiguration(TEST_CACHE_NAME, testCache);
+         testCacheBuilder.simpleCache(true)
+               .memory()
+               .storageType(StorageType.OBJECT)
+               .evictionType(EvictionType.COUNT)
+               .evictionStrategy(EvictionStrategy.MANUAL);
+
+         testCacheBuilder.statistics().enable();
+
+         cacheManager.defineConfiguration(TEST_CACHE_NAME, testCacheBuilder.build());
       };
    }
 
@@ -39,7 +40,7 @@ public class InfinispanCacheTestConfiguration {
       return () -> {
          final GlobalConfiguration globalConfiguration = new GlobalConfigurationBuilder()
                .transport().clusterName(TEST_CLUSTER)
-               .globalJmxStatistics().jmxDomain(TEST_GLOBAL_JMX_DOMAIN).enable()
+               .jmx().domain(TEST_GLOBAL_JMX_DOMAIN).enable()
                .build();
 
          return globalConfiguration;

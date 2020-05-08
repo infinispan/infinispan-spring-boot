@@ -10,11 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import test.org.infinispan.spring.starter.embedded.testconfiguration.InfinispanCacheTestConfiguration;
 
 @SpringBootTest(
       classes = {
             InfinispanEmbeddedAutoConfiguration.class,
-            InfinispanEmbeddedCacheManagerAutoConfiguration.class
+            InfinispanEmbeddedCacheManagerAutoConfiguration.class,
+            InfinispanCacheTestConfiguration.class
       },
       properties = {
             "spring.main.banner-mode=off",
