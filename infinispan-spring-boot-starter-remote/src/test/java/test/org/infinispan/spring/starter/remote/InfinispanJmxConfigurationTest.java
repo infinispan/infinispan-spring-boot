@@ -11,13 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jmx.export.MBeanExporter;
 
-import test.org.infinispan.spring.starter.remote.testconfiguration.InfinispanCacheTestConfiguration;
-
 @SpringBootTest(classes = {
       InfinispanRemoteAutoConfiguration.class,
       InfinispanRemoteCacheManagerAutoConfiguration.class,
       InfinispanJmxConfiguration.class,
-      InfinispanCacheTestConfiguration.class,
       MBeanExporter.class},
       properties = {
             "spring.main.banner-mode=off",

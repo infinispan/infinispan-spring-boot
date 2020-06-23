@@ -164,7 +164,7 @@ public class InfinispanServerExtension implements BeforeAllCallback, AfterAllCal
          }
          HotRodServerConfigurationBuilder serverBuilder = new HotRodServerConfigurationBuilder();
          serverBuilder.adminOperationsHandler(new EmbeddedServerAdminOperationHandler());
-         hotRodServer = HotRodTestingUtil.startHotRodServer(ecm, host, port, 0, serverBuilder);
+         hotRodServer = HotRodTestingUtil.startHotRodServer(ecm, host, port, serverBuilder);
       }
    }
 
