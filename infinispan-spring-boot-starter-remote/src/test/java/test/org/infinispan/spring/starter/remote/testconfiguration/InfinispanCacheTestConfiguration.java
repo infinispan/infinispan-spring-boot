@@ -12,6 +12,6 @@ public class InfinispanCacheTestConfiguration {
 
    @Bean
    public InfinispanRemoteConfigurer infinispanRemoteConfigurer() {
-      return () -> new ConfigurationBuilder().addServer().host("127.0.0.1").port(PORT).build();
+      return () -> new ConfigurationBuilder().statistics().disable().addServer().host("127.0.0.1").port(PORT).build();
    }
 }

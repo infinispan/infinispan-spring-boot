@@ -9,7 +9,6 @@ import org.infinispan.spring.starter.remote.InfinispanRemoteCacheManagerAutoConf
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import test.org.infinispan.spring.starter.remote.testconfiguration.InfinispanCacheTestConfiguration;
 
 @SpringBootTest(
@@ -35,7 +34,7 @@ public class IntegrationTest {
    public void testConfiguredClient() {
       int portObtainedFromPropertiesFile = remoteCacheManager.getConfiguration().servers().get(0).port();
 
-      assertThat(portObtainedFromPropertiesFile).isEqualTo(InfinispanCacheTestConfiguration.PORT);
+      assertThat(portObtainedFromPropertiesFile).isEqualTo(11555);
    }
 
    @Test
