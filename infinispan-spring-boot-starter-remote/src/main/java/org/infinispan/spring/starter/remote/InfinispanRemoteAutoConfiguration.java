@@ -3,7 +3,6 @@ package org.infinispan.spring.starter.remote;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -75,47 +74,32 @@ public class InfinispanRemoteAutoConfiguration {
       boolean hasHotRodPropertiesFile = ctx.getResource(infinispanProperties.getClientProperties()).exists();
       boolean hasConfigurer = infinispanRemoteConfigurer != null;
       boolean hasProperties = StringUtils.hasText(infinispanProperties.getServerList());
-      ConfigurationBuilder builder;
+      ConfigurationBuilder builder = new ConfigurationBuilder();
+      //by default, add java white list and marshaller
+      builder.addJavaSerialWhiteList("java.util.*", "java.time.*", "org.springframework.*", "org.infinispan.spring.common.*", "org.infinispan.spring.remote.*");
+      builder.marshaller(new JavaSerializationMarshaller());
 
       if (hasConfigurer) {
-         org.infinispan.client.hotrod.configuration.Configuration configuration = infinispanRemoteConfigurer.getRemoteConfiguration();
-         Objects.nonNull(configuration);
-
-         builder = new ConfigurationBuilder().read(configuration);
-         cacheCustomizers.forEach(c -> c.customize(builder));
+         builder.read(Objects.requireNonNull(infinispanRemoteConfigurer.getRemoteConfiguration()));
       } else if (hasHotRodPropertiesFile) {
          String remoteClientPropertiesLocation = infinispanProperties.getClientProperties();
          Resource hotRodClientPropertiesFile = ctx.getResource(remoteClientPropertiesLocation);
-         Properties hotrodClientProperties = new Properties();
          try (InputStream stream = hotRodClientPropertiesFile.getURL().openStream()) {
+            Properties hotrodClientProperties = new Properties();
             hotrodClientProperties.load(stream);
-
-            builder = new ConfigurationBuilder().withProperties(hotrodClientProperties);
-
-            cacheCustomizers.forEach(c -> c.customize(builder));
-
+            builder.withProperties(hotrodClientProperties);
          }
       } else if (hasProperties) {
-         builder = infinispanProperties.getConfigurationBuilder();
-
-         cacheCustomizers.forEach(c -> c.customize(builder));
-
+         builder.withProperties(infinispanProperties.getProperties());
       } else if (infinispanConfiguration != null) {
-         builder = new ConfigurationBuilder().read(infinispanConfiguration);
-
-         cacheCustomizers.forEach(c -> c.customize(builder));
+         builder.read(infinispanConfiguration);
 
       } else {
          throw new IllegalStateException("Not enough data to create RemoteCacheManager. Check InfinispanRemoteCacheManagerChecker" +
                "and update conditions.");
       }
 
-      org.infinispan.client.hotrod.configuration.Configuration config = builder.build();
-
-      List<String> whiteList = new ArrayList<>(config.serialWhitelist());
-      whiteList.forEach(builder::addJavaSerialWhiteList);
-      builder.addJavaSerialWhiteList("java.util.*", "java.time.*", "org.springframework.*", "org.infinispan.spring.common.*", "org.infinispan.spring.remote.*");
-      builder.marshaller(new JavaSerializationMarshaller());
+      cacheCustomizers.forEach(c -> c.customize(builder));
       return new RemoteCacheManager(builder.build());
    }
 
