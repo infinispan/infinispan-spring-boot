@@ -85,6 +85,23 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>rhdg8-indy-repository</id>
+            <repositories>
+                <repository>
+                    <id>rhdg8-repository</id>
+                    <name>Indy RHDG8 Maven Repository</name>
+                    <url>http://indy.psi.redhat.com/api/content/maven/group/static/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
     </profiles>
 
     <dependencyManagement>
