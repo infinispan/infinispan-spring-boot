@@ -1,4 +1,4 @@
-This repository will be kept opened for Infinispan 11 corrections until Infinispan 12 is released.
+### This repository will be kept opened for Infinispan 11 corrections until Infinispan 12 is released.
 
 From Infinispan 12, the Infinispan Spring-Boot starter is shipped with https://github.com/infinispan/infinispan/tree/master/spring/spring-boot[Infinispan]
 
