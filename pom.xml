@@ -57,8 +57,8 @@
         <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
         <infinispan.version>11.0.8.Final</infinispan.version>
         <assertj.version>3.12.1</assertj.version>
-        <junit.jupiter.version>5.7.0</junit.jupiter.version>
-        <testcontainers.version>1.14.3</testcontainers.version>
+        <junit.jupiter.version>${version.junit5}</junit.jupiter.version>
+        <testcontainers.version>1.14.0</testcontainers.version>
         <infinispan-springboot.brand.name>Infinispan Spring Boot</infinispan-springboot.brand.name>
         <jboss.releases.nexus.url>https://repository.jboss.org/nexus</jboss.releases.nexus.url>
         <jboss.releases.repo.id>jboss-releases-repository</jboss.releases.repo.id>
