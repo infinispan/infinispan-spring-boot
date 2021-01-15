@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.infinispan</groupId>
         <artifactId>infinispan-build-configuration-parent</artifactId>
-        <version>11.0.8.Final</version>
+        <version>11.0.9.Final</version>
     </parent>
 
     <groupId>org.infinispan</groupId>
@@ -55,7 +55,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-        <infinispan.version>11.0.8.Final</infinispan.version>
+        <infinispan.version>11.0.9.Final</infinispan.version>
         <assertj.version>3.12.1</assertj.version>
         <junit.jupiter.version>${version.junit5}</junit.jupiter.version>
         <testcontainers.version>1.14.0</testcontainers.version>
