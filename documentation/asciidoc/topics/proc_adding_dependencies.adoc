@@ -13,3 +13,8 @@ include::dependencies_maven/sb_embedded.xml[]
 ----
 include::dependencies_maven/sb_remote.xml[]
 ----
+
+[IMPORTANT]
+====
+The {brandname} Spring Boot starter uses different Spring Boot versions to other projects such as Red Hat OpenShift Application Runtimes. If you want to use a specific Spring Boot version for compatibility with other projects, you must add the correct dependency to your project.
+====

@@ -6,8 +6,8 @@
 // Spring Boot attributes
 //
 :sb_repo: git@github.com:infinispan/infinispan-spring-boot.git
-:sb_15_starter: 1.0.7.Final-redhat-00019
-:sb_starter: 2.1.10.Final-redhat-00005
+:sb_15_starter: 1.0.7.Final-redhat-00021
+:sb_starter: 2.1.10.Final-redhat-00007
 
 //
 // Conditional statements
